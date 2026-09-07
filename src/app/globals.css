@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 26, 26, 46;
+  --background-end-rgb: 22, 33, 62;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-fut-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors;
+  }
+
+  .btn-accent {
+    @apply bg-fut-accent hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors;
+  }
+
+  .card {
+    @apply bg-fut-darker rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow;
+  }
+
+  .badge {
+    @apply text-xs font-bold px-2 py-1 rounded-full;
+  }
+}

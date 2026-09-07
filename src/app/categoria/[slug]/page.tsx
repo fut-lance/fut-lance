@@ -1,104 +1,64 @@
 import CardNoticia from '@/components/CardNoticia';
+import { getNoticiasByCategoria } from '@/lib/api';
+import Link from 'next/link';
 
-const noticiasPorCategoria: Record<string, any[]> = {
-  brasileirao: [
-    {
-      slug: 'flamengo-derrota-palmeiras',
-      titulo: 'Flamengo goleia Palmeiras e assume liderança do Brasileirão',
-      resumo: 'Com gols de Pedro, Gabigol e Arrascaeta, o Mengo venceu por 3 a 0.',
-      imagem: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800',
-      categoria: 'Brasileirão',
-      data: '07/09/2026',
-    },
-    {
-      slug: 'brasileirao-serie-b',
-      titulo: 'Série B: Coritiba e Santos brigam pelo acesso',
-      resumo: 'A disputa pelo acesso está acirrada com 5 times na briga.',
-      imagem: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
-      categoria: 'Brasileirão',
-      data: '06/09/2026',
-    },
-  ],
-  libertadores: [
-    {
-      slug: 'libertadores-semifinal',
-      titulo: 'Definidas as semifinais da Libertadores',
-      resumo: 'Botafogo, Flamengo, River Plate e Boca Juniors na briga.',
-      imagem: 'https://images.unsplash.com/photo-1508098682722-e99c643e7f76?w=800',
-      categoria: 'Libertadores',
-      data: '06/09/2026',
-    },
-  ],
-  'champions-league': [
-    {
-      slug: 'champions-league-grupo',
-      titulo: 'Champions League: Real Madrid lidera grupo difícil',
-      resumo: 'Merengues vencem Bayern e assumem liderança do Grupo A.',
-      imagem: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800',
-      categoria: 'Champions League',
-      data: '04/09/2026',
-    },
-  ],
-  transferencias: [
-    {
-      slug: 'mancity-contrata-midfielder',
-      titulo: 'Manchester City fecha contratação de meio-campista francês',
-      resumo: 'Clube inglês paga R$ 350 milhões pelo talento do Monaco.',
-      imagem: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800',
-      categoria: 'Transferências',
-      data: '06/09/2026',
-    },
-  ],
-};
-
-const categoriasInfo: Record<string, { nome: string; descricao: string; icon: string }> = {
-  brasileirao: {
-    nome: 'Brasileirão',
-    descricao: 'Todas as notícias do Campeonato Brasileiro Série A e B.',
-    icon: '🏆',
-  },
-  libertadores: {
-    nome: 'Libertadores',
-    descricao: 'Cobertura completa da CONMEBOL Libertadores.',
-    icon: '🌎',
-  },
-  'champions-league': {
-    nome: 'Champions League',
-    descricao: 'Notícias da principal competição europeia.',
-    icon: '⭐',
-  },
-  transferencias: {
-    nome: 'Transferências',
-    descricao: 'Tudo sobre o mercado de transferências do futebol.',
-    icon: '💰',
-  },
-};
+export const revalidate = 60;
 
 export default async function CategoriaPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const categoria = categoriasInfo[params.slug] || {
-    nome: params.slug.replace(/-/g, ' ').toUpperCase(),
-    descricao: 'Notícias desta categoria.',
-    icon: '📰',
+  let noticias: any[] = [];
+  let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
+  let categoriaDescricao = 'Notícias desta categoria.';
+
+  try {
+    const data = await getNoticiasByCategoria(params.slug);
+    noticias = data?.data || [];
+
+    if (noticias.length > 0 && noticias[0].categoria) {
+      categoriaNome = noticias[0].categoria.nome || categoriaNome;
+      categoriaDescricao = noticias[0].categoria.descricao || categoriaDescricao;
+    }
+  } catch (error) {
+    console.error('Erro ao buscar notícias por categoria:', error);
+  }
+
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
+
+  const categoriaIcons: Record<string, string> = {
+    'brasileirao': '🏆',
+    'libertadores': '🌎',
+    'champions-league': '⭐',
+    'transferencias': '💰',
+    'premier-league': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+    'selecao': '🇧🇷',
+    'copa-do-brasil': '🏆',
   };
 
-  const noticias = noticiasPorCategoria[params.slug] || [];
+  const icon = categoriaIcons[params.slug] || '📰';
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <span className="text-5xl mb-4 block">{categoria.icon}</span>
-        <h1 className="text-4xl font-bold text-white mb-2">{categoria.nome}</h1>
-        <p className="text-gray-400">{categoria.descricao}</p>
+        <span className="text-5xl mb-4 block">{icon}</span>
+        <h1 className="text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
+        <p className="text-gray-400">{categoriaDescricao}</p>
       </div>
 
       {noticias.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {noticias.map((noticia: any) => (
-            <CardNoticia key={noticia.slug} {...noticia} />
+            <CardNoticia
+              key={noticia.id}
+              slug={noticia.slug}
+              titulo={noticia.titulo}
+              resumo={noticia.resumo}
+              imagem={noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800'}
+              categoria={noticia.categoria?.nome || 'Geral'}
+              data={noticia.data_publicacao}
+            />
           ))}
         </div>
       ) : (
@@ -106,6 +66,9 @@ export default async function CategoriaPage({
           <p className="text-gray-400 text-lg">
             Nenhuma notícia encontrada nesta categoria.
           </p>
+          <Link href="/" className="text-fut-green hover:text-green-400 font-semibold mt-4 inline-block">
+            ← Voltar para a página inicial
+          </Link>
         </div>
       )}
     </div>

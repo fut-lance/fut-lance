@@ -1,67 +1,23 @@
 import PlayerStream from '@/components/PlayerStream';
+import { getTransmissoesAoVivo } from '@/lib/api';
 
-const transmissoesAoVivo = [
-  {
-    id: 1,
-    nomeJogo: 'Flamengo x Corinthians',
-    timeCasa: 'Flamengo',
-    timeFora: 'Corinthians',
-    dataHora: '07/09/2026 - 21h30',
-    competicao: 'Brasileirão',
-    status: 'ao_vivo',
-    linkM3u: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-    thumbnail: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400',
-  },
-  {
-    id: 2,
-    nomeJogo: 'Palmeiras x São Paulo',
-    timeCasa: 'Palmeiras',
-    timeFora: 'São Paulo',
-    dataHora: '08/09/2026 - 16h00',
-    competicao: 'Brasileirão',
-    status: 'agendado',
-    linkM3u: '',
-    thumbnail: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400',
-  },
-  {
-    id: 3,
-    nomeJogo: 'Liverpool x Arsenal',
-    timeCasa: 'Liverpool',
-    timeFora: 'Arsenal',
-    dataHora: '08/09/2026 - 13h30',
-    competicao: 'Premier League',
-    status: 'agendado',
-    linkM3u: '',
-    thumbnail: 'https://images.unsplash.com/photo-1508098682722-e99c643e7f76?w=400',
-  },
-  {
-    id: 4,
-    nomeJogo: 'Real Madrid x Barcelona',
-    timeCasa: 'Real Madrid',
-    timeFora: 'Barcelona',
-    dataHora: '09/09/2026 - 16h00',
-    competicao: 'La Liga',
-    status: 'agendado',
-    linkM3u: '',
-    thumbnail: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400',
-  },
-];
+export const revalidate = 60;
 
-const StatusBadge = ({ status }: { status: string }) => {
-  if (status === 'ao_vivo') {
-    return (
-      <span className="badge bg-red-600 text-white flex items-center gap-1">
-        <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-        AO VIVO
-      </span>
-    );
+export default async function AoVivoPage() {
+  let transmissoes: any[] = [];
+
+  try {
+    const data = await getTransmissoesAoVivo();
+    transmissoes = data?.data || [];
+  } catch (error) {
+    console.error('Erro ao buscar transmissões:', error);
   }
-  return <span className="badge bg-gray-600 text-gray-300">Agendado</span>;
-};
 
-export default function AoVivoPage() {
-  const jogoAoVivo = transmissoesAoVivo.find((t) => t.status === 'ao_vivo');
-  const jogosAgendados = transmissoesAoVivo.filter((t) => t.status === 'agendado');
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
+
+  const jogoAoVivo = transmissoes.find((t: any) => t.status === 'ao_vivo');
+  const jogosAgendados = transmissoes.filter((t: any) => t.status === 'agendado');
+  const jogosEncerrados = transmissoes.filter((t: any) => t.status === 'encerrado');
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -78,50 +34,83 @@ export default function AoVivoPage() {
             <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
             Assistir Agora
           </h2>
-          <PlayerStream url={jogoAoVivo.linkM3u} titulo={jogoAoVivo.nomeJogo} />
+          <PlayerStream
+            url={jogoAoVivo.link_m3u}
+            titulo={jogoAoVivo.nome_jogo}
+          />
         </section>
       )}
 
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-6">Próximos Jogos</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {jogosAgendados.map((jogo) => (
-            <div
-              key={jogo.id}
-              className="card p-6"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="badge bg-blue-600 text-white">{jogo.competicao}</span>
-                <StatusBadge status={jogo.status} />
-              </div>
+      {!jogoAoVivo && transmissoes.length === 0 && (
+        <section className="mb-12 bg-fut-darker rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Nenhuma transmissão disponível</h2>
+          <p className="text-gray-400">
+            Cadastre transmissões no Strapi para que apareçam aqui.
+          </p>
+        </section>
+      )}
 
-              <div className="text-center mb-4">
-                <div className="flex items-center justify-center gap-4">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
-                      ⚽
+      {jogosAgendados.length > 0 && (
+        <section>
+          <h2 className="text-2xl font-bold text-white mb-6">Próximos Jogos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {jogosAgendados.map((jogo: any) => (
+              <div key={jogo.id} className="card p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="badge bg-blue-600 text-white">{jogo.competicao}</span>
+                  <span className="badge bg-gray-600 text-gray-300">Agendado</span>
+                </div>
+
+                <div className="text-center mb-4">
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
+                        ⚽
+                      </div>
+                      <p className="text-white font-bold text-sm">{jogo.time_casa}</p>
                     </div>
-                    <p className="text-white font-bold text-sm">{jogo.timeCasa}</p>
-                  </div>
 
-                  <span className="text-gray-500 text-xl font-bold">VS</span>
+                    <span className="text-gray-500 text-xl font-bold">VS</span>
 
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
-                      ⚽
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
+                        ⚽
+                      </div>
+                      <p className="text-white font-bold text-sm">{jogo.time_fora}</p>
                     </div>
-                    <p className="text-white font-bold text-sm">{jogo.timeFora}</p>
                   </div>
                 </div>
-              </div>
 
-              <div className="text-center text-gray-400 text-sm">
-                <p>📅 {jogo.dataHora}</p>
+                <div className="text-center text-gray-400 text-sm">
+                  <p>📅 {jogo.data_hora}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {jogosEncerrados.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-bold text-gray-400 mb-4">Jogos Encerrados</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {jogosEncerrados.map((jogo: any) => (
+              <div key={jogo.id} className="card p-4 opacity-60">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="badge bg-gray-700 text-gray-400">{jogo.competicao}</span>
+                  <span className="badge bg-gray-700 text-gray-400">Encerrado</span>
+                </div>
+                <div className="text-center">
+                  <p className="text-gray-400 font-bold text-sm">
+                    {jogo.time_casa} vs {jogo.time_fora}
+                  </p>
+                  <p className="text-gray-500 text-xs mt-1">{jogo.data_hora}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mt-12 bg-fut-darker rounded-lg p-8">
         <h2 className="text-2xl font-bold text-white mb-4">

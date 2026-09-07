@@ -31,6 +31,19 @@ export default function CardNoticia({
 
   const badgeColor = categoriaColors[categoria] || 'bg-gray-600';
 
+  const formatData = (data: string) => {
+    if (!data) return '';
+    try {
+      return new Date(data).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+    } catch {
+      return data;
+    }
+  };
+
   return (
     <Link href={`/noticia/${slug}`}>
       <article
@@ -63,7 +76,7 @@ export default function CardNoticia({
           <p className="text-gray-400 text-sm flex-1 line-clamp-3">{resumo}</p>
 
           <div className="mt-4 flex items-center justify-between">
-            <span className="text-gray-500 text-xs">{data}</span>
+            <span className="text-gray-500 text-xs">{formatData(data)}</span>
             <span className="text-fut-green text-sm font-medium group-hover:underline">
               Ler mais →
             </span>

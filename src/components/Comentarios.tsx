@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Comentario {
   id: number;
@@ -10,29 +10,38 @@ interface Comentario {
 }
 
 interface ComentariosProps {
+  noticiaId?: number;
   noticiaSlug: string;
 }
 
-const comentariosIniciais: Comentario[] = [
-  {
-    id: 1,
-    nome: 'Carlos Silva',
-    texto: 'Jogo incrível! O Flamengo jogou demais.',
-    data: '07/09/2026 14:30',
-  },
-  {
-    id: 2,
-    nome: 'Ana Santos',
-    texto: 'Espero que continue assim até o fim do campeonato!',
-    data: '07/09/2026 15:10',
-  },
-];
-
-export default function Comentarios({ noticiaSlug }: ComentariosProps) {
-  const [comentarios, setComentarios] = useState<Comentario[]>(comentariosIniciais);
+export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps) {
+  const [comentarios, setComentarios] = useState<Comentario[]>([]);
   const [nome, setNome] = useState('');
   const [texto, setTexto] = useState('');
   const [enviando, setEnviando] = useState(false);
+  const [carregando, setCarregando] = useState(true);
+
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
+
+  useEffect(() => {
+    if (noticiaId) {
+      fetch(`${apiUrl}/api/comentarios?filters[noticia][id][$eq]=${noticiaId}&sort=data:desc`)
+        .then((res) => res.json())
+        .then((data) => {
+          const items = (data?.data || []).map((item: any) => ({
+            id: item.id,
+            nome: item.nome,
+            texto: item.texto,
+            data: item.data || new Date(item.createdAt).toLocaleString('pt-BR'),
+          }));
+          setComentarios(items);
+        })
+        .catch((err) => console.error('Erro ao buscar comentários:', err))
+        .finally(() => setCarregando(false));
+    } else {
+      setCarregando(false);
+    }
+  }, [noticiaId, apiUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,14 +49,44 @@ export default function Comentarios({ noticiaSlug }: ComentariosProps) {
 
     setEnviando(true);
 
-    const novoComentario: Comentario = {
-      id: Date.now(),
-      nome: nome.trim(),
-      texto: texto.trim(),
-      data: new Date().toLocaleString('pt-BR'),
-    };
+    if (noticiaId) {
+      try {
+        const res = await fetch(`${apiUrl}/api/comentarios`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            data: {
+              nome: nome.trim(),
+              email: '',
+              texto: texto.trim(),
+              noticia: noticiaId,
+            },
+          }),
+        });
 
-    setComentarios((prev) => [novoComentario, ...prev]);
+        if (res.ok) {
+          const data = await res.json();
+          const novoComentario: Comentario = {
+            id: data.data.id,
+            nome: nome.trim(),
+            texto: texto.trim(),
+            data: new Date().toLocaleString('pt-BR'),
+          };
+          setComentarios((prev) => [novoComentario, ...prev]);
+        }
+      } catch (err) {
+        console.error('Erro ao enviar comentário:', err);
+      }
+    } else {
+      const novoComentario: Comentario = {
+        id: Date.now(),
+        nome: nome.trim(),
+        texto: texto.trim(),
+        data: new Date().toLocaleString('pt-BR'),
+      };
+      setComentarios((prev) => [novoComentario, ...prev]);
+    }
+
     setNome('');
     setTexto('');
     setEnviando(false);
@@ -97,6 +136,18 @@ export default function Comentarios({ noticiaSlug }: ComentariosProps) {
           {enviando ? 'Enviando...' : 'Enviar Comentário'}
         </button>
       </form>
+
+      {carregando && (
+        <div className="text-center text-gray-400 py-4">
+          Carregando comentários...
+        </div>
+      )}
+
+      {!carregando && comentarios.length === 0 && (
+        <div className="text-center text-gray-400 py-4">
+          Nenhum comentário ainda. Seja o primeiro a comentar!
+        </div>
+      )}
 
       <div className="space-y-4">
         {comentarios.map((comentario) => (

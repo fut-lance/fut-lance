@@ -41,7 +41,7 @@ export default async function Home() {
                 slug={noticia.documentId}
                 titulo={noticia.titulo}
                 resumo={noticia.resumo}
-                imagem={noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800'}
+                imagem={noticia.imagem_url || (noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800')}
                 categoria={noticia.categoria?.nome || 'Geral'}
                 data={noticia.data_publicacao}
                 destaque
@@ -75,7 +75,7 @@ export default async function Home() {
                 slug={noticia.documentId}
                 titulo={noticia.titulo}
                 resumo={noticia.resumo}
-                imagem={noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800'}
+                imagem={noticia.imagem_url || (noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800')}
                 categoria={noticia.categoria?.nome || 'Geral'}
                 data={noticia.data_publicacao}
               />

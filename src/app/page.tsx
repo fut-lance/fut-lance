@@ -38,7 +38,7 @@ export default async function Home() {
             {noticiasDestaque.map((noticia: any) => (
               <CardNoticia
                 key={noticia.id}
-                slug={noticia.slug}
+                slug={noticia.documentId}
                 titulo={noticia.titulo}
                 resumo={noticia.resumo}
                 imagem={noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800'}
@@ -61,7 +61,7 @@ export default async function Home() {
             Últimas Notícias
           </h2>
           <Link
-            href="/noticias"
+            href="/noticia"
             className="text-fut-green hover:text-green-400 font-semibold"
           >
             Ver todas →
@@ -72,7 +72,7 @@ export default async function Home() {
             {ultimasNoticias.map((noticia: any) => (
               <CardNoticia
                 key={noticia.id}
-                slug={noticia.slug}
+                slug={noticia.documentId}
                 titulo={noticia.titulo}
                 resumo={noticia.resumo}
                 imagem={noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800'}

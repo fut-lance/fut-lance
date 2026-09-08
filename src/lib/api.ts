@@ -35,14 +35,14 @@ export async function getNoticias(page = 1, pageSize = 10) {
 
 export async function getNoticiaBySlug(slug: string) {
   const data = await fetchAPI(
-    `/noticias?filters[slug][$eq]=${slug}&populate=*`
+    `/noticias?filters[documentId][$eq]=${slug}&populate=*`
   );
   return data?.data?.[0] || null;
 }
 
-export async function getNoticiasByCategoria(categoriaSlug: string) {
+export async function getNoticiasByCategoria(categoriaNome: string) {
   const data = await fetchAPI(
-    `/noticias?filters[categoria][slug][$eq]=${categoriaSlug}&sort=data_publicacao:desc&populate=*`
+    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(categoriaNome)}&sort=data_publicacao:desc&populate=*`
   );
   return data;
 }

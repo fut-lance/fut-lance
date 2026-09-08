@@ -26,13 +26,17 @@ export async function GET(request: NextRequest) {
       const baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
 
       const rewritten = text.replace(/^(?!#)(.+)$/gm, (match) => {
+        let absolute: string;
         if (match.startsWith('http')) {
-          return `/api/proxy?url=${encodeURIComponent(match)}`;
+          absolute = match;
+        } else if (match.startsWith('/')) {
+          absolute = origin + match;
+        } else {
+          absolute = baseUrl + match;
         }
-        if (match.startsWith('/')) {
-          return `/api/proxy?url=${encodeURIComponent(origin + match)}`;
-        }
-        return `/api/proxy?url=${encodeURIComponent(baseUrl + match)}`;
+
+        const path = new URL(absolute).pathname + new URL(absolute).search;
+        return `/stream${path}`;
       });
 
       return new NextResponse(rewritten, {

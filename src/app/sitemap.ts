@@ -4,7 +4,7 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-
 
 async function fetchNoticias() {
   try {
-    const res = await fetch(`${STRAPI_URL}/api/noticias?fields=slug,updatedAt&pagination[pageSize]=100`, {
+    const res = await fetch(`${STRAPI_URL}/api/noticias?fields=slug,updatedAt,data_publicacao&pagination[pageSize]=100`, {
       next: { revalidate: 3600 },
     });
     const data = await res.json();
@@ -36,19 +36,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://fut-lance.vercel.app/ao-vivo', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.8 },
   ];
 
-  const noticiasPages = noticias.map((n: { slug: string; updatedAt?: string }) => ({
+  const noticiasPages = noticias.map((n: { slug: string; updatedAt?: string; data_publicacao?: string }) => ({
     url: `https://fut-lance.vercel.app/noticias/${n.slug}`,
     lastModified: n.updatedAt ? new Date(n.updatedAt) : new Date(),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
   const categoriasPages = categorias.map((c: { slug: string; updatedAt?: string }) => ({
     url: `https://fut-lance.vercel.app/categoria/${c.slug}`,
     lastModified: c.updatedAt ? new Date(c.updatedAt) : new Date(),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: 'daily' as const,
     priority: 0.6,
   }));
 
-  return [...staticPages, ...noticiasPages, ...categoriasPages];
+  return [...staticPages, ...categoriasPages, ...noticiasPages];
 }

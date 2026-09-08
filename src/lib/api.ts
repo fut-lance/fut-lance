@@ -60,6 +60,17 @@ export async function getTransmissoesAoVivo() {
   return data;
 }
 
+export async function getRelatedNoticias(categoriaId: number, currentSlug: string, limit = 4) {
+  try {
+    const data = await fetchAPI(
+      `/noticias?filters[categoria][id][$eq]=${categoriaId}&filters[documentId][$ne]=${currentSlug}&sort=data_publicacao:desc&pagination[pageSize]=${limit}&populate=*`
+    );
+    return data?.data || [];
+  } catch {
+    return [];
+  }
+}
+
 export async function createComentario(noticiaId: number, nome: string, email: string, texto: string) {
   const data = await fetchAPI('/comentarios', {
     method: 'POST',

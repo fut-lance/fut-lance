@@ -24,9 +24,9 @@ export default async function NoticiaPage({
     );
   }
 
-  const imagemUrl = noticia.imagem_capa?.url
+  const imagemUrl = noticia.imagem_url || (noticia.imagem_capa?.url
     ? `${apiUrl}${noticia.imagem_capa.url}`
-    : 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200';
+    : 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200');
 
   const formatData = (data: string) => {
     if (!data) return '';

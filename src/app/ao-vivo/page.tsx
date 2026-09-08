@@ -15,9 +15,9 @@ export default async function AoVivoPage() {
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
 
-  const jogoAoVivo = transmissoes.find((t: any) => t.status === 'ao_vivo');
-  const jogosAgendados = transmissoes.filter((t: any) => t.status === 'agendado');
-  const jogosEncerrados = transmissoes.filter((t: any) => t.status === 'encerrado');
+  const jogoAoVivo = transmissoes.find((t: any) => t.status_jogo === 'ao_vivo');
+  const jogosAgendados = transmissoes.filter((t: any) => t.status_jogo === 'agendado');
+  const jogosEncerrados = transmissoes.filter((t: any) => t.status_jogo === 'encerrado');
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import CardNoticia from '@/components/CardNoticia';
 import { getNoticias, getTransmissoesAoVivo } from '@/lib/api';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   let noticiasDestaque: any[] = [];

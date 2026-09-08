@@ -1,7 +1,8 @@
 import Comentarios from '@/components/Comentarios';
-import { getNoticiaBySlug } from '@/lib/api';
+import { getNoticiaBySlug, getRelatedNoticias } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export const revalidate = 60;
 
@@ -13,9 +14,14 @@ export async function generateMetadata({
   const noticia = await getNoticiaBySlug(params.slug);
   if (!noticia) return { title: 'Noticia nao encontrada' };
 
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
+  const imagemUrl = noticia.imagem_url || (noticia.imagem_capa?.url
+    ? `${apiUrl}${noticia.imagem_capa.url}`
+    : 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200');
+
   return {
     title: noticia.titulo,
-    description: noticia.resumo || noticia.titulo,
+    description: noticia.resumo || noticia.conteudo?.replace(/<[^>]*>/g, '').substring(0, 160) || noticia.titulo,
     openGraph: {
       title: noticia.titulo,
       description: noticia.resumo || noticia.titulo,
@@ -23,6 +29,18 @@ export async function generateMetadata({
       siteName: 'FUT LANCE',
       locale: 'pt_BR',
       type: 'article',
+      publishedTime: noticia.data_publicacao,
+      authors: noticia.autor ? [noticia.autor] : ['FUT LANCE'],
+      images: [{ url: imagemUrl, width: 1200, height: 630, alt: noticia.titulo }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: noticia.titulo,
+      description: noticia.resumo || noticia.titulo,
+      images: [imagemUrl],
+    },
+    alternates: {
+      canonical: `https://fut-lance.vercel.app/noticias/${params.slug}`,
     },
   };
 }
@@ -38,14 +56,18 @@ export default async function NoticiaPage({
   if (!noticia) {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-4xl font-bold text-white mb-4">Notícia não encontrada</h1>
-        <p className="text-gray-400 mb-6">Esta notícia não existe ou foi removida.</p>
+        <h1 className="text-4xl font-bold text-white mb-4">Noticia nao encontrada</h1>
+        <p className="text-gray-400 mb-6">Esta noticia nao existe ou foi removida.</p>
         <Link href="/" className="text-fut-green hover:text-green-400 font-semibold">
-          ← Voltar para a página inicial
+          Voltar para a pagina inicial
         </Link>
       </div>
     );
   }
+
+  const relatedNoticias = noticia.categoria?.id
+    ? await getRelatedNoticias(noticia.categoria.id, params.slug, 4)
+    : [];
 
   const imagemUrl = noticia.imagem_url || (noticia.imagem_capa?.url
     ? `${apiUrl}${noticia.imagem_capa.url}`
@@ -66,8 +88,88 @@ export default async function NoticiaPage({
     }
   };
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: noticia.titulo,
+    description: noticia.resumo || noticia.titulo,
+    image: imagemUrl,
+    datePublished: noticia.data_publicacao,
+    dateModified: noticia.updatedAt || noticia.data_publicacao,
+    author: {
+      '@type': 'Organization',
+      name: noticia.autor || 'FUT LANCE',
+      url: 'https://fut-lance.vercel.app',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'FUT LANCE',
+      url: 'https://fut-lance.vercel.app',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=200&q=80',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://fut-lance.vercel.app/noticias/${params.slug}`,
+    },
+    articleSection: noticia.categoria?.nome || 'Futebol',
+    inLanguage: 'pt-BR',
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Inicio',
+        item: 'https://fut-lance.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: noticia.categoria?.nome || 'Noticias',
+        item: `https://fut-lance.vercel.app/categoria/${noticia.categoria?.slug || 'noticias'}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: noticia.titulo,
+        item: `https://fut-lance.vercel.app/noticias/${params.slug}`,
+      },
+    ],
+  };
+
   return (
     <article className="container mx-auto px-4 py-8 max-w-4xl">
+      <Script
+        id="article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <nav className="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-white">Inicio</Link>
+        <span className="mx-2">/</span>
+        {noticia.categoria?.nome && (
+          <>
+            <Link href={`/categoria/${noticia.categoria.slug || ''}`} className="hover:text-white">
+              {noticia.categoria.nome}
+            </Link>
+            <span className="mx-2">/</span>
+          </>
+        )}
+        <span className="text-gray-300">{noticia.titulo}</span>
+      </nav>
+
       <div className="mb-6">
         <span className="badge bg-fut-green text-white">
           {noticia.categoria?.nome || 'Geral'}
@@ -77,9 +179,9 @@ export default async function NoticiaPage({
       <h1 className="text-4xl font-bold text-white mb-4">{noticia.titulo}</h1>
 
       <div className="flex items-center gap-4 text-gray-400 text-sm mb-6">
-        {noticia.autor && <span>Por {noticia.autor}</span>}
+        {noticia.autor && <span>Por <strong className="text-gray-300">{noticia.autor}</strong></span>}
         {noticia.autor && <span>•</span>}
-        <span>{formatData(noticia.data_publicacao)}</span>
+        <time dateTime={noticia.data_publicacao}>{formatData(noticia.data_publicacao)}</time>
       </div>
 
       <div className="relative h-96 rounded-lg overflow-hidden mb-8">
@@ -87,36 +189,64 @@ export default async function NoticiaPage({
           src={imagemUrl}
           alt={noticia.titulo}
           className="w-full h-full object-cover"
+          loading="eager"
         />
       </div>
 
+      {noticia.resumo && (
+        <div className="bg-fut-darker rounded-lg p-6 mb-8">
+          <p className="text-gray-300 text-lg italic leading-relaxed">{noticia.resumo}</p>
+        </div>
+      )}
+
       {noticia.video_url && (
         <div className="mb-8">
-          <h3 className="text-xl font-bold text-white mb-4">📹 Vídeo</h3>
+          <h2 className="text-xl font-bold text-white mb-4">Video</h2>
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <iframe
               src={noticia.video_url}
               className="absolute inset-0 w-full h-full"
               allowFullScreen
+              title={`Video: ${noticia.titulo}`}
             />
           </div>
         </div>
       )}
 
-      {noticia.resumo && (
-        <div className="bg-fut-darker rounded-lg p-6 mb-8">
-          <p className="text-gray-300 text-lg italic">{noticia.resumo}</p>
-        </div>
-      )}
-
       <div
         className="prose prose-invert prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: noticia.conteudo || '<p>Conteúdo não disponível.</p>' }}
+        dangerouslySetInnerHTML={{ __html: noticia.conteudo || '<p>Conteudo nao disponivel.</p>' }}
       />
+
+      {relatedNoticias.length > 0 && (
+        <section className="mt-12 pt-8 border-t border-gray-700">
+          <h2 className="text-2xl font-bold text-white mb-6">Noticias Relacionadas</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {relatedNoticias.map((rel: any) => (
+              <Link
+                key={rel.id}
+                href={`/noticias/${rel.documentId}`}
+                className="flex gap-4 p-4 bg-fut-dark rounded-lg hover:bg-fut-darker transition-colors"
+              >
+                <img
+                  src={rel.imagem_url || (rel.imagem_capa?.url ? `${apiUrl}${rel.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400')}
+                  alt={rel.titulo}
+                  className="w-24 h-24 object-cover rounded"
+                  loading="lazy"
+                />
+                <div>
+                  <h3 className="text-white font-semibold line-clamp-2">{rel.titulo}</h3>
+                  <p className="text-gray-400 text-sm mt-1">{rel.categoria?.nome || 'Futebol'}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mt-8 pt-8 border-t border-gray-700">
         <Link href="/" className="text-fut-green hover:text-green-400 font-semibold">
-          ← Voltar para notícias
+          Voltar para noticias
         </Link>
       </div>
 

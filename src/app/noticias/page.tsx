@@ -1,7 +1,16 @@
 import CardNoticia from '@/components/CardNoticia';
 import { getNoticias } from '@/lib/api';
+import { Metadata } from 'next';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Todas as Noticias de Futebol',
+  description: 'Confira todas as ultimas noticias de futebol do Brasil e do mundo. Brasileirao, Libertadores, Champions League, transferencias e mais.',
+  alternates: {
+    canonical: 'https://fut-lance.vercel.app/noticias',
+  },
+};
 
 export default async function NoticiasPage() {
   let noticias: any[] = [];
@@ -10,7 +19,7 @@ export default async function NoticiasPage() {
     const data = await getNoticias(1, 20);
     noticias = data?.data || [];
   } catch (error) {
-    console.error('Erro ao buscar notícias:', error);
+    console.error('Erro ao buscar noticias:', error);
   }
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
@@ -18,7 +27,7 @@ export default async function NoticiasPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-white mb-2">
-        📰 Todas as Notícias
+        Todas as Noticias
       </h1>
       <p className="text-gray-400 mb-8">
         Fique por dentro de tudo que acontece no mundo do futebol.
@@ -40,12 +49,10 @@ export default async function NoticiasPage() {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-400 text-lg">Nenhuma notícia encontrada.</p>
-          <p className="text-gray-500 mt-2">Cadastre notícias no Strapi para que apareçam aqui.</p>
+          <p className="text-gray-400 text-lg">Nenhuma noticia encontrada.</p>
+          <p className="text-gray-500 mt-2">Cadastre noticias no Strapi para que aparecam aqui.</p>
         </div>
       )}
     </div>
   );
 }
-
-

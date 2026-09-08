@@ -1,8 +1,27 @@
 import CardNoticia from '@/components/CardNoticia';
 import { getNoticiasByCategoria } from '@/lib/api';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const nomeFormatado = params.slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return {
+    title: `Noticias de ${nomeFormatado}`,
+    description: `Todas as noticias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
+    alternates: {
+      canonical: `https://fut-lance.vercel.app/categoria/${params.slug}`,
+    },
+  };
+}
 
 export default async function CategoriaPage({
   params,
@@ -11,7 +30,7 @@ export default async function CategoriaPage({
 }) {
   let noticias: any[] = [];
   let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
-  let categoriaDescricao = 'Notícias desta categoria.';
+  let categoriaDescricao = 'Noticias desta categoria.';
 
   try {
     const data = await getNoticiasByCategoria(params.slug);
@@ -22,7 +41,7 @@ export default async function CategoriaPage({
       categoriaDescricao = noticias[0].categoria.descricao || categoriaDescricao;
     }
   } catch (error) {
-    console.error('Erro ao buscar notícias por categoria:', error);
+    console.error('Erro ao buscar noticias por categoria:', error);
   }
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
@@ -39,8 +58,32 @@ export default async function CategoriaPage({
 
   const icon = categoriaIcons[params.slug] || '📰';
 
+  const categorySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${categoriaNome} - Noticias de Futebol`,
+    description: categoriaDescricao,
+    url: `https://fut-lance.vercel.app/categoria/${params.slug}`,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'FUT LANCE',
+      url: 'https://fut-lance.vercel.app',
+    },
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}
+      />
+
+      <nav className="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-white">Inicio</Link>
+        <span className="mx-2">/</span>
+        <span className="text-gray-300">{categoriaNome}</span>
+      </nav>
+
       <div className="mb-8">
         <span className="text-5xl mb-4 block">{icon}</span>
         <h1 className="text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
@@ -64,10 +107,10 @@ export default async function CategoriaPage({
       ) : (
         <div className="text-center py-16">
           <p className="text-gray-400 text-lg">
-            Nenhuma notícia encontrada nesta categoria.
+            Nenhuma noticia encontrada nesta categoria.
           </p>
           <Link href="/" className="text-fut-green hover:text-green-400 font-semibold mt-4 inline-block">
-            ← Voltar para a página inicial
+            Voltar para a pagina inicial
           </Link>
         </div>
       )}

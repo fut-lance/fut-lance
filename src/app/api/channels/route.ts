@@ -22,7 +22,7 @@ function parseM3U(content: string): Channel[] {
       const name = nameMatch[1].trim();
       const url = lines[i + 1]?.trim() || '';
 
-      if (!url || !url.endsWith('.ts')) continue;
+      if (!url || (!url.endsWith('.m3u8') && !url.endsWith('.ts'))) continue;
 
       let category = '';
       let quality = 'SD';

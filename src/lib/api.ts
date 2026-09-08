@@ -41,8 +41,9 @@ export async function getNoticiaBySlug(slug: string) {
 }
 
 export async function getNoticiasByCategoria(categoriaNome: string) {
+  const nomeCapitalizado = categoriaNome.charAt(0).toUpperCase() + categoriaNome.slice(1);
   const data = await fetchAPI(
-    `/noticias?filters[categoria][nome][$eqi]=${encodeURIComponent(categoriaNome)}&sort=data_publicacao:desc&populate=*`
+    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(nomeCapitalizado)}&sort=data_publicacao:desc&populate=*`
   );
   return data;
 }

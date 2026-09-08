@@ -1,8 +1,31 @@
 import Comentarios from '@/components/Comentarios';
 import { getNoticiaBySlug } from '@/lib/api';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const noticia = await getNoticiaBySlug(params.slug);
+  if (!noticia) return { title: 'Noticia nao encontrada' };
+
+  return {
+    title: noticia.titulo,
+    description: noticia.resumo || noticia.titulo,
+    openGraph: {
+      title: noticia.titulo,
+      description: noticia.resumo || noticia.titulo,
+      url: `https://fut-lance.vercel.app/noticias/${params.slug}`,
+      siteName: 'FUT LANCE',
+      locale: 'pt_BR',
+      type: 'article',
+    },
+  };
+}
 
 export default async function NoticiaPage({
   params,

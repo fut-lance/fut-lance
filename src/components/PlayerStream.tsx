@@ -95,7 +95,7 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
         <video
           ref={videoRef}
           className="w-full aspect-video bg-black"
-          controls
+          controls={!paused}
           playsInline
           preload="auto"
         />

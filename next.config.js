@@ -8,6 +8,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/stream/:path*',
+        destination: 'http://xigfh01.site/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

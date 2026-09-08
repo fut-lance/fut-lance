@@ -45,7 +45,7 @@ export default function CardNoticia({
   };
 
   return (
-    <Link href={`/noticia/${slug}`}>
+    <Link href={`/noticias/${slug}`}>
       <article
         className={`card group cursor-pointer h-full flex flex-col ${
           destaque ? 'lg:col-span-1' : ''

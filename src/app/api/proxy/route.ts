@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get('url');
 
@@ -8,25 +10,22 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const res = await fetch(url, {
+    const upstream = await fetch(url, {
       headers: { 'User-Agent': 'VLC/3.0.20' },
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(20000),
     });
 
-    if (!res.ok) {
+    if (!upstream.ok) {
       return NextResponse.json({ error: 'Upstream error' }, { status: 502 });
     }
 
-    const contentType = res.headers.get('content-type') || 'application/octet-stream';
-    const body = await res.arrayBuffer();
-
-    if (url.endsWith('.m3u8')) {
-      let text = new TextDecoder().decode(body);
+    if (url.includes('.m3u8')) {
+      const text = await upstream.text();
       const urlObj = new URL(url);
       const origin = urlObj.origin;
       const baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
 
-      text = text.replace(/^(?!#)(.+)$/gm, (match) => {
+      const rewritten = text.replace(/^(?!#)(.+)$/gm, (match) => {
         if (match.startsWith('http')) {
           return `/api/proxy?url=${encodeURIComponent(match)}`;
         }
@@ -36,7 +35,7 @@ export async function GET(request: NextRequest) {
         return `/api/proxy?url=${encodeURIComponent(baseUrl + match)}`;
       });
 
-      return new NextResponse(text, {
+      return new NextResponse(rewritten, {
         headers: {
           'Content-Type': 'application/vnd.apple.mpegurl',
           'Access-Control-Allow-Origin': '*',
@@ -45,14 +44,14 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return new NextResponse(body, {
+    return new NextResponse(upstream.body, {
       headers: {
-        'Content-Type': contentType,
+        'Content-Type': upstream.headers.get('content-type') || 'application/octet-stream',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'public, max-age=3600',
+        'Cache-Control': 'public, max-age=2',
       },
     });
-  } catch (error) {
-    return NextResponse.json({ error: 'Proxy timeout' }, { status: 504 });
+  } catch {
+    return NextResponse.json({ error: 'Proxy error' }, { status: 504 });
   }
 }

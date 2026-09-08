@@ -11,12 +11,15 @@ interface PlayerStreamProps {
 export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !url) return;
 
     let hls: Hls | null = null;
+    setReady(false);
+    setError(false);
 
     if (url.includes('.m3u8') && Hls.isSupported()) {
       hls = new Hls({ enableWorker: true, lowLatencyMode: true });
@@ -26,7 +29,10 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
         setReady(true);
         video.play().catch(() => {});
       });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      hls.on(Hls.Events.ERROR, () => {
+        setError(true);
+      });
+    } else if (url.includes('.m3u8') && video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = url;
       video.onloadedmetadata = () => {
         setReady(true);
@@ -37,6 +43,9 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
       video.onloadeddata = () => {
         setReady(true);
         video.play().catch(() => {});
+      };
+      video.onerror = () => {
+        setError(true);
       };
     }
 
@@ -50,7 +59,8 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
       <div className="bg-fut-accent px-4 py-2 flex items-center gap-2">
         <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
         <span className="text-white font-bold text-sm">{titulo}</span>
-        {!ready && <span className="text-white/60 text-xs ml-auto">Carregando...</span>}
+        {!ready && !error && <span className="text-white/60 text-xs ml-auto">Carregando...</span>}
+        {error && <span className="text-red-300 text-xs ml-auto">Erro ao carregar</span>}
       </div>
       <video
         ref={videoRef}

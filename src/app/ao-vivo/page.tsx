@@ -1,126 +1,102 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import PlayerStream from '@/components/PlayerStream';
-import { getTransmissoesAoVivo } from '@/lib/api';
 
-export const revalidate = 60;
+interface Channel {
+  name: string;
+  url: string;
+  category: string;
+  quality: string;
+}
 
-export default async function AoVivoPage() {
-  let transmissoes: any[] = [];
+export default function AoVivoPage() {
+  const [channels, setChannels] = useState<Channel[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
 
-  try {
-    const data = await getTransmissoesAoVivo();
-    transmissoes = data?.data || [];
-  } catch (error) {
-    console.error('Erro ao buscar transmissões:', error);
-  }
+  useEffect(() => {
+    fetch('/api/channels')
+      .then(res => res.json())
+      .then(data => {
+        setChannels(data.channels || []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
-  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
-
-  const jogoAoVivo = transmissoes.find((t: any) => t.status_jogo === 'ao_vivo');
-  const jogosAgendados = transmissoes.filter((t: any) => t.status_jogo === 'agendado');
-  const jogosEncerrados = transmissoes.filter((t: any) => t.status_jogo === 'encerrado');
+  const categories = ['Todos', ...Array.from(new Set(channels.map(c => c.category)))];
+  const filtered = selectedCategory === 'Todos'
+    ? channels
+    : channels.filter(c => c.category === selectedCategory);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-white mb-2">
-        📺 Transmissões Ao Vivo
-      </h1>
-      <p className="text-gray-400 mb-8">
-        Assista aos jogos ao vivo diretamente pelo FUT LANCE.
-      </p>
+      <h1 className="text-4xl font-bold text-white mb-2">Ao Vivo</h1>
+      <p className="text-gray-400 mb-8">Assista aos canais de futebol ao vivo.</p>
 
-      {jogoAoVivo && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-fut-accent mb-4 flex items-center gap-2">
-            <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-            Assistir Agora
-          </h2>
-          <PlayerStream
-            url={jogoAoVivo.link_m3u}
-            titulo={jogoAoVivo.nome_jogo}
-          />
+      {selectedChannel && (
+        <section className="mb-8">
+          <PlayerStream url={selectedChannel.url} titulo={selectedChannel.name} />
         </section>
       )}
 
-      {!jogoAoVivo && transmissoes.length === 0 && (
-        <section className="mb-12 bg-fut-darker rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Nenhuma transmissão disponível</h2>
-          <p className="text-gray-400">
-            Cadastre transmissões no Strapi para que apareçam aqui.
-          </p>
+      {!selectedChannel && !loading && (
+        <section className="mb-8 bg-fut-darker rounded-lg p-8 text-center">
+          <p className="text-gray-400">Selecione um canal abaixo para assistir.</p>
         </section>
       )}
 
-      {jogosAgendados.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Próximos Jogos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jogosAgendados.map((jogo: any) => (
-              <div key={jogo.id} className="card p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="badge bg-blue-600 text-white">{jogo.competicao}</span>
-                  <span className="badge bg-gray-600 text-gray-300">Agendado</span>
-                </div>
-
-                <div className="text-center mb-4">
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
-                        ⚽
-                      </div>
-                      <p className="text-white font-bold text-sm">{jogo.time_casa}</p>
-                    </div>
-
-                    <span className="text-gray-500 text-xl font-bold">VS</span>
-
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-fut-dark rounded-full flex items-center justify-center text-2xl mb-2 mx-auto">
-                        ⚽
-                      </div>
-                      <p className="text-white font-bold text-sm">{jogo.time_fora}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center text-gray-400 text-sm">
-                  <p>📅 {jogo.data_hora}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {loading && (
+        <section className="mb-8 bg-fut-darker rounded-lg p-8 text-center">
+          <p className="text-gray-400">Carregando canais...</p>
         </section>
       )}
 
-      {jogosEncerrados.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-xl font-bold text-gray-400 mb-4">Jogos Encerrados</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {jogosEncerrados.map((jogo: any) => (
-              <div key={jogo.id} className="card p-4 opacity-60">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="badge bg-gray-700 text-gray-400">{jogo.competicao}</span>
-                  <span className="badge bg-gray-700 text-gray-400">Encerrado</span>
-                </div>
-                <div className="text-center">
-                  <p className="text-gray-400 font-bold text-sm">
-                    {jogo.time_casa} vs {jogo.time_fora}
-                  </p>
-                  <p className="text-gray-500 text-xs mt-1">{jogo.data_hora}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              selectedCategory === cat
+                ? 'bg-fut-accent text-white'
+                : 'bg-fut-dark text-gray-400 hover:bg-fut-darker hover:text-white'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {filtered.map((ch, i) => (
+          <button
+            key={i}
+            onClick={() => setSelectedChannel(ch)}
+            className={`p-3 rounded-lg text-left transition-all ${
+              selectedChannel?.name === ch.name
+                ? 'bg-fut-accent text-white ring-2 ring-fut-accent'
+                : 'bg-fut-dark text-gray-300 hover:bg-fut-darker hover:text-white'
+            }`}
+          >
+            <p className="font-bold text-sm truncate">{ch.name}</p>
+            <p className="text-xs text-gray-500 mt-1">{ch.quality}</p>
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 && !loading && (
+        <p className="text-gray-500 text-center mt-8">Nenhum canal encontrado.</p>
       )}
 
       <section className="mt-12 bg-fut-darker rounded-lg p-8">
-        <h2 className="text-2xl font-bold text-white mb-4">
-          ℹ️ Sobre as Transmissões
-        </h2>
-        <div className="text-gray-300 space-y-2">
-          <p>• As transmissões ao vivo são de conteúdo público e aberto.</p>
-          <p>• O player funciona melhor no navegador Google Chrome.</p>
-          <p>• Caso o stream não carregue, tente recarregar a página.</p>
-          <p>• Para melhor experiência, use uma conexão de internet estável.</p>
+        <h2 className="text-2xl font-bold text-white mb-4">Sobre</h2>
+        <div className="text-gray-300 space-y-2 text-sm">
+          <p>• Os canais sao carregados automaticamente.</p>
+          <p>• Funciona melhor no Google Chrome.</p>
+          <p>• Caso nao carregue, tente outro canal ou recarregue a pagina.</p>
         </div>
       </section>
     </div>

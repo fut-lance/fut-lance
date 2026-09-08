@@ -22,32 +22,32 @@ function parseM3U(content: string): Channel[] {
       const name = nameMatch[1].trim();
       const url = lines[i + 1]?.trim() || '';
 
-      if (!url || seen.has(name)) continue;
+      if (!url || !url.endsWith('.ts')) continue;
 
-      let category = 'Outros';
+      let category = '';
       let quality = 'SD';
 
       if (name.includes('FHD') || name.includes('4K')) quality = 'FHD';
       else if (name.includes('HD')) quality = 'HD';
 
-      if (name.includes('ESPN')) category = 'ESPN';
-      else if (name.includes('SPORTV') || name.includes('SporTV')) category = 'SporTV';
-      else if (name.includes('PREMIERE') || name.includes('Premiere')) category = 'Premiere';
-      else if (name.includes('BAND SPORTS') || name.includes('Band Sports')) category = 'Band Sports';
-      else if (name.includes('COMBATE') || name.includes('Combate')) category = 'Combate';
-      else if (name.includes('DAZN')) category = 'DAZN';
-      else if (name.includes('GETV') || name.includes('GE')) category = 'GE';
-      else if (name.includes('Globo')) category = 'Globo';
+      const nameUpper = name.toUpperCase();
 
-      const isFootball = ['ESPN', 'SporTV', 'Premiere', 'Band Sports', 'Combate', 'DAZN', 'GE'].includes(category);
+      if (nameUpper.startsWith('ESPN')) category = 'ESPN';
+      else if (nameUpper.startsWith('SPORTV') || nameUpper.startsWith('SPORTV')) category = 'SporTV';
+      else if (nameUpper.startsWith('PREMIERE')) category = 'Premiere';
+      else if (nameUpper.includes('BAND SPORTS')) category = 'Band Sports';
+      else if (nameUpper === 'COMBATE FHD' || nameUpper === 'COMBATE HD' || nameUpper === 'COMBATE SD') category = 'Combate';
+      else if (nameUpper.startsWith('DAZN')) category = 'DAZN';
+      else if (nameUpper === 'GETV FHD' || nameUpper === 'GETV HD' || nameUpper === 'GETV SD') category = 'GE';
+      else if (nameUpper.startsWith('GLOBO')) category = 'Globo';
 
-      if (isFootball) {
-        const baseName = name.replace(/ FHD| HD| SD| 4K/g, '').trim();
-        if (!seen.has(baseName)) {
-          seen.add(baseName);
-          channels.push({ name, url, category, quality });
-        }
-      }
+      if (!category) continue;
+
+      const baseName = name.replace(/ FHD| HD| SD| 4K/g, '').trim();
+      if (seen.has(baseName)) continue;
+      seen.add(baseName);
+
+      channels.push({ name, url, category, quality });
     }
   }
 

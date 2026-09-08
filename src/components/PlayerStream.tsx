@@ -21,19 +21,26 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
     setReady(false);
     setError(false);
 
+    const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
+
     if (url.includes('.m3u8') && Hls.isSupported()) {
-      hls = new Hls({ enableWorker: true, lowLatencyMode: true });
-      hls.loadSource(url);
+      hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+      });
+      hls.loadSource(proxyUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         setReady(true);
         video.play().catch(() => {});
       });
-      hls.on(Hls.Events.ERROR, () => {
-        setError(true);
+      hls.on(Hls.Events.ERROR, (_event, data) => {
+        if (data.fatal) setError(true);
       });
     } else if (url.includes('.m3u8') && video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = url;
+      video.src = proxyUrl;
       video.onloadedmetadata = () => {
         setReady(true);
         video.play().catch(() => {});
@@ -44,9 +51,7 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
         setReady(true);
         video.play().catch(() => {});
       };
-      video.onerror = () => {
-        setError(true);
-      };
+      video.onerror = () => setError(true);
     }
 
     return () => {

@@ -34,9 +34,7 @@ export async function GET(request: NextRequest) {
         } else {
           absolute = baseUrl + match;
         }
-
-        const path = new URL(absolute).pathname + new URL(absolute).search;
-        return `/stream${path}`;
+        return `/api/proxy?url=${encodeURIComponent(absolute)}`;
       });
 
       return new NextResponse(rewritten, {

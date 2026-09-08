@@ -22,15 +22,20 @@ export async function GET(request: NextRequest) {
 
     if (url.endsWith('.m3u8')) {
       let text = new TextDecoder().decode(body);
-      const base = url.substring(0, url.lastIndexOf('/') + 1);
-      text = text.replace(/(^(?!#).+\.m3u8.*$)/gm, (match) => {
-        const absolute = match.startsWith('http') ? match : base + match;
-        return `/api/proxy?url=${encodeURIComponent(absolute)}`;
+      const urlObj = new URL(url);
+      const origin = urlObj.origin;
+      const baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
+
+      text = text.replace(/^(?!#)(.+)$/gm, (match) => {
+        if (match.startsWith('http')) {
+          return `/api/proxy?url=${encodeURIComponent(match)}`;
+        }
+        if (match.startsWith('/')) {
+          return `/api/proxy?url=${encodeURIComponent(origin + match)}`;
+        }
+        return `/api/proxy?url=${encodeURIComponent(baseUrl + match)}`;
       });
-      text = text.replace(/(^(?!#).+\.ts.*$)/gm, (match) => {
-        const absolute = match.startsWith('http') ? match : base + match;
-        return `/api/proxy?url=${encodeURIComponent(absolute)}`;
-      });
+
       return new NextResponse(text, {
         headers: {
           'Content-Type': 'application/vnd.apple.mpegurl',

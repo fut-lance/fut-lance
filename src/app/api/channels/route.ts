@@ -39,7 +39,7 @@ function parseM3U(content: string): Channel[] {
       else if (nameUpper === 'COMBATE FHD' || nameUpper === 'COMBATE HD' || nameUpper === 'COMBATE SD') category = 'Combate';
       else if (nameUpper.startsWith('DAZN')) category = 'DAZN';
       else if (nameUpper === 'GETV FHD' || nameUpper === 'GETV HD' || nameUpper === 'GETV SD') category = 'GE';
-      else if (nameUpper.startsWith('GLOBO')) category = 'Globo';
+
 
       if (!category) continue;
 

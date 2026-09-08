@@ -8,9 +8,29 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'FUT LANCE - Notícias de Futebol',
-  description: 'O melhor blog de notícias de futebol do Brasil. Notícias, vídeos, transmissões ao vivo e muito mais.',
-  keywords: 'futebol, notícias, brasileirão, libertadores, champions league, transferências',
+  title: {
+    default: 'FUT LANCE - Noticias de Futebol',
+    template: '%s | FUT LANCE',
+  },
+  description: 'O melhor blog de noticias de futebol do Brasil. Noticias, videos, transmissoes ao vivo e muito mais.',
+  keywords: 'futebol, noticias, brasileirao, libertadores, champions league, transferencias, ao vivo, transmissao',
+  authors: [{ name: 'FUT LANCE' }],
+  openGraph: {
+    title: 'FUT LANCE - Noticias de Futebol',
+    description: 'O melhor blog de noticias de futebol do Brasil.',
+    url: 'https://fut-lance.vercel.app',
+    siteName: 'FUT LANCE',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  alternates: {
+    canonical: 'https://fut-lance.vercel.app',
+  },
 };
 
 export default function RootLayout({

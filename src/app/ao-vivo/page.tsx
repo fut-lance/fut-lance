@@ -15,21 +15,58 @@ export default function AoVivoPage() {
   const [loading, setLoading] = useState(true);
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [transmissoesAtivas, setTransmissoesAtivas] = useState<boolean | null>(null);
 
   useEffect(() => {
-    fetch('/api/channels')
+    const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
+    
+    fetch(`${STRAPI_URL}/api/configuracao`)
       .then(res => res.json())
       .then(data => {
-        setChannels(data.channels || []);
-        setLoading(false);
+        const ativas = data.data?.transmissoes_ativas !== false;
+        setTransmissoesAtivas(ativas);
+        
+        if (ativas) {
+          fetch('/api/channels')
+            .then(res2 => res2.json())
+            .then(data2 => {
+              setChannels(data2.channels || []);
+              setLoading(false);
+            })
+            .catch(() => setLoading(false));
+        } else {
+          setLoading(false);
+        }
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setTransmissoesAtivas(true);
+        fetch('/api/channels')
+          .then(res => res.json())
+          .then(data => {
+            setChannels(data.channels || []);
+            setLoading(false);
+          })
+          .catch(() => setLoading(false));
+      });
   }, []);
 
   const categories = ['Todos', ...Array.from(new Set(channels.map(c => c.category)))];
   const filtered = selectedCategory === 'Todos'
     ? channels
     : channels.filter(c => c.category === selectedCategory);
+
+  if (transmissoesAtivas === false) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold text-white mb-2">Ao Vivo</h1>
+        <p className="text-gray-400 mb-8">Assista aos canais de futebol ao vivo.</p>
+        <section className="bg-fut-darker rounded-lg p-12 text-center">
+          <p className="text-gray-400 text-lg">As transmissoes estao temporariamente indisponiveis.</p>
+          <p className="text-gray-500 text-sm mt-2">Volte em breve!</p>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

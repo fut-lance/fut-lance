@@ -27,6 +27,10 @@ export default function CardNoticia({
     'Seleção': 'bg-fut-accent',
     'Premier League': 'bg-red-700',
     'Copa do Brasil': 'bg-orange-600',
+    'Flamengo': 'bg-red-800',
+    'Palmeiras': 'bg-green-700',
+    'Corinthians': 'bg-gray-800',
+    'São Paulo': 'bg-red-900',
   };
 
   const badgeColor = categoriaColors[categoria] || 'bg-gray-600';
@@ -56,9 +60,10 @@ export default function CardNoticia({
             src={imagem}
             alt={titulo}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            loading="lazy"
           />
           <span
-            className={`absolute top-2 left-2 badge text-white ${badgeColor}`}
+            className={`absolute top-3 left-3 badge text-white ${badgeColor}`}
           >
             {categoria}
           </span>
@@ -66,19 +71,24 @@ export default function CardNoticia({
 
         <div className="p-4 flex-1 flex flex-col">
           <h3
-            className={`font-bold text-white group-hover:text-fut-green transition-colors mb-2 ${
-              destaque ? 'text-xl' : 'text-lg'
+            className={`font-bold text-white group-hover:text-fut-green transition-colors mb-2 leading-snug ${
+              destaque ? 'text-xl' : 'text-base'
             }`}
           >
             {titulo}
           </h3>
 
-          <p className="text-gray-400 text-sm flex-1 line-clamp-3">{resumo}</p>
+          {resumo && (
+            <p className="text-gray-400 text-sm flex-1 line-clamp-2 leading-relaxed">{resumo}</p>
+          )}
 
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-3 pt-3 border-t border-gray-800 flex items-center justify-between">
             <span className="text-gray-500 text-xs">{formatData(data)}</span>
-            <span className="text-fut-green text-sm font-medium group-hover:underline">
-              Ler mais →
+            <span className="text-fut-green text-sm font-medium group-hover:underline flex items-center gap-1">
+              Ler mais
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </span>
           </div>
         </div>

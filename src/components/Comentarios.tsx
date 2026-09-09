@@ -94,13 +94,13 @@ export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps
 
   return (
     <div className="mt-12">
-      <h3 className="text-2xl font-bold text-white mb-6">
+      <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
         💬 Comentários ({comentarios.length})
       </h3>
 
-      <form onSubmit={handleSubmit} className="mb-8 bg-fut-darker p-6 rounded-lg">
+      <form onSubmit={handleSubmit} className="mb-8 bg-fut-darker p-6 rounded-xl border border-gray-800">
         <div className="mb-4">
-          <label htmlFor="nome" className="block text-gray-300 mb-2 font-medium">
+          <label htmlFor="nome" className="block text-gray-300 mb-2 font-medium text-sm">
             Seu nome
           </label>
           <input
@@ -108,21 +108,21 @@ export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps
             id="nome"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="w-full bg-fut-dark border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-fut-green"
+            className="w-full bg-fut-dark border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-fut-green transition-colors"
             placeholder="Digite seu nome"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="texto" className="block text-gray-300 mb-2 font-medium">
+          <label htmlFor="texto" className="block text-gray-300 mb-2 font-medium text-sm">
             Comentário
           </label>
           <textarea
             id="texto"
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            className="w-full bg-fut-dark border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-fut-green h-24 resize-none"
+            className="w-full bg-fut-dark border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-fut-green h-24 resize-none transition-colors"
             placeholder="Deixe seu comentário..."
             required
           />
@@ -131,7 +131,7 @@ export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps
         <button
           type="submit"
           disabled={enviando}
-          className="btn-primary disabled:opacity-50"
+          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {enviando ? 'Enviando...' : 'Enviar Comentário'}
         </button>
@@ -139,12 +139,14 @@ export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps
 
       {carregando && (
         <div className="text-center text-gray-400 py-4">
+          <div className="inline-block w-6 h-6 border-2 border-fut-green border-t-transparent rounded-full animate-spin mr-2" />
           Carregando comentários...
         </div>
       )}
 
       {!carregando && comentarios.length === 0 && (
-        <div className="text-center text-gray-400 py-4">
+        <div className="text-center text-gray-400 py-8 bg-fut-darker rounded-xl border border-gray-800">
+          <span className="text-3xl block mb-2">💬</span>
           Nenhum comentário ainda. Seja o primeiro a comentar!
         </div>
       )}
@@ -153,18 +155,18 @@ export default function Comentarios({ noticiaId, noticiaSlug }: ComentariosProps
         {comentarios.map((comentario) => (
           <div
             key={comentario.id}
-            className="bg-fut-darker p-4 rounded-lg border border-gray-800"
+            className="bg-fut-darker p-4 rounded-xl border border-gray-800"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-fut-green rounded-full flex items-center justify-center text-white font-bold">
+              <div className="w-10 h-10 bg-fut-green rounded-full flex items-center justify-center text-white font-bold text-sm">
                 {comentario.nome.charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="text-white font-medium">{comentario.nome}</p>
+                <p className="text-white font-medium text-sm">{comentario.nome}</p>
                 <p className="text-gray-500 text-xs">{comentario.data}</p>
               </div>
             </div>
-            <p className="text-gray-300 ml-13">{comentario.texto}</p>
+            <p className="text-gray-300 ml-13 leading-relaxed">{comentario.texto}</p>
           </div>
         ))}
       </div>

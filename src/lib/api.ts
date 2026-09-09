@@ -17,6 +17,7 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}) {
     method,
     headers: { ...defaultHeaders, ...headers },
     body: body ? JSON.stringify(body) : undefined,
+    next: { revalidate: 60 },
   });
 
   if (!response.ok) {
@@ -41,9 +42,24 @@ export async function getNoticiaBySlug(slug: string) {
 }
 
 export async function getNoticiasByCategoria(categoriaNome: string) {
-  const nomeCapitalizado = categoriaNome.charAt(0).toUpperCase() + categoriaNome.slice(1);
+  const slugMap: Record<string, string> = {
+    'brasileirao': 'Brasileirão',
+    'libertadores': 'Libertadores',
+    'champions-league': 'Champions League',
+    'transferencias': 'Transferências',
+    'copa-do-brasil': 'Copa do Brasil',
+    'premier-league': 'Premier League',
+    'selecao': 'Seleção',
+    'flamengo': 'Flamengo',
+    'palmeiras': 'Palmeiras',
+    'corinthians': 'Corinthians',
+    'sao-paulo': 'São Paulo',
+  };
+
+  const nomeReal = slugMap[categoriaNome] || categoriaNome.charAt(0).toUpperCase() + categoriaNome.slice(1);
+
   const data = await fetchAPI(
-    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(nomeCapitalizado)}&sort=data_publicacao:desc&populate=*`
+    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(nomeReal)}&sort=data_publicacao:desc&populate=*`
   );
   return data;
 }

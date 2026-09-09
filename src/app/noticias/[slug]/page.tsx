@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const noticia = await getNoticiaBySlug(params.slug);
-  if (!noticia) return { title: 'Noticia nao encontrada' };
+  if (!noticia) return { title: 'Notícia não encontrada' };
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
   const imagemUrl = noticia.imagem_url || (noticia.imagem_capa?.url
@@ -55,11 +55,15 @@ export default async function NoticiaPage({
 
   if (!noticia) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-4xl font-bold text-white mb-4">Noticia nao encontrada</h1>
-        <p className="text-gray-400 mb-6">Esta noticia nao existe ou foi removida.</p>
-        <Link href="/" className="text-fut-green hover:text-green-400 font-semibold">
-          Voltar para a pagina inicial
+      <div className="container mx-auto px-4 py-16 text-center">
+        <span className="text-6xl block mb-4">📄</span>
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Notícia não encontrada</h1>
+        <p className="text-gray-400 mb-6">Esta notícia não existe ou foi removida.</p>
+        <Link href="/" className="inline-flex items-center gap-2 text-fut-green hover:text-green-400 font-semibold">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Voltar para a página inicial
         </Link>
       </div>
     );
@@ -125,13 +129,13 @@ export default async function NoticiaPage({
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Inicio',
+        name: 'Início',
         item: 'https://fut-lance.vercel.app',
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: noticia.categoria?.nome || 'Noticias',
+        name: noticia.categoria?.nome || 'Notícias',
         item: `https://fut-lance.vercel.app/categoria/${noticia.categoria?.slug || 'noticias'}`,
       },
       {
@@ -156,35 +160,35 @@ export default async function NoticiaPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <nav className="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-white">Inicio</Link>
-        <span className="mx-2">/</span>
+      <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1 flex-wrap" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-white transition-colors">Início</Link>
+        <span className="text-gray-600">/</span>
         {noticia.categoria?.nome && (
           <>
-            <Link href={`/categoria/${noticia.categoria.slug || ''}`} className="hover:text-white">
+            <Link href={`/categoria/${noticia.categoria.slug || ''}`} className="hover:text-white transition-colors">
               {noticia.categoria.nome}
             </Link>
-            <span className="mx-2">/</span>
+            <span className="text-gray-600">/</span>
           </>
         )}
-        <span className="text-gray-300">{noticia.titulo}</span>
+        <span className="text-gray-300 line-clamp-1">{noticia.titulo}</span>
       </nav>
 
-      <div className="mb-6">
-        <span className="badge bg-fut-green text-white">
+      <div className="mb-4">
+        <span className="inline-block bg-fut-green text-white text-xs font-bold px-3 py-1 rounded-full">
           {noticia.categoria?.nome || 'Geral'}
         </span>
       </div>
 
-      <h1 className="text-4xl font-bold text-white mb-4">{noticia.titulo}</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">{noticia.titulo}</h1>
 
       <div className="flex items-center gap-4 text-gray-400 text-sm mb-6">
         {noticia.autor && <span>Por <strong className="text-gray-300">{noticia.autor}</strong></span>}
-        {noticia.autor && <span>•</span>}
+        {noticia.autor && <span className="text-gray-600">•</span>}
         <time dateTime={noticia.data_publicacao}>{formatData(noticia.data_publicacao)}</time>
       </div>
 
-      <div className="relative h-96 rounded-lg overflow-hidden mb-8">
+      <div className="relative h-64 md:h-96 rounded-lg overflow-hidden mb-8">
         <img
           src={imagemUrl}
           alt={noticia.titulo}
@@ -194,20 +198,20 @@ export default async function NoticiaPage({
       </div>
 
       {noticia.resumo && (
-        <div className="bg-fut-darker rounded-lg p-6 mb-8">
+        <div className="bg-fut-darker rounded-lg p-6 mb-8 border-l-4 border-fut-green">
           <p className="text-gray-300 text-lg italic leading-relaxed">{noticia.resumo}</p>
         </div>
       )}
 
       {noticia.video_url && (
         <div className="mb-8">
-          <h2 className="text-xl font-bold text-white mb-4">Video</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Vídeo</h2>
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <iframe
               src={noticia.video_url}
               className="absolute inset-0 w-full h-full"
               allowFullScreen
-              title={`Video: ${noticia.titulo}`}
+              title={`Vídeo: ${noticia.titulo}`}
             />
           </div>
         </div>
@@ -215,26 +219,26 @@ export default async function NoticiaPage({
 
       <div
         className="prose prose-invert prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: noticia.conteudo || '<p>Conteudo nao disponivel.</p>' }}
+        dangerouslySetInnerHTML={{ __html: noticia.conteudo || '<p>Conteúdo não disponível.</p>' }}
       />
 
       {relatedNoticias.length > 0 && (
         <section className="mt-12 pt-8 border-t border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-6">Noticias Relacionadas</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Notícias Relacionadas</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {relatedNoticias.map((rel: any) => (
               <Link
                 key={rel.id}
                 href={`/noticias/${rel.documentId}`}
-                className="flex gap-4 p-4 bg-fut-dark rounded-lg hover:bg-fut-darker transition-colors"
+                className="flex gap-4 p-4 bg-fut-darker rounded-lg hover:bg-fut-dark border border-gray-800 hover:border-gray-700 transition-all"
               >
                 <img
                   src={rel.imagem_url || (rel.imagem_capa?.url ? `${apiUrl}${rel.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400')}
                   alt={rel.titulo}
-                  className="w-24 h-24 object-cover rounded"
+                  className="w-24 h-24 object-cover rounded flex-shrink-0"
                   loading="lazy"
                 />
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-white font-semibold line-clamp-2">{rel.titulo}</h3>
                   <p className="text-gray-400 text-sm mt-1">{rel.categoria?.nome || 'Futebol'}</p>
                 </div>
@@ -245,8 +249,11 @@ export default async function NoticiaPage({
       )}
 
       <div className="mt-8 pt-8 border-t border-gray-700">
-        <Link href="/" className="text-fut-green hover:text-green-400 font-semibold">
-          Voltar para noticias
+        <Link href="/noticias" className="inline-flex items-center gap-2 text-fut-green hover:text-green-400 font-semibold">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Voltar para notícias
         </Link>
       </div>
 

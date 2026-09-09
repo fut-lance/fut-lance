@@ -15,8 +15,9 @@ export async function generateMetadata({
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return {
-    title: `Noticias de ${nomeFormatado}`,
-    description: `Todas as noticias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
+    title: `Notícias de ${nomeFormatado}`,
+    description: `Todas as notícias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
+    keywords: `${nomeFormatado.toLowerCase()}, futebol, notícias`,
     alternates: {
       canonical: `https://fut-lance.vercel.app/categoria/${params.slug}`,
     },
@@ -30,7 +31,7 @@ export default async function CategoriaPage({
 }) {
   let noticias: any[] = [];
   let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
-  let categoriaDescricao = 'Noticias desta categoria.';
+  let categoriaDescricao = 'Notícias desta categoria.';
 
   try {
     const data = await getNoticiasByCategoria(params.slug);
@@ -41,7 +42,7 @@ export default async function CategoriaPage({
       categoriaDescricao = noticias[0].categoria.descricao || categoriaDescricao;
     }
   } catch (error) {
-    console.error('Erro ao buscar noticias por categoria:', error);
+    console.error('Erro ao buscar notícias por categoria:', error);
   }
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
@@ -54,6 +55,10 @@ export default async function CategoriaPage({
     'premier-league': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
     'selecao': '🇧🇷',
     'copa-do-brasil': '🏆',
+    'flamengo': '🔴⚫',
+    'palmeiras': '🟢🟢',
+    'corinthians': '⚫⚪',
+    'sao-paulo': '🔴⚪⚫',
   };
 
   const icon = categoriaIcons[params.slug] || '📰';
@@ -61,7 +66,7 @@ export default async function CategoriaPage({
   const categorySchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `${categoriaNome} - Noticias de Futebol`,
+    name: `${categoriaNome} - Notícias de Futebol`,
     description: categoriaDescricao,
     url: `https://fut-lance.vercel.app/categoria/${params.slug}`,
     isPartOf: {
@@ -78,20 +83,20 @@ export default async function CategoriaPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}
       />
 
-      <nav className="text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-white">Inicio</Link>
-        <span className="mx-2">/</span>
+      <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-white transition-colors">Início</Link>
+        <span className="text-gray-600">/</span>
         <span className="text-gray-300">{categoriaNome}</span>
       </nav>
 
       <div className="mb-8">
         <span className="text-5xl mb-4 block">{icon}</span>
-        <h1 className="text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
         <p className="text-gray-400">{categoriaDescricao}</p>
       </div>
 
       {noticias.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {noticias.map((noticia: any) => (
             <CardNoticia
               key={noticia.id}
@@ -106,11 +111,15 @@ export default async function CategoriaPage({
         </div>
       ) : (
         <div className="text-center py-16">
+          <span className="text-5xl block mb-4">{icon}</span>
           <p className="text-gray-400 text-lg">
-            Nenhuma noticia encontrada nesta categoria.
+            Nenhuma notícia encontrada nesta categoria.
           </p>
-          <Link href="/" className="text-fut-green hover:text-green-400 font-semibold mt-4 inline-block">
-            Voltar para a pagina inicial
+          <Link href="/" className="inline-flex items-center gap-2 text-fut-green hover:text-green-400 font-semibold mt-4">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Voltar para a página inicial
           </Link>
         </div>
       )}

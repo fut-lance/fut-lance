@@ -20,21 +20,25 @@ export async function GET() {
   try {
     const token = await getAdminToken();
     if (!token) {
-      return NextResponse.json({ transmissoes_ativas: true });
+      return NextResponse.json({ transmissoes_ativas: true, debug: 'no token' });
     }
 
     const res = await fetch(`${STRAPI_URL}/content-manager/single-types/api::configuracao.configuracao`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}`, 'Cache-Control': 'no-cache' },
+      cache: 'no-store',
     });
     const data = await res.json();
 
     if (data.data) {
-      return NextResponse.json({ transmissoes_ativas: data.data.transmissoes_ativas !== false });
+      return NextResponse.json({
+        transmissoes_ativas: data.data.transmissoes_ativas !== false,
+        debug: data.data.transmissoes_ativas,
+      });
     }
 
-    return NextResponse.json({ transmissoes_ativas: true });
+    return NextResponse.json({ transmissoes_ativas: true, debug: 'no data field' });
   } catch {
-    return NextResponse.json({ transmissoes_ativas: true });
+    return NextResponse.json({ transmissoes_ativas: true, debug: 'catch error' });
   }
 }
 

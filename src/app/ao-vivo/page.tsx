@@ -18,12 +18,10 @@ export default function AoVivoPage() {
   const [transmissoesAtivas, setTransmissoesAtivas] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
-    
-    fetch(`${STRAPI_URL}/api/configuracao`)
+    fetch('/api/configuracao')
       .then(res => res.json())
       .then(data => {
-        const ativas = data.data?.transmissoes_ativas !== false;
+        const ativas = data.transmissoes_ativas !== false;
         setTransmissoesAtivas(ativas);
         
         if (ativas) {

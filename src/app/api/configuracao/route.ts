@@ -6,34 +6,36 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-
 const STRAPI_EMAIL = process.env.STRAPI_ADMIN_EMAIL || 'rafaelmelegari86@gmail.com';
 const STRAPI_PASSWORD = process.env.STRAPI_ADMIN_PASSWORD || 'funil1315rR#$';
 
-async function strapiRequest(method: string, path: string, body?: object) {
-  const loginRes = await fetch(`${STRAPI_URL}/admin/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: STRAPI_EMAIL, password: STRAPI_PASSWORD }),
-  });
-  const loginData = await loginRes.json();
-  const token = loginData.data?.token;
-  if (!token) throw new Error('No token');
-
-  const opts: RequestInit = {
-    method,
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    cache: 'no-store',
-  };
-  if (body) opts.body = JSON.stringify(body);
-
-  const res = await fetch(`${STRAPI_URL}${path}?_t=${Date.now()}`, opts);
-  return res.json();
-}
-
 export async function GET() {
   try {
-    const data = await strapiRequest('GET', '/content-manager/single-types/api::configuracao.configuracao');
-    const value = data.data?.transmissoes_ativas;
-    return NextResponse.json({ transmissoes_ativas: value !== false });
-  } catch {
-    return NextResponse.json({ transmissoes_ativas: true });
+    const loginRes = await fetch(`${STRAPI_URL}/admin/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: STRAPI_EMAIL, password: STRAPI_PASSWORD }),
+      signal: AbortSignal.timeout(20000),
+    });
+    const loginData = await loginRes.json();
+    const token = loginData.data?.token;
+
+    if (!token) {
+      return NextResponse.json({ transmissoes_ativas: true, error: 'no token' });
+    }
+
+    const res = await fetch(`${STRAPI_URL}/content-manager/single-types/api::configuracao.configuracao?_t=${Date.now()}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store',
+      signal: AbortSignal.timeout(20000),
+    });
+    const data = await res.json();
+
+    if (data.data) {
+      return NextResponse.json({ transmissoes_ativas: data.data.transmissoes_ativas === true });
+    }
+
+    return NextResponse.json({ transmissoes_ativas: true, error: 'no data', raw: JSON.stringify(data).substring(0, 200) });
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : 'unknown';
+    return NextResponse.json({ transmissoes_ativas: true, error: msg });
   }
 }
 
@@ -41,22 +43,33 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
 
-    const updateData = await strapiRequest('PUT', '/content-manager/single-types/api::configuracao.configuracao', {
-      transmissoes_ativas: body.transmissoes_ativas,
+    const loginRes = await fetch(`${STRAPI_URL}/admin/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: STRAPI_EMAIL, password: STRAPI_PASSWORD }),
+      signal: AbortSignal.timeout(20000),
     });
+    const loginData = await loginRes.json();
+    const token = loginData.data?.token;
 
-    const newValue = updateData.data?.transmissoes_ativas ?? body.transmissoes_ativas;
+    if (!token) {
+      return NextResponse.json({ error: 'No token' }, { status: 500 });
+    }
 
-    await new Promise(r => setTimeout(r, 2000));
-
-    const verifyData = await strapiRequest('GET', '/content-manager/single-types/api::configuracao.configuracao');
-    const verified = verifyData.data?.transmissoes_ativas;
+    const updateRes = await fetch(`${STRAPI_URL}/content-manager/single-types/api::configuracao.configuracao`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ transmissoes_ativas: body.transmissoes_ativas }),
+      signal: AbortSignal.timeout(20000),
+    });
+    const updateData = await updateRes.json();
 
     return NextResponse.json({
       success: true,
-      transmissoes_ativas: verified !== undefined ? verified : newValue,
+      transmissoes_ativas: updateData.data?.transmissoes_ativas ?? body.transmissoes_ativas,
     });
-  } catch {
-    return NextResponse.json({ error: 'Failed' }, { status: 500 });
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : 'unknown';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

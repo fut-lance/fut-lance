@@ -112,6 +112,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#00E676" />
+        <meta name="google-site-verification" content="q8QifoOx5_Pxx91Cm7CY-rhcleJ5xoeHzFbF65LV7Js" />
       </head>
       <body className={inter.className}>
         <Header />

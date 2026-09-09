@@ -8,6 +8,25 @@ interface PlayerStreamProps {
   titulo: string;
 }
 
+function isYouTubeUrl(url: string): boolean {
+  return url.includes('youtube.com/watch') || url.includes('youtu.be/') || url.includes('youtube.com/live/');
+}
+
+function getYouTubeEmbedUrl(url: string): string {
+  let videoId = '';
+  
+  if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1]?.split('?')[0] || '';
+  } else if (url.includes('youtube.com/watch')) {
+    const params = new URLSearchParams(url.split('?')[1] || '');
+    videoId = params.get('v') || '';
+  } else if (url.includes('youtube.com/live/')) {
+    videoId = url.split('youtube.com/live/')[1]?.split('?')[0] || '';
+  }
+
+  return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+}
+
 export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,6 +60,29 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
     return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
   }, []);
 
+  // Se for URL do YouTube, renderiza iframe
+  if (isYouTubeUrl(url)) {
+    return (
+      <div ref={containerRef} className="bg-black rounded-xl overflow-hidden shadow-2xl">
+        <div className="bg-gradient-to-r from-red-600 to-red-500 px-4 py-2.5 flex items-center gap-2">
+          <span className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
+          <span className="text-white font-bold text-sm truncate">{titulo}</span>
+          <span className="text-red-200 text-xs ml-auto">YouTube</span>
+        </div>
+        <div className="relative">
+          <iframe
+            src={getYouTubeEmbedUrl(url)}
+            className="w-full aspect-video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={titulo}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Player HLS padrão
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !url) return;

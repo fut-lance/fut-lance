@@ -24,6 +24,45 @@ export async function generateMetadata({
   };
 }
 
+const tabelaBrasileirao = [
+  { pos: 1, time: 'Palmeiras', pts: 52, j: 25, v: 15, e: 7, d: 3, gp: 45, gc: 21, sg: 24 },
+  { pos: 2, time: 'Flamengo', pts: 51, j: 25, v: 15, e: 6, d: 4, gp: 50, gc: 21, sg: 29 },
+  { pos: 3, time: 'Athletico-PR', pts: 45, j: 25, v: 13, e: 6, d: 6, gp: 37, gc: 25, sg: 12 },
+  { pos: 4, time: 'Fluminense', pts: 42, j: 25, v: 11, e: 9, d: 5, gp: 39, gc: 32, sg: 7 },
+  { pos: 5, time: 'Bahia', pts: 40, j: 25, v: 10, e: 10, d: 5, gp: 37, gc: 30, sg: 7 },
+  { pos: 6, time: 'Cruzeiro', pts: 39, j: 25, v: 11, e: 6, d: 8, gp: 35, gc: 36, sg: -1 },
+  { pos: 7, time: 'Coritiba', pts: 37, j: 25, v: 10, e: 7, d: 8, gp: 33, gc: 33, sg: 0 },
+  { pos: 8, time: 'Atlético-MG', pts: 36, j: 24, v: 10, e: 6, d: 8, gp: 32, gc: 28, sg: 4 },
+  { pos: 9, time: 'Bragantino', pts: 35, j: 24, v: 10, e: 5, d: 9, gp: 29, gc: 25, sg: 4 },
+  { pos: 10, time: 'Corinthians', pts: 32, j: 25, v: 8, e: 8, d: 9, gp: 26, gc: 25, sg: 1 },
+  { pos: 11, time: 'Botafogo', pts: 30, j: 24, v: 8, e: 6, d: 10, gp: 37, gc: 40, sg: -3 },
+  { pos: 12, time: 'São Paulo', pts: 30, j: 24, v: 8, e: 6, d: 10, gp: 29, gc: 28, sg: 1 },
+  { pos: 13, time: 'Santos', pts: 29, j: 24, v: 7, e: 8, d: 9, gp: 34, gc: 36, sg: -2 },
+  { pos: 14, time: 'Vitória', pts: 29, j: 25, v: 8, e: 5, d: 12, gp: 24, gc: 37, sg: -13 },
+  { pos: 15, time: 'Grêmio', pts: 28, j: 24, v: 7, e: 7, d: 10, gp: 27, gc: 32, sg: -5 },
+  { pos: 16, time: 'Vasco', pts: 25, j: 24, v: 6, e: 7, d: 11, gp: 27, gc: 39, sg: -12 },
+  { pos: 17, time: 'Mirassol', pts: 25, j: 25, v: 6, e: 7, d: 12, gp: 27, gc: 39, sg: -12 },
+  { pos: 18, time: 'Internacional', pts: 25, j: 25, v: 5, e: 10, d: 10, gp: 26, gc: 31, sg: -5 },
+  { pos: 19, time: 'Remo', pts: 23, j: 25, v: 5, e: 8, d: 12, gp: 30, gc: 42, sg: -12 },
+  { pos: 20, time: 'Chapecoense', pts: 14, j: 24, v: 2, e: 8, d: 14, gp: 25, gc: 49, sg: -24 },
+];
+
+function getZonaColor(pos: number): string {
+  if (pos <= 4) return 'bg-green-500/10 text-green-400';
+  if (pos === 5) return 'bg-blue-500/10 text-blue-400';
+  if (pos >= 6 && pos <= 9) return 'bg-yellow-500/10 text-yellow-400';
+  if (pos >= 17) return 'bg-red-500/10 text-red-400';
+  return '';
+}
+
+function getZonaLabel(pos: number): string {
+  if (pos <= 4) return 'Libertadores';
+  if (pos === 5) return 'Libertadores ( Prévia )';
+  if (pos >= 6 && pos <= 9) return 'Sul-Americana';
+  if (pos >= 17) return 'Rebaixamento';
+  return '';
+}
+
 export default async function CategoriaPage({
   params,
 }: {
@@ -62,6 +101,7 @@ export default async function CategoriaPage({
   };
 
   const icon = categoriaIcons[params.slug] || '📰';
+  const isBrasileirao = params.slug === 'brasileirao';
 
   const categorySchema = {
     '@context': 'https://schema.org',
@@ -94,6 +134,63 @@ export default async function CategoriaPage({
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
         <p className="text-gray-400">{categoriaDescricao}</p>
       </div>
+
+      {isBrasileirao && (
+        <section className="mb-10 bg-fut-darker rounded-xl border border-gray-800 overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-800 flex items-center gap-3">
+            <span className="text-2xl">🏆</span>
+            <div>
+              <h2 className="text-xl font-bold text-white">Classificação do Brasileirão 2026</h2>
+              <p className="text-gray-500 text-xs">Rodada 26 • Atualizado em 08/09/2026</p>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-gray-500 text-xs uppercase border-b border-gray-800">
+                  <th className="text-left px-4 py-3 w-8">#</th>
+                  <th className="text-left px-4 py-3">Time</th>
+                  <th className="text-center px-3 py-3">PTS</th>
+                  <th className="text-center px-3 py-3 hidden sm:table-cell">J</th>
+                  <th className="text-center px-3 py-3 hidden sm:table-cell">V</th>
+                  <th className="text-center px-3 py-3 hidden sm:table-cell">E</th>
+                  <th className="text-center px-3 py-3 hidden sm:table-cell">D</th>
+                  <th className="text-center px-3 py-3 hidden md:table-cell">GP</th>
+                  <th className="text-center px-3 py-3 hidden md:table-cell">GC</th>
+                  <th className="text-center px-3 py-3">SG</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tabelaBrasileirao.map((row) => (
+                  <tr
+                    key={row.pos}
+                    className={`border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors ${getZonaColor(row.pos)}`}
+                  >
+                    <td className="px-4 py-3 font-bold">{row.pos}</td>
+                    <td className="px-4 py-3 font-semibold text-white">{row.time}</td>
+                    <td className="text-center px-3 py-3 font-bold text-fut-green">{row.pts}</td>
+                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.j}</td>
+                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.v}</td>
+                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.e}</td>
+                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.d}</td>
+                    <td className="text-center px-3 py-3 hidden md:table-cell text-gray-400">{row.gp}</td>
+                    <td className="text-center px-3 py-3 hidden md:table-cell text-gray-400">{row.gc}</td>
+                    <td className={`text-center px-3 py-3 font-bold ${row.sg > 0 ? 'text-green-400' : row.sg < 0 ? 'text-red-400' : 'text-gray-400'}`}>
+                      {row.sg > 0 ? `+${row.sg}` : row.sg}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-6 py-3 border-t border-gray-800 flex flex-wrap gap-4 text-xs text-gray-500">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500 inline-block"></span> Libertadores</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500 inline-block"></span> Pré-Libertadores</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-yellow-500 inline-block"></span> Sul-Americana</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block"></span> Rebaixamento</span>
+          </div>
+        </section>
+      )}
 
       {noticias.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

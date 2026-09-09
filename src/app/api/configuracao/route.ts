@@ -23,14 +23,13 @@ export async function GET() {
       return NextResponse.json({ transmissoes_ativas: true });
     }
 
-    const res = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::configuracao.configuracao`, {
+    const res = await fetch(`${STRAPI_URL}/content-manager/single-types/api::configuracao.configuracao`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
 
-    const results = data.results || data.data || [];
-    if (results.length > 0) {
-      return NextResponse.json({ transmissoes_ativas: results[0].transmissoes_ativas !== false });
+    if (data.data) {
+      return NextResponse.json({ transmissoes_ativas: data.data.transmissoes_ativas !== false });
     }
 
     return NextResponse.json({ transmissoes_ativas: true });
@@ -47,27 +46,20 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Auth failed' }, { status: 500 });
     }
 
-    const listRes = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::configuracao.configuracao`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const updateRes = await fetch(`${STRAPI_URL}/content-manager/single-types/api::configuracao.configuracao`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ transmissoes_ativas: body.transmissoes_ativas }),
     });
-    const listData = await listRes.json();
+    const updateData = await updateRes.json();
 
-    const results = listData.results || listData.data || [];
-    if (results.length > 0) {
-      const docId = results[0].documentId;
-      const updateRes = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::configuracao.configuracao/${docId}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data: { transmissoes_ativas: body.transmissoes_ativas } }),
-      });
-      const updateData = await updateRes.json();
-      return NextResponse.json({ success: true, transmissoes_ativas: updateData.data?.transmissoes_ativas ?? body.transmissoes_ativas });
-    }
-
-    return NextResponse.json({ success: true, transmissoes_ativas: body.transmissoes_ativas });
+    return NextResponse.json({
+      success: true,
+      transmissoes_ativas: updateData.data?.transmissoes_ativas ?? body.transmissoes_ativas,
+    });
   } catch {
     return NextResponse.json({ error: 'Failed' }, { status: 500 });
   }

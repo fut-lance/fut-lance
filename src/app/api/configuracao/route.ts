@@ -28,8 +28,9 @@ export async function GET() {
     });
     const data = await res.json();
 
-    if (data.data && data.data.length > 0) {
-      return NextResponse.json({ transmissoes_ativas: data.data[0].transmissoes_ativas !== false });
+    const results = data.results || data.data || [];
+    if (results.length > 0) {
+      return NextResponse.json({ transmissoes_ativas: results[0].transmissoes_ativas !== false });
     }
 
     return NextResponse.json({ transmissoes_ativas: true });
@@ -51,9 +52,10 @@ export async function PUT(request: Request) {
     });
     const listData = await listRes.json();
 
-    if (listData.data && listData.data.length > 0) {
-      const docId = listData.data[0].documentId;
-      await fetch(`${STRAPI_URL}/content-manager/collection-types/api::configuracao.configuracao/${docId}`, {
+    const results = listData.results || listData.data || [];
+    if (results.length > 0) {
+      const docId = results[0].documentId;
+      const updateRes = await fetch(`${STRAPI_URL}/content-manager/collection-types/api::configuracao.configuracao/${docId}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -61,6 +63,8 @@ export async function PUT(request: Request) {
         },
         body: JSON.stringify({ data: { transmissoes_ativas: body.transmissoes_ativas } }),
       });
+      const updateData = await updateRes.json();
+      return NextResponse.json({ success: true, transmissoes_ativas: updateData.data?.transmissoes_ativas ?? body.transmissoes_ativas });
     }
 
     return NextResponse.json({ success: true, transmissoes_ativas: body.transmissoes_ativas });

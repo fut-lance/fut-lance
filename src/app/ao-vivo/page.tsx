@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PlayerStream from '@/components/PlayerStream';
+import Script from 'next/script';
 
 interface Channel {
   name: string;
@@ -53,87 +54,151 @@ export default function AoVivoPage() {
     ? channels
     : channels.filter(c => c.category === selectedCategory);
 
+  const aoVivoSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Futebol Ao Vivo - FUT LANCE',
+    description: 'Assista aos canais de futebol ao vivo. ESPN, SporTV, Premiere, Band Sports e mais.',
+    url: 'https://fut-lance.vercel.app/ao-vivo',
+  };
+
   if (transmissoesAtivas === false) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Ao Vivo</h1>
-        <p className="text-gray-400 mb-8">Assista aos canais de futebol ao vivo.</p>
-        <section className="bg-fut-darker rounded-lg p-12 text-center">
-          <p className="text-gray-400 text-lg">As transmissoes estao temporariamente indisponiveis.</p>
-          <p className="text-gray-500 text-sm mt-2">Volte em breve!</p>
-        </section>
-      </div>
+      <>
+        <Script
+          id="ao-vivo-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(aoVivoSchema) }}
+        />
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">🔴 Ao Vivo</h1>
+            <p className="text-gray-400">Assista aos canais de futebol ao vivo.</p>
+          </div>
+          <section className="bg-fut-darker rounded-xl p-12 text-center border border-gray-800">
+            <span className="text-5xl block mb-4">📺</span>
+            <p className="text-gray-400 text-lg mb-2">As transmissões estão temporariamente indisponíveis.</p>
+            <p className="text-gray-500 text-sm">Volte em breve!</p>
+          </section>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-white mb-2">Ao Vivo</h1>
-      <p className="text-gray-400 mb-8">Assista aos canais de futebol ao vivo.</p>
-
-      {selectedChannel && (
-        <section className="mb-8">
-          <PlayerStream url={selectedChannel.url} titulo={selectedChannel.name} />
-        </section>
-      )}
-
-      {!selectedChannel && !loading && (
-        <section className="mb-8 bg-fut-darker rounded-lg p-8 text-center">
-          <p className="text-gray-400">Selecione um canal abaixo para assistir.</p>
-        </section>
-      )}
-
-      {loading && (
-        <section className="mb-8 bg-fut-darker rounded-lg p-8 text-center">
-          <p className="text-gray-400">Carregando canais...</p>
-        </section>
-      )}
-
-      <div className="flex flex-wrap gap-2 mb-6">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              selectedCategory === cat
-                ? 'bg-fut-accent text-white'
-                : 'bg-fut-dark text-gray-400 hover:bg-fut-darker hover:text-white'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {filtered.map((ch, i) => (
-          <button
-            key={i}
-            onClick={() => setSelectedChannel(ch)}
-            className={`p-3 rounded-lg text-left transition-all ${
-              selectedChannel?.name === ch.name
-                ? 'bg-fut-accent text-white ring-2 ring-fut-accent'
-                : 'bg-fut-dark text-gray-300 hover:bg-fut-darker hover:text-white'
-            }`}
-          >
-            <p className="font-bold text-sm truncate">{ch.name}</p>
-            <p className="text-xs text-gray-500 mt-1">{ch.quality}</p>
-          </button>
-        ))}
-      </div>
-
-      {filtered.length === 0 && !loading && (
-        <p className="text-gray-500 text-center mt-8">Nenhum canal encontrado.</p>
-      )}
-
-      <section className="mt-12 bg-fut-darker rounded-lg p-8">
-        <h2 className="text-2xl font-bold text-white mb-4">Sobre</h2>
-        <div className="text-gray-300 space-y-2 text-sm">
-          <p>• Os canais sao carregados automaticamente.</p>
-          <p>• Funciona melhor no Google Chrome.</p>
-          <p>• Caso nao carregue, tente outro canal ou recarregue a pagina.</p>
+    <>
+      <Script
+        id="ao-vivo-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aoVivoSchema) }}
+      />
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="w-3 h-3 bg-fut-accent rounded-full animate-pulse" />
+            <h1 className="text-3xl md:text-4xl font-bold text-white">Ao Vivo Agora</h1>
+          </div>
+          <p className="text-gray-400">Assista aos canais de futebol ao vivo. Selecione um canal para começar.</p>
         </div>
-      </section>
-    </div>
+
+        {/* Player */}
+        {selectedChannel && (
+          <section className="mb-8">
+            <PlayerStream url={selectedChannel.url} titulo={selectedChannel.name} />
+          </section>
+        )}
+
+        {/* Placeholder */}
+        {!selectedChannel && !loading && (
+          <section className="mb-8 bg-fut-darker rounded-xl p-10 text-center border border-gray-800">
+            <span className="text-5xl block mb-4">📺</span>
+            <p className="text-gray-400 text-lg">Selecione um canal abaixo para assistir.</p>
+          </section>
+        )}
+
+        {/* Loading */}
+        {loading && (
+          <section className="mb-8 bg-fut-darker rounded-xl p-10 text-center border border-gray-800">
+            <div className="inline-block w-8 h-8 border-2 border-fut-green border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="text-gray-400">Carregando canais...</p>
+          </section>
+        )}
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {categories.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === cat
+                  ? 'bg-fut-accent text-white shadow-lg shadow-fut-accent/20'
+                  : 'bg-fut-dark text-gray-400 hover:bg-fut-darker hover:text-white border border-gray-800'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Channels Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {filtered.map((ch, i) => (
+            <button
+              key={i}
+              onClick={() => setSelectedChannel(ch)}
+              className={`p-4 rounded-xl text-left transition-all border ${
+                selectedChannel?.name === ch.name
+                  ? 'bg-fut-accent text-white ring-2 ring-fut-accent border-fut-accent shadow-lg shadow-fut-accent/20'
+                  : 'bg-fut-dark text-gray-300 hover:bg-fut-darker hover:text-white border-gray-800 hover:border-gray-700'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                  selectedChannel?.name === ch.name ? 'bg-white/20' : 'bg-fut-darker'
+                }`}>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" />
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <p className="font-bold text-sm truncate">{ch.name}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${
+                      ch.quality === 'FHD' ? 'bg-green-500/20 text-green-400' :
+                      ch.quality === 'HD' ? 'bg-blue-500/20 text-blue-400' :
+                      'bg-gray-500/20 text-gray-400'
+                    }`}>
+                      {ch.quality}
+                    </span>
+                    <span className="text-xs text-gray-500">{ch.category}</span>
+                  </div>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filtered.length === 0 && !loading && (
+          <div className="text-center py-12">
+            <span className="text-5xl block mb-4">🔍</span>
+            <p className="text-gray-400 text-lg">Nenhum canal encontrado nesta categoria.</p>
+          </div>
+        )}
+
+        {/* Info */}
+        <section className="mt-12 bg-fut-darker rounded-xl p-6 border border-gray-800">
+          <h2 className="text-lg font-bold text-white mb-3">ℹ️ Informações</h2>
+          <div className="text-gray-400 space-y-2 text-sm">
+            <p>• Os canais são carregados automaticamente.</p>
+            <p>• Funciona melhor no Google Chrome.</p>
+            <p>• Caso não carregue, tente outro canal ou recarregue a página.</p>
+            <p>• Para melhor experiência, use tela cheia no player.</p>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

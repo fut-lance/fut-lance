@@ -5,10 +5,16 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Todas as Noticias de Futebol',
-  description: 'Confira todas as ultimas noticias de futebol do Brasil e do mundo. Brasileirao, Libertadores, Champions League, transferencias e mais.',
+  title: 'Todas as Notícias de Futebol',
+  description: 'Confira todas as últimas notícias de futebol do Brasil e do mundo. Brasileirão, Libertadores, Champions League, transferências e muito mais.',
+  keywords: 'notícias de futebol, brasileirão, libertadores, champions league, transferências, mercado da bola',
   alternates: {
     canonical: 'https://fut-lance.vercel.app/noticias',
+  },
+  openGraph: {
+    title: 'Todas as Notícias de Futebol | FUT LANCE',
+    description: 'Confira todas as últimas notícias de futebol do Brasil e do mundo.',
+    url: 'https://fut-lance.vercel.app/noticias',
   },
 };
 
@@ -19,22 +25,24 @@ export default async function NoticiasPage() {
     const data = await getNoticias(1, 20);
     noticias = data?.data || [];
   } catch (error) {
-    console.error('Erro ao buscar noticias:', error);
+    console.error('Erro ao buscar notícias:', error);
   }
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-white mb-2">
-        Todas as Noticias
-      </h1>
-      <p className="text-gray-400 mb-8">
-        Fique por dentro de tudo que acontece no mundo do futebol.
-      </p>
+      <div className="mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+          Todas as Notícias
+        </h1>
+        <p className="text-gray-400">
+          Fique por dentro de tudo que acontece no mundo do futebol.
+        </p>
+      </div>
 
       {noticias.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {noticias.map((noticia: any) => (
             <CardNoticia
               key={noticia.id}
@@ -48,9 +56,10 @@ export default async function NoticiasPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-400 text-lg">Nenhuma noticia encontrada.</p>
-          <p className="text-gray-500 mt-2">Cadastre noticias no Strapi para que aparecam aqui.</p>
+        <div className="text-center py-16">
+          <span className="text-5xl block mb-4">📰</span>
+          <p className="text-gray-400 text-lg">Nenhuma notícia encontrada.</p>
+          <p className="text-gray-500 mt-2">Cadastre notícias no Strapi para que apareçam aqui.</p>
         </div>
       )}
     </div>

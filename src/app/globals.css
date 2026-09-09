@@ -14,17 +14,73 @@ body {
   min-height: 100vh;
 }
 
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Prose overrides for article content */
+.prose {
+  color: #d1d5db;
+  line-height: 1.75;
+}
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: #ffffff;
+  font-weight: 700;
+}
+.prose a {
+  color: #00a651;
+  text-decoration: underline;
+}
+.prose a:hover {
+  color: #00c964;
+}
+.prose p {
+  margin-bottom: 1.25em;
+}
+.prose img {
+  border-radius: 0.5rem;
+}
+.prose blockquote {
+  border-left-color: #00a651;
+  color: #9ca3af;
+}
+.prose ul, .prose ol {
+  padding-left: 1.5em;
+}
+.prose li {
+  margin-bottom: 0.5em;
+}
+.prose strong {
+  color: #ffffff;
+}
+
 @layer components {
   .btn-primary {
-    @apply bg-fut-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors;
+    @apply bg-fut-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors;
   }
 
   .btn-accent {
-    @apply bg-fut-accent hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors;
+    @apply bg-fut-accent hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors;
   }
 
   .card {
-    @apply bg-fut-darker rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow;
+    @apply bg-fut-darker rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-gray-800 hover:border-gray-700;
   }
 
   .badge {

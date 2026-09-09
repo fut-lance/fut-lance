@@ -3,57 +3,56 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+const navLinks = [
+  { href: '/', label: 'Início' },
+  { href: '/ao-vivo', label: 'Ao Vivo', live: true },
+  { href: '/noticias', label: 'Notícias' },
+  { href: '/categoria/brasileirao', label: 'Brasileirão' },
+  { href: '/categoria/libertadores', label: 'Libertadores' },
+  { href: '/categoria/champions-league', label: 'Champions' },
+  { href: '/categoria/transferencias', label: 'Transferências' },
+];
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-fut-dark border-b border-gray-800 sticky top-0 z-50">
+    <header className="bg-fut-dark/95 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-3xl">⚽</span>
-            <span className="text-2xl font-bold">
+            <span className="text-2xl font-extrabold tracking-tight">
               <span className="text-fut-green">FUT</span>
               <span className="text-white">LANCE</span>
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-            >
-              Início
-            </Link>
-            <Link
-              href="/noticias"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-            >
-              Notícias
-            </Link>
-            <Link
-              href="/categoria/brasileirao"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-            >
-              Brasileirão
-            </Link>
-            <Link
-              href="/categoria/libertadores"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-            >
-              Libertadores
-            </Link>
-            <Link
-              href="/ao-vivo"
-              className="bg-fut-accent hover:bg-red-600 text-white px-4 py-2 rounded font-bold transition-colors flex items-center gap-2"
-            >
-              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-              AO VIVO
-            </Link>
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) =>
+              link.live ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="bg-fut-accent hover:bg-red-600 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center gap-2 text-sm ml-2"
+                >
+                  <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  {link.label.toUpperCase()}
+                </Link>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-gray-300 hover:text-fut-green hover:bg-fut-darker/50 px-3 py-2 rounded-lg transition-all font-medium text-sm"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <button
-            className="md:hidden text-gray-300 p-2"
+            className="lg:hidden text-gray-300 p-2 hover:bg-fut-darker rounded-lg transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
@@ -70,43 +69,22 @@ export default function Header() {
         </div>
 
         {menuOpen && (
-          <nav className="md:hidden pb-4 border-t border-gray-800 pt-4 flex flex-col gap-4">
-            <Link
-              href="/"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-              onClick={() => setMenuOpen(false)}
-            >
-              Início
-            </Link>
-            <Link
-              href="/noticias"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-              onClick={() => setMenuOpen(false)}
-            >
-              Notícias
-            </Link>
-            <Link
-              href="/categoria/brasileirao"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-              onClick={() => setMenuOpen(false)}
-            >
-              Brasileirão
-            </Link>
-            <Link
-              href="/categoria/libertadores"
-              className="text-gray-300 hover:text-fut-green transition-colors font-medium"
-              onClick={() => setMenuOpen(false)}
-            >
-              Libertadores
-            </Link>
-            <Link
-              href="/ao-vivo"
-              className="bg-fut-accent hover:bg-red-600 text-white px-4 py-2 rounded font-bold transition-colors flex items-center gap-2 w-fit"
-              onClick={() => setMenuOpen(false)}
-            >
-              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-              AO VIVO
-            </Link>
+          <nav className="lg:hidden pb-4 border-t border-gray-800 pt-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`transition-colors font-medium py-3 px-4 rounded-lg ${
+                  link.live
+                    ? 'bg-fut-accent text-white flex items-center gap-2'
+                    : 'text-gray-300 hover:text-fut-green hover:bg-fut-darker/50'
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.live && <span className="w-2 h-2 bg-white rounded-full animate-pulse" />}
+                {link.live ? link.label.toUpperCase() : link.label}
+              </Link>
+            ))}
           </nav>
         )}
       </div>

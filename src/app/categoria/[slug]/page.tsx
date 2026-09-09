@@ -28,22 +28,22 @@ const tabelaBrasileirao = [
   { pos: 1, time: 'Palmeiras', pts: 52, j: 25, v: 15, e: 7, d: 3, gp: 45, gc: 21, sg: 24 },
   { pos: 2, time: 'Flamengo', pts: 51, j: 25, v: 15, e: 6, d: 4, gp: 50, gc: 21, sg: 29 },
   { pos: 3, time: 'Athletico-PR', pts: 45, j: 25, v: 13, e: 6, d: 6, gp: 37, gc: 25, sg: 12 },
-  { pos: 4, time: 'Fluminense', pts: 42, j: 25, v: 11, e: 9, d: 5, gp: 39, gc: 32, sg: 7 },
-  { pos: 5, time: 'Bahia', pts: 40, j: 25, v: 10, e: 10, d: 5, gp: 37, gc: 30, sg: 7 },
+  { pos: 4, time: 'Fluminense', pts: 45, j: 26, v: 12, e: 9, d: 5, gp: 40, gc: 32, sg: 8 },
+  { pos: 5, time: 'Bahia', pts: 43, j: 26, v: 11, e: 10, d: 5, gp: 40, gc: 32, sg: 8 },
   { pos: 6, time: 'Cruzeiro', pts: 39, j: 25, v: 11, e: 6, d: 8, gp: 35, gc: 36, sg: -1 },
   { pos: 7, time: 'Coritiba', pts: 37, j: 25, v: 10, e: 7, d: 8, gp: 33, gc: 33, sg: 0 },
-  { pos: 8, time: 'Atlético-MG', pts: 36, j: 24, v: 10, e: 6, d: 8, gp: 32, gc: 28, sg: 4 },
-  { pos: 9, time: 'Bragantino', pts: 35, j: 24, v: 10, e: 5, d: 9, gp: 29, gc: 25, sg: 4 },
+  { pos: 8, time: 'Atlético-MG', pts: 36, j: 25, v: 10, e: 6, d: 9, gp: 32, gc: 30, sg: 2 },
+  { pos: 9, time: 'Bragantino', pts: 35, j: 25, v: 10, e: 5, d: 10, gp: 31, gc: 28, sg: 3 },
   { pos: 10, time: 'Corinthians', pts: 32, j: 25, v: 8, e: 8, d: 9, gp: 26, gc: 25, sg: 1 },
-  { pos: 11, time: 'Botafogo', pts: 30, j: 24, v: 8, e: 6, d: 10, gp: 37, gc: 40, sg: -3 },
-  { pos: 12, time: 'São Paulo', pts: 30, j: 24, v: 8, e: 6, d: 10, gp: 29, gc: 28, sg: 1 },
-  { pos: 13, time: 'Santos', pts: 29, j: 24, v: 7, e: 8, d: 9, gp: 34, gc: 36, sg: -2 },
+  { pos: 11, time: 'Santos', pts: 32, j: 25, v: 8, e: 8, d: 9, gp: 37, gc: 38, sg: -1 },
+  { pos: 12, time: 'Botafogo', pts: 31, j: 25, v: 8, e: 7, d: 10, gp: 37, gc: 40, sg: -3 },
+  { pos: 13, time: 'São Paulo', pts: 30, j: 24, v: 8, e: 6, d: 10, gp: 29, gc: 28, sg: 1 },
   { pos: 14, time: 'Vitória', pts: 29, j: 25, v: 8, e: 5, d: 12, gp: 24, gc: 37, sg: -13 },
   { pos: 15, time: 'Grêmio', pts: 28, j: 24, v: 7, e: 7, d: 10, gp: 27, gc: 32, sg: -5 },
-  { pos: 16, time: 'Vasco', pts: 25, j: 24, v: 6, e: 7, d: 11, gp: 27, gc: 39, sg: -12 },
-  { pos: 17, time: 'Mirassol', pts: 25, j: 25, v: 6, e: 7, d: 12, gp: 27, gc: 39, sg: -12 },
-  { pos: 18, time: 'Internacional', pts: 25, j: 25, v: 5, e: 10, d: 10, gp: 26, gc: 31, sg: -5 },
-  { pos: 19, time: 'Remo', pts: 23, j: 25, v: 5, e: 8, d: 12, gp: 30, gc: 42, sg: -12 },
+  { pos: 16, time: 'Mirassol', pts: 28, j: 26, v: 7, e: 7, d: 12, gp: 29, gc: 40, sg: -11 },
+  { pos: 17, time: 'Vasco', pts: 25, j: 25, v: 6, e: 7, d: 12, gp: 27, gc: 40, sg: -13 },
+  { pos: 18, time: 'Internacional', pts: 25, j: 26, v: 5, e: 10, d: 11, gp: 28, gc: 34, sg: -6 },
+  { pos: 19, time: 'Remo', pts: 23, j: 26, v: 5, e: 8, d: 13, gp: 30, gc: 43, sg: -13 },
   { pos: 20, time: 'Chapecoense', pts: 14, j: 24, v: 2, e: 8, d: 14, gp: 25, gc: 49, sg: -24 },
 ];
 
@@ -141,7 +141,7 @@ export default async function CategoriaPage({
             <span className="text-lg">🏆</span>
             <div>
               <h2 className="text-base font-bold text-white">Classificação do Brasileirão 2026</h2>
-              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 08/09/2026</p>
+              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 09/09/2026</p>
             </div>
           </div>
           <div className="overflow-x-auto">

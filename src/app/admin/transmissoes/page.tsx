@@ -12,21 +12,17 @@ export default function AdminTransmissoesPage() {
   const [salvando, setSalvando] = useState(false);
   const [mensagem, setMensagem] = useState('');
 
-  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
-
   useEffect(() => {
     if (autenticado) {
-      fetch(`${STRAPI_URL}/api/configuracao`)
+      fetch('/api/configuracao')
         .then(res => res.json())
         .then(data => {
-          if (data.data) {
-            setAtivas(data.data.transmissoes_ativas !== false);
-          }
+          setAtivas(data.transmissoes_ativas !== false);
           setLoading(false);
         })
         .catch(() => setLoading(false));
     }
-  }, [autenticado, STRAPI_URL]);
+  }, [autenticado]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,19 +37,19 @@ export default function AdminTransmissoesPage() {
     setSalvando(true);
     setMensagem('');
     try {
-      const res = await fetch(`${STRAPI_URL}/api/configuracao`, {
+      const res = await fetch('/api/configuracao', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: { transmissoes_ativas: !ativas } }),
+        body: JSON.stringify({ transmissoes_ativas: !ativas }),
       });
       if (res.ok) {
         setAtivas(!ativas);
         setMensagem(!ativas ? 'Transmissoes ATIVADAS!' : 'Transmissoes DESATIVADAS!');
       } else {
-        setMensagem('Erro ao salvar. Verifique o Strapi.');
+        setMensagem('Erro ao salvar.');
       }
     } catch {
-      setMensagem('Erro de conexao com o Strapi.');
+      setMensagem('Erro de conexao.');
     }
     setSalvando(false);
   };

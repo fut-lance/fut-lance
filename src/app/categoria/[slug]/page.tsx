@@ -137,27 +137,25 @@ export default async function CategoriaPage({
 
       {isBrasileirao && (
         <section className="mb-10 bg-fut-darker rounded-xl border border-gray-800 overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-800 flex items-center gap-3">
-            <span className="text-2xl">🏆</span>
+          <div className="px-4 py-3 border-b border-gray-800 flex items-center gap-2">
+            <span className="text-lg">🏆</span>
             <div>
-              <h2 className="text-xl font-bold text-white">Classificação do Brasileirão 2026</h2>
-              <p className="text-gray-500 text-xs">Rodada 26 • Atualizado em 08/09/2026</p>
+              <h2 className="text-base font-bold text-white">Classificação do Brasileirão 2026</h2>
+              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 08/09/2026</p>
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-xs">
               <thead>
-                <tr className="text-gray-500 text-xs uppercase border-b border-gray-800">
-                  <th className="text-left px-4 py-3 w-8">#</th>
-                  <th className="text-left px-4 py-3">Time</th>
-                  <th className="text-center px-3 py-3">PTS</th>
-                  <th className="text-center px-3 py-3 hidden sm:table-cell">J</th>
-                  <th className="text-center px-3 py-3 hidden sm:table-cell">V</th>
-                  <th className="text-center px-3 py-3 hidden sm:table-cell">E</th>
-                  <th className="text-center px-3 py-3 hidden sm:table-cell">D</th>
-                  <th className="text-center px-3 py-3 hidden md:table-cell">GP</th>
-                  <th className="text-center px-3 py-3 hidden md:table-cell">GC</th>
-                  <th className="text-center px-3 py-3">SG</th>
+                <tr className="text-gray-500 text-[10px] uppercase border-b border-gray-800">
+                  <th className="text-left px-2 py-1.5 w-6">#</th>
+                  <th className="text-left px-2 py-1.5">Time</th>
+                  <th className="text-center px-1.5 py-1.5">P</th>
+                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">J</th>
+                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">V</th>
+                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">E</th>
+                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">D</th>
+                  <th className="text-center px-1.5 py-1.5 hidden md:table-cell">SG</th>
                 </tr>
               </thead>
               <tbody>
@@ -166,16 +164,14 @@ export default async function CategoriaPage({
                     key={row.pos}
                     className={`border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors ${getZonaColor(row.pos)}`}
                   >
-                    <td className="px-4 py-3 font-bold">{row.pos}</td>
-                    <td className="px-4 py-3 font-semibold text-white">{row.time}</td>
-                    <td className="text-center px-3 py-3 font-bold text-fut-green">{row.pts}</td>
-                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.j}</td>
-                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.v}</td>
-                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.e}</td>
-                    <td className="text-center px-3 py-3 hidden sm:table-cell text-gray-400">{row.d}</td>
-                    <td className="text-center px-3 py-3 hidden md:table-cell text-gray-400">{row.gp}</td>
-                    <td className="text-center px-3 py-3 hidden md:table-cell text-gray-400">{row.gc}</td>
-                    <td className={`text-center px-3 py-3 font-bold ${row.sg > 0 ? 'text-green-400' : row.sg < 0 ? 'text-red-400' : 'text-gray-400'}`}>
+                    <td className="px-2 py-1.5 font-bold">{row.pos}</td>
+                    <td className="px-2 py-1.5 font-semibold text-white">{row.time}</td>
+                    <td className="text-center px-1.5 py-1.5 font-bold text-fut-green">{row.pts}</td>
+                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.j}</td>
+                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.v}</td>
+                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.e}</td>
+                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.d}</td>
+                    <td className={`text-center px-1.5 py-1.5 hidden md:table-cell font-bold ${row.sg > 0 ? 'text-green-400' : row.sg < 0 ? 'text-red-400' : 'text-gray-400'}`}>
                       {row.sg > 0 ? `+${row.sg}` : row.sg}
                     </td>
                   </tr>
@@ -183,11 +179,11 @@ export default async function CategoriaPage({
               </tbody>
             </table>
           </div>
-          <div className="px-6 py-3 border-t border-gray-800 flex flex-wrap gap-4 text-xs text-gray-500">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500 inline-block"></span> Libertadores</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500 inline-block"></span> Pré-Libertadores</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-yellow-500 inline-block"></span> Sul-Americana</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block"></span> Rebaixamento</span>
+          <div className="px-4 py-2 border-t border-gray-800 flex flex-wrap gap-3 text-[10px] text-gray-500">
+            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span> Libertadores</span>
+            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block"></span> Pré-Libertadores</span>
+            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span> Sul-Americana</span>
+            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span> Rebaixamento</span>
           </div>
         </section>
       )}

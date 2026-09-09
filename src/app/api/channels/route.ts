@@ -15,7 +15,7 @@ const ALLOWED_CATEGORIES = [
   'Premiere',
   'Band Sports',
   'Combate',
-  'DAZN',
+  'GE TV',
   'Cazé TV',
   'Paramount+',
   'Amazon Prime',
@@ -62,6 +62,8 @@ const fixedChannels: Channel[] = [
   { name: 'Premiere 7 HD', url: 'http://xigfh01.site:80/031532627/513117897/613.m3u8', category: 'Premiere', quality: 'HD' },
   { name: 'Premiere 8 FHD', url: 'http://xigfh01.site:80/031532627/513117897/615.m3u8', category: 'Premiere', quality: 'FHD' },
   { name: 'Premiere 8 HD', url: 'http://xigfh01.site:80/031532627/513117897/616.m3u8', category: 'Premiere', quality: 'HD' },
+  { name: 'GE TV FHD', url: 'http://xigfh01.site:80/031532627/513117897/588.m3u8', category: 'GE TV', quality: 'FHD' },
+  { name: 'GE TV HD', url: 'http://xigfh01.site:80/031532627/513117897/589.m3u8', category: 'GE TV', quality: 'HD' },
   { name: 'Paramount+ 01', url: 'http://xigfh01.site:80/031532627/513117897/618.m3u8', category: 'Paramount+', quality: 'HD' },
   { name: 'Paramount+ 02', url: 'http://xigfh01.site:80/031532627/513117897/619.m3u8', category: 'Paramount+', quality: 'HD' },
   { name: 'Paramount+ 03', url: 'http://xigfh01.site:80/031532627/513117897/620.m3u8', category: 'Paramount+', quality: 'HD' },
@@ -82,8 +84,6 @@ const fixedChannels: Channel[] = [
   { name: 'Prime Video 06', url: 'http://xigfh01.site:80/031532627/513117897/659.m3u8', category: 'Amazon Prime', quality: 'HD' },
   { name: 'Prime Video 07', url: 'http://xigfh01.site:80/031532627/513117897/660.m3u8', category: 'Amazon Prime', quality: 'HD' },
   { name: 'Prime Video 08', url: 'http://xigfh01.site:80/031532627/513117897/661.m3u8', category: 'Amazon Prime', quality: 'HD' },
-  { name: 'DAZN 01', url: 'http://xigfh01.site:80/031532627/513117897/667.m3u8', category: 'DAZN', quality: 'HD' },
-  { name: 'DAZN 02', url: 'http://xigfh01.site:80/031532627/513117897/668.m3u8', category: 'DAZN', quality: 'HD' },
 ];
 
 function parseM3U(content: string): Channel[] {
@@ -113,7 +113,7 @@ function parseM3U(content: string): Channel[] {
       else if (combined.includes('PREMIERE')) category = 'Premiere';
       else if (combined.includes('BAND SPORTS')) category = 'Band Sports';
       else if (combined.includes('COMBATE')) category = 'Combate';
-      else if (combined.includes('DAZN')) category = 'DAZN';
+      else if (combined.includes('GETV') || combined.includes('GE TV')) category = 'GE TV';
       else if (combined.includes('CAZ')) category = 'Cazé TV';
       else if (combined.includes('PARAMOUNT')) category = 'Paramount+';
       else if (combined.includes('PRIME') || combined.includes('AMAZON')) category = 'Amazon Prime';
@@ -135,7 +135,6 @@ export async function GET() {
   const seen = new Set<string>();
   const all: Channel[] = [];
 
-  // Fixos primeiro
   for (const ch of fixedChannels) {
     const base = ch.name.replace(/ FHD| HD| SD| 4K/g, '').trim();
     if (!seen.has(base)) {
@@ -144,7 +143,6 @@ export async function GET() {
     }
   }
 
-  // M3U depois (só categorias permitidas)
   if (IPTV_URL) {
     try {
       const res = await fetch(IPTV_URL, {

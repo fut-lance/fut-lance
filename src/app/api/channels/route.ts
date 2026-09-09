@@ -17,6 +17,11 @@ function parseM3U(content: string): Channel[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     if (line.startsWith('#EXTINF:')) {
+      // Extrair grupo (category) do atributo group-title
+      const groupMatch = line.match(/group-title="([^"]*)"/i);
+      const group = groupMatch ? groupMatch[1].trim() : '';
+
+      // Extrair nome do canal (após a vírgula)
       const nameMatch = line.match(/,(.+)$/);
       if (!nameMatch) continue;
       const name = nameMatch[1].trim();
@@ -28,27 +33,28 @@ function parseM3U(content: string): Channel[] {
       if (name.includes('FHD') || name.includes('4K')) quality = 'FHD';
       else if (name.includes('HD')) quality = 'HD';
 
-      const nameUpper = name.toUpperCase();
-
-      // Detectar categoria por nome do canal
+      // Detectar categoria: primeiro pelo group-title, depois pelo nome
       let category = 'Outros';
 
-      if (nameUpper.includes('ESPN')) category = 'ESPN';
-      else if (nameUpper.includes('SPORTV') || nameUpper.includes('SPORT TV')) category = 'SporTV';
-      else if (nameUpper.includes('PREMIERE')) category = 'Premiere';
-      else if (nameUpper.includes('BAND SPORTS') || nameUpper.includes('BAND')) category = 'Band Sports';
-      else if (nameUpper.includes('COMBATE')) category = 'Combate';
-      else if (nameUpper.includes('DAZN')) category = 'DAZN';
-      else if (nameUpper.includes('GETV') || nameUpper.includes('GE ')) category = 'GE';
-      else if (nameUpper.includes('CAZE') || nameUpper.includes('CAZÉ')) category = 'Cazé TV';
-      else if (nameUpper.includes('PARAMOUNT')) category = 'Paramount+';
-      else if (nameUpper.includes('AMAZON')) category = 'Amazon Prime';
-      else if (nameUpper.includes('FOX SPORTS') || nameUpper.includes('FOX ')) category = 'Fox Sports';
-      else if (nameUpper.includes('CANAL FUTEBOL')) category = 'Canal Futebol';
-      else if (nameUpper.includes('GLOBE')) category = 'Globo';
-      else if (nameUpper.includes('SBT')) category = 'SBT';
-      else if (nameUpper.includes('RECORD')) category = 'Record';
-      else if (nameUpper.includes('BAND')) category = 'Band';
+      const groupUpper = group.toUpperCase();
+      const nameUpper = name.toUpperCase();
+      const combined = (groupUpper + ' ' + nameUpper);
+
+      if (combined.includes('ESPN')) category = 'ESPN';
+      else if (combined.includes('SPORTV') || combined.includes('SPORT TV')) category = 'SporTV';
+      else if (combined.includes('PREMIERE')) category = 'Premiere';
+      else if (combined.includes('BAND SPORTS') || (combined.includes('BAND') && combined.includes('SPORTS'))) category = 'Band Sports';
+      else if (combined.includes('COMBATE')) category = 'Combate';
+      else if (combined.includes('DAZN')) category = 'DAZN';
+      else if (combined.includes('CAZ') || combined.includes('CAZÉ')) category = 'Cazé TV';
+      else if (combined.includes('PARAMOUNT')) category = 'Paramount+';
+      else if (combined.includes('PRIME') || combined.includes('AMAZON')) category = 'Amazon Prime';
+      else if (combined.includes('FOX')) category = 'Fox Sports';
+      else if (combined.includes('GLOBO')) category = 'Globo';
+      else if (combined.includes('SBT')) category = 'SBT';
+      else if (combined.includes('RECORD')) category = 'Record';
+      else if (combined.includes('BAND')) category = 'Band';
+      else if (groupUpper) category = group;
 
       const baseName = name.replace(/ FHD| HD| SD| 4K/g, '').trim();
       if (seen.has(baseName)) continue;

@@ -1,28 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const SENHA = 'futlance2024';
+const STRAPI_URL = 'https://fut-lance-cms-v2.onrender.com';
 
 export default function AdminTransmissoesPage() {
   const [autenticado, setAutenticado] = useState(false);
   const [senhaInput, setSenhaInput] = useState('');
-  const [ativas, setAtivas] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [salvando, setSalvando] = useState(false);
   const [mensagem, setMensagem] = useState('');
-
-  useEffect(() => {
-    if (autenticado) {
-      fetch('/api/configuracao')
-        .then(res => res.json())
-        .then(data => {
-          setAtivas(data.transmissoes_ativas !== false);
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    }
-  }, [autenticado]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,27 +17,6 @@ export default function AdminTransmissoesPage() {
     } else {
       setMensagem('Senha incorreta!');
     }
-  };
-
-  const handleToggle = async () => {
-    setSalvando(true);
-    setMensagem('');
-    try {
-      const res = await fetch('/api/configuracao', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transmissoes_ativas: !ativas }),
-      });
-      if (res.ok) {
-        setAtivas(!ativas);
-        setMensagem(!ativas ? 'Transmissoes ATIVADAS!' : 'Transmissoes DESATIVADAS!');
-      } else {
-        setMensagem('Erro ao salvar.');
-      }
-    } catch {
-      setMensagem('Erro de conexao.');
-    }
-    setSalvando(false);
   };
 
   if (!autenticado) {
@@ -77,35 +42,28 @@ export default function AdminTransmissoesPage() {
 
   return (
     <div className="min-h-screen bg-fut-darker flex items-center justify-center px-4">
-      <div className="bg-fut-dark p-8 rounded-lg w-full max-w-sm text-center">
+      <div className="bg-fut-dark p-8 rounded-lg w-full max-w-md text-center">
         <h1 className="text-2xl font-bold text-white mb-6">Transmissoes Ao Vivo</h1>
-        {loading ? (
-          <p className="text-gray-400">Carregando...</p>
-        ) : (
-          <>
-            <p className="text-gray-300 mb-6">
-              Status: <span className={`font-bold ${ativas ? 'text-green-400' : 'text-red-400'}`}>
-                {ativas ? 'ATIVADAS' : 'DESATIVADAS'}
-              </span>
-            </p>
-            <button
-              onClick={handleToggle}
-              disabled={salvando}
-              className={`w-full py-3 rounded font-bold text-white ${
-                ativas
-                  ? 'bg-red-600 hover:bg-red-700'
-                  : 'bg-green-600 hover:bg-green-700'
-              } disabled:opacity-50`}
-            >
-              {salvando ? 'Salvando...' : ativas ? 'DESATIVAR TRANSMISSOES' : 'ATIVAR TRANSMISSOES'}
-            </button>
-            {mensagem && (
-              <p className={`mt-4 text-sm ${mensagem.includes('Erro') ? 'text-red-400' : 'text-green-400'}`}>
-                {mensagem}
-              </p>
-            )}
-          </>
-        )}
+        <p className="text-gray-300 mb-6 text-sm">
+          Para ativar ou desativar as transmissoes, clique no botao abaixo e faca login no Strapi Admin.
+        </p>
+        <a
+          href={`${STRAPI_URL}/admin/content-manager/collection-types/api::configuracao.configuracao`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full bg-fut-accent text-white py-3 rounded font-bold hover:bg-green-600 mb-4"
+        >
+          Abrir Strapi Admin
+        </a>
+        <div className="bg-fut-darker rounded-lg p-4 text-left text-sm text-gray-400 space-y-2">
+          <p><strong className="text-white">1.</strong> Clique no link acima</p>
+          <p><strong className="text-white">2.</strong> Faca login com:</p>
+          <p className="pl-4">Email: <span className="text-white">rafaelmelegari86@gmail.com</span></p>
+          <p className="pl-4">Senha: <span className="text-white">funil1315rR#$</span></p>
+          <p><strong className="text-white">3.</strong> Clique em <span className="text-white">Configuracao</span></p>
+          <p><strong className="text-white">4.</strong> Marque ou desmarque <span className="text-white">Transmissoes Ativas</span></p>
+          <p><strong className="text-white">5.</strong> Clique em <span className="text-white">Salvar</span></p>
+        </div>
       </div>
     </div>
   );

@@ -24,24 +24,31 @@ function parseM3U(content: string): Channel[] {
 
       if (!url || (!url.endsWith('.m3u8') && !url.endsWith('.ts'))) continue;
 
-      let category = '';
       let quality = 'SD';
-
       if (name.includes('FHD') || name.includes('4K')) quality = 'FHD';
       else if (name.includes('HD')) quality = 'HD';
 
       const nameUpper = name.toUpperCase();
 
-      if (nameUpper.startsWith('ESPN')) category = 'ESPN';
-      else if (nameUpper.startsWith('SPORTV') || nameUpper.startsWith('SPORTV')) category = 'SporTV';
-      else if (nameUpper.startsWith('PREMIERE')) category = 'Premiere';
-      else if (nameUpper.includes('BAND SPORTS')) category = 'Band Sports';
-      else if (nameUpper === 'COMBATE FHD' || nameUpper === 'COMBATE HD' || nameUpper === 'COMBATE SD') category = 'Combate';
-      else if (nameUpper.startsWith('DAZN')) category = 'DAZN';
-      else if (nameUpper === 'GETV FHD' || nameUpper === 'GETV HD' || nameUpper === 'GETV SD') category = 'GE';
+      // Detectar categoria por nome do canal
+      let category = 'Outros';
 
-
-      if (!category) continue;
+      if (nameUpper.includes('ESPN')) category = 'ESPN';
+      else if (nameUpper.includes('SPORTV') || nameUpper.includes('SPORT TV')) category = 'SporTV';
+      else if (nameUpper.includes('PREMIERE')) category = 'Premiere';
+      else if (nameUpper.includes('BAND SPORTS') || nameUpper.includes('BAND')) category = 'Band Sports';
+      else if (nameUpper.includes('COMBATE')) category = 'Combate';
+      else if (nameUpper.includes('DAZN')) category = 'DAZN';
+      else if (nameUpper.includes('GETV') || nameUpper.includes('GE ')) category = 'GE';
+      else if (nameUpper.includes('CAZE') || nameUpper.includes('CAZÉ')) category = 'Cazé TV';
+      else if (nameUpper.includes('PARAMOUNT')) category = 'Paramount+';
+      else if (nameUpper.includes('AMAZON')) category = 'Amazon Prime';
+      else if (nameUpper.includes('FOX SPORTS') || nameUpper.includes('FOX ')) category = 'Fox Sports';
+      else if (nameUpper.includes('CANAL FUTEBOL')) category = 'Canal Futebol';
+      else if (nameUpper.includes('GLOBE')) category = 'Globo';
+      else if (nameUpper.includes('SBT')) category = 'SBT';
+      else if (nameUpper.includes('RECORD')) category = 'Record';
+      else if (nameUpper.includes('BAND')) category = 'Band';
 
       const baseName = name.replace(/ FHD| HD| SD| 4K/g, '').trim();
       if (seen.has(baseName)) continue;
@@ -54,9 +61,11 @@ function parseM3U(content: string): Channel[] {
   return channels;
 }
 
+export const runtime = 'nodejs';
+
 export async function GET() {
   if (!IPTV_URL) {
-    return NextResponse.json({ error: 'IPTV_URL not configured' }, { status: 500 });
+    return NextResponse.json({ channels: [], error: 'IPTV_URL not configured' }, { status: 500 });
   }
 
   try {
@@ -66,16 +75,16 @@ export async function GET() {
     });
 
     if (!res.ok) {
-      return NextResponse.json({ error: 'Failed to fetch M3U' }, { status: 502 });
+      return NextResponse.json({ channels: [], error: 'Failed to fetch M3U' }, { status: 502 });
     }
 
     const content = await res.text();
     const channels = parseM3U(content);
 
     return NextResponse.json({ channels }, {
-      headers: { 'Cache-Control': 'public, max-age=3600' },
+      headers: { 'Cache-Control': 'public, max-age=300' },
     });
-  } catch (error) {
-    return NextResponse.json({ error: 'Timeout fetching M3U' }, { status: 504 });
+  } catch {
+    return NextResponse.json({ channels: [], error: 'Timeout fetching M3U' }, { status: 504 });
   }
 }

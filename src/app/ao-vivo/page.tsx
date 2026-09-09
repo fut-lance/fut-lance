@@ -16,37 +16,15 @@ export default function AoVivoPage() {
   const [loading, setLoading] = useState(true);
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
-  const [transmissoesAtivas, setTransmissoesAtivas] = useState<boolean | null>(null);
 
   useEffect(() => {
-    fetch('/api/configuracao')
+    fetch('/api/channels')
       .then(res => res.json())
       .then(data => {
-        const ativas = data.transmissoes_ativas !== false;
-        setTransmissoesAtivas(ativas);
-        
-        if (ativas) {
-          fetch('/api/channels')
-            .then(res2 => res2.json())
-            .then(data2 => {
-              setChannels(data2.channels || []);
-              setLoading(false);
-            })
-            .catch(() => setLoading(false));
-        } else {
-          setLoading(false);
-        }
+        setChannels(data.channels || []);
+        setLoading(false);
       })
-      .catch(() => {
-        setTransmissoesAtivas(true);
-        fetch('/api/channels')
-          .then(res => res.json())
-          .then(data => {
-            setChannels(data.channels || []);
-            setLoading(false);
-          })
-          .catch(() => setLoading(false));
-      });
+      .catch(() => setLoading(false));
   }, []);
 
   const categories = ['Todos', ...Array.from(new Set(channels.map(c => c.category)))];
@@ -61,29 +39,6 @@ export default function AoVivoPage() {
     description: 'Assista aos canais de futebol ao vivo. ESPN, SporTV, Premiere, Band Sports e mais.',
     url: 'https://fut-lance.vercel.app/ao-vivo',
   };
-
-  if (transmissoesAtivas === false) {
-    return (
-      <>
-        <Script
-          id="ao-vivo-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aoVivoSchema) }}
-        />
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">🔴 Ao Vivo</h1>
-            <p className="text-gray-400">Assista aos canais de futebol ao vivo.</p>
-          </div>
-          <section className="bg-fut-darker rounded-xl p-12 text-center border border-gray-800">
-            <span className="text-5xl block mb-4">📺</span>
-            <p className="text-gray-400 text-lg mb-2">As transmissões estão temporariamente indisponíveis.</p>
-            <p className="text-gray-500 text-sm">Volte em breve!</p>
-          </section>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>

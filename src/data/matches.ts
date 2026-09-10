@@ -23,9 +23,9 @@ export const matches: Match[] = [
     data: '10/09/2026',
     horario: '21:30',
     timeMandante: 'Independiente del Valle',
-    logoTimeMandante: 'https://img.flashscore.com/res/image/data/2mFhdmWP-40x40.png',
+    logoTimeMandante: 'https://www.footylogos.com/images/logos/independiente-del-valle.png',
     timeVisitante: 'Flamengo',
-    logoTimeVisitante: 'https://img.flashscore.com/res/image/data/2mFhdmWP-40x40.png',
+    logoTimeVisitante: 'https://www.footylogos.com/images/logos/flamengo.png',
     status: 'em-breve',
     canais: [
       { nome: 'ESPN', url: 'http://xigfh01.site:80/031532627/513117897/620.m3u8' },

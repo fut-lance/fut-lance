@@ -72,10 +72,13 @@
 - **UTF-8 no banco**: Já corrigido, mas podem aparecer caracteres quebrados em notícias antigas
 
 ## Regras para Jogos ao Vivo (matches.ts)
-- **SEMPRE colocar logos dos times** — usar URLs de logodetimes.com: `https://logodetimes.com/times/{nome}/logo-{nome}.png`
-- Times com logos funcionando: Flamengo, Independiente del Valle, Sport Recife, Ponte Preta, Sao Bernardo, Londrina, Vila Nova
-- Para times sem logo (Cienciano, Goias, Montevideo City): usar URL genérica ou deixar vazio
+- **SEMPRE colocar logos oficiais dos times** — buscar sempre a logo oficial de cada time
+- Fontes para logos oficiais:
+  - logodetimes.com: `https://logodetimes.com/times/{nome}/logo-{nome}.png`
+  - Sites oficiais dos times (ex: goiasec.com.br, cienciano.com, montevideocitytorque.com)
+  - Wikipedia (upload.wikimedia.org)
 - NÃO usar placeholder genérico (ex: img.flashscore.com)
+- NUNCA deixar time sem logo — sempre buscar a logo oficial
 - Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B
 
 ## Regras para Publicar Notícias

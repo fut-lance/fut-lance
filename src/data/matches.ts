@@ -28,7 +28,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/flamengo/logo-flamengo-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'ESPN', url: 'http://xigfh01.site:80/031532627/513117897/620.m3u8' },
+      { nome: 'ESPN FHD', url: 'http://xigfh01.site:80/031532627/513117897/570.m3u8' },
+      { nome: 'ESPN HD', url: 'http://xigfh01.site:80/031532627/513117897/571.m3u8' },
     ],
   },
   {
@@ -42,7 +43,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://montevideocitytorque.com/wp-content/uploads/2020/01/escudo-1.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Paramount+', url: 'http://xigfh01.site:80/031532627/513117897/618.m3u8' },
+      { nome: 'Paramount+ 01', url: 'http://xigfh01.site:80/031532627/513117897/618.m3u8' },
+      { nome: 'Paramount+ 02', url: 'http://xigfh01.site:80/031532627/513117897/619.m3u8' },
     ],
   },
   {
@@ -56,7 +58,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/londrina/logo-londrina.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere', url: 'http://xigfh01.site:80/031532627/513117897/594.m3u8' },
+      { nome: 'Premiere Clubes FHD', url: 'http://xigfh01.site:80/031532627/513117897/594.m3u8' },
+      { nome: 'Premiere Clubes HD', url: 'http://xigfh01.site:80/031532627/513117897/595.m3u8' },
     ],
   },
   {
@@ -70,7 +73,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://www.goiasec.com.br/imagens/header/logo-goias.svg',
     status: 'em-breve',
     canais: [
-      { nome: 'Disney+', url: 'http://xigfh01.site:80/031532627/513117897/595.m3u8' },
+      { nome: 'Premiere Clubes FHD', url: 'http://xigfh01.site:80/031532627/513117897/594.m3u8' },
+      { nome: 'Premiere Clubes HD', url: 'http://xigfh01.site:80/031532627/513117897/595.m3u8' },
     ],
   },
   {
@@ -84,7 +88,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/ponte-preta/logo-ponte-preta-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'ESPN4', url: 'http://xigfh01.site:80/031532627/513117897/619.m3u8' },
+      { nome: 'ESPN FHD', url: 'http://xigfh01.site:80/031532627/513117897/570.m3u8' },
+      { nome: 'ESPN HD', url: 'http://xigfh01.site:80/031532627/513117897/571.m3u8' },
     ],
   },
 ];

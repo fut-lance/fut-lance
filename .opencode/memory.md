@@ -72,9 +72,9 @@
 - **UTF-8 no banco**: Já corrigido, mas podem aparecer caracteres quebrados em notícias antigas
 
 ## Regras para Jogos ao Vivo (matches.ts)
-- **SEMPRE colocar logos dos times** — usar URLs de api-sports.io: `https://media.api-sports.io/football/teams/{id}.png`
-- IDs conhecidos: Flamengo=1959, Independiente del Valle=256
-- Para outros times, pesquisar ID correto no api-sports.io
+- **SEMPRE colocar logos dos times** — usar URLs de logodetimes.com: `https://logodetimes.com/times/{nome}/logo-{nome}.png`
+- Times com logos funcionando: Flamengo, Independiente del Valle, Sport Recife, Ponte Preta, Sao Bernardo, Londrina, Vila Nova
+- Para times sem logo (Cienciano, Goias, Montevideo City): usar URL genérica ou deixar vazio
 - NÃO usar placeholder genérico (ex: img.flashscore.com)
 - Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B
 

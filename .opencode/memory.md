@@ -72,9 +72,10 @@
 - **UTF-8 no banco**: Já corrigido, mas podem aparecer caracteres quebrados em notícias antigas
 
 ## Regras para Jogos ao Vivo (matches.ts)
-- **SEMPRE colocar logos dos times** — usar URLs de footylogos.com: `https://www.footylogos.com/images/logos/{nome-do-time}.png`
+- **SEMPRE colocar logos dos times** — usar URLs de api-sports.io: `https://media.api-sports.io/football/teams/{id}.png`
+- IDs conhecidos: Flamengo=1959, Independiente del Valle=256
+- Para outros times, pesquisar ID correto no api-sports.io
 - NÃO usar placeholder genérico (ex: img.flashscore.com)
-- Fonte de logos: footylogos.com (PNG transparente)
 - Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B
 
 ## Regras para Publicar Notícias

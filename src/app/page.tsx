@@ -2,6 +2,7 @@ import Link from 'next/link';
 import CardNoticia from '@/components/CardNoticia';
 import { getNoticias, getTransmissoesAoVivo } from '@/lib/api';
 import Script from 'next/script';
+import { AdContainer } from '@/components/ads';
 
 export const dynamic = 'force-dynamic';
 
@@ -112,6 +113,11 @@ export default async function Home() {
         )}
       </section>
 
+      {/* Ad: Abaixo do hero */}
+      <div className="container mx-auto px-4">
+        <AdContainer position="header" className="my-6" />
+      </div>
+
       {/* Últimas Notícias */}
       <section className="container mx-auto px-4 py-10">
         <div className="flex justify-between items-center mb-8">
@@ -181,6 +187,11 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Ad: Entre notícias e campeonatos */}
+      <div className="container mx-auto px-4">
+        <AdContainer position="content" className="my-6" />
+      </div>
 
       {/* Campeonatos */}
       <section className="container mx-auto px-4 py-10">

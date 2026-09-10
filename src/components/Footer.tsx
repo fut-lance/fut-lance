@@ -41,37 +41,6 @@ export default function Footer() {
                   Transferências
                 </Link>
               </li>
-              <li>
-                <Link href="/categoria/copa-do-brasil" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Copa do Brasil
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Times</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/categoria/flamengo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Flamengo
-                </Link>
-              </li>
-              <li>
-                <Link href="/categoria/palmeiras" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Palmeiras
-                </Link>
-              </li>
-              <li>
-                <Link href="/categoria/corinthians" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Corinthians
-                </Link>
-              </li>
-              <li>
-                <Link href="/categoria/sao-paulo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  São Paulo
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -93,12 +62,48 @@ export default function Footer() {
                   Notícias
                 </Link>
               </li>
+              <li>
+                <Link href="/sobre" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Sobre
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Contato
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Institucional</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/politica-de-privacidade" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Política de Privacidade
+                </Link>
+              </li>
+              <li>
+                <Link href="/politica-de-cookies" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Política de Cookies
+                </Link>
+              </li>
+              <li>
+                <Link href="/termos-de-uso" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Termos de Uso
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
           <p>© {new Date().getFullYear()} FUT LANCE. Todos os direitos reservados.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/politica-de-privacidade" className="hover:text-fut-green transition-colors">Privacidade</Link>
+            <Link href="/politica-de-cookies" className="hover:text-fut-green transition-colors">Cookies</Link>
+            <Link href="/termos-de-uso" className="hover:text-fut-green transition-colors">Termos</Link>
+          </div>
         </div>
       </div>
     </footer>

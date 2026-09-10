@@ -73,10 +73,20 @@
 
 ## Regras para Jogos ao Vivo (matches.ts)
 - **SEMPRE colocar logos oficiais dos times** — buscar sempre a logo oficial de cada time
+- **SEMPRE pesquisar qual canal vai passar o jogo** e colocar o link correto do canal no IPTV
 - Fontes para logos oficiais:
   - logodetimes.com: `https://logodetimes.com/times/{nome}/logo-{nome}.png`
   - Sites oficiais dos times (ex: goiasec.com.br, cienciano.com, montevideocitytorque.com)
   - Wikipedia (upload.wikimedia.org)
+- Canais IPTV disponíveis:
+  - ESPN: 570 (FHD), 571 (HD), 573-586 (ESPN 2-6)
+  - Premiere: 594 (Clubes FHD), 595 (Clubes HD), 597-616 (Premiere 2-8)
+  - Paramount+: 618-621
+  - SporTV: 558-568
+  - Band Sports: 555-556
+  - GE TV: 588 (FHD), 589 (HD)
+  - Cazé TV: 646-653
+  - Amazon Prime: 654-661
 - NÃO usar placeholder genérico (ex: img.flashscore.com)
 - NUNCA deixar time sem logo — sempre buscar a logo oficial
 - Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B

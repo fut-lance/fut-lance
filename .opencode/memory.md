@@ -43,9 +43,10 @@
 - Brasileirão (id:1, slug: brasileirao)
 - Libertadores (id:2, slug: libertadores)
 - Seleção (id:3, slug: selecao)
-- Mercado (id:4, slug: mercado)
+- Mercado (id:4, slug: mercado) — NÃO USAR, usar Transferências
 - Feminino (id:5, slug: feminino)
 - Champions League (id:6, slug: champions-league)
+- Transferências (id:7, slug: transferencias) — USAR ESTA para notícias de transferências
 
 ## O que FUNCIONA
 - News listing, detail pages, category filtering

@@ -4,6 +4,7 @@ import Script from 'next/script';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CookieConsent from '@/components/CookieConsent';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -116,11 +117,21 @@ export default function RootLayout({
         <meta name="google-site-verification" content="q8QifoOx5_Pxx91Cm7CY-rhcleJ5xoeHzFbF65LV7Js" />
       </head>
       <body className={inter.className}>
+        {/*
+          ADCASH: Inserir script oficial aqui após aprovação do domínio.
+          Exemplo:
+          <Script
+            id="adcash-script"
+            strategy="afterInteractive"
+            src="https://www.adcash.com/script/SEU_SCRIPT_ID.js"
+          />
+        */}
         <Header />
         <main className="min-h-screen">
           {children}
         </main>
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

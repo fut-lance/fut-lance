@@ -3,6 +3,7 @@ import { getNoticiaBySlug, getRelatedNoticias } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { AdContainer } from '@/components/ads';
 
 export const revalidate = 60;
 
@@ -221,6 +222,9 @@ export default async function NoticiaPage({
         className="prose prose-invert prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: noticia.conteudo || '<p>Conteúdo não disponível.</p>' }}
       />
+
+      {/* Ad: Após conteúdo da notícia */}
+      <AdContainer position="content" className="my-8" />
 
       {relatedNoticias.length > 0 && (
         <section className="mt-12 pt-8 border-t border-gray-700">

@@ -1,0 +1,8 @@
+# ADCASH - Ads.txt
+# Inserir o ID do editor (publisher ID) fornecido pelo Adcash após aprovação.
+# Formato: domain, publisher_id, account_type, certifier_id
+#
+# Exemplo (substituir pelos dados reais do Adcash):
+# adcash.com, abcdef123456, DIRECT
+#
+# Aguardando aprovação do domínio pelo Adcash para inserir os dados reais.

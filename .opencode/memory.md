@@ -93,11 +93,14 @@
 - Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B
 
 ## Regras para Publicar Notícias
-1. SEMPRE escolher a categoria correta no Strapi
+1. SEMPRE escolher a categoria correta no Strapi (Transferências = id:7)
 2. Usar imagens Unsplash que funcionam (evitar as duas listadas acima)
-3. Título claro e descritivo
-4. Conteúdo em HTML (<p>, <h3>, <strong>)
-5. Data de publicação correta
+3. NUNCA usar URLs de sites de times (chelseafc.com, fcbarcelona.com etc) - retornam 404
+4. SEMPRE verificar se imagens retornam 200 antes de criar notícias
+5. Imagem padrão confiável: https://images.unsplash.com/photo-1574629810360-7efbbe195018
+6. Título claro e descritivo
+7. Conteúdo em HTML (<p>, <h3>, <strong>)
+8. Data de publicação correta
 
 ## Comandos Úteis
 - Node.js: `C:\Program Files\nodejs\node.exe`

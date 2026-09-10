@@ -71,6 +71,12 @@
 - **Publicar notícias**: SEMPRE colocar na categoria correta ao criar no Strapi
 - **UTF-8 no banco**: Já corrigido, mas podem aparecer caracteres quebrados em notícias antigas
 
+## Regras para Jogos ao Vivo (matches.ts)
+- **SEMPRE colocar logos dos times** — usar URLs de footylogos.com: `https://www.footylogos.com/images/logos/{nome-do-time}.png`
+- NÃO usar placeholder genérico (ex: img.flashscore.com)
+- Fonte de logos: footylogos.com (PNG transparente)
+- Tipos de jogos: Libertadores, Champions League, Sul-Americana, Brasileirão Série B
+
 ## Regras para Publicar Notícias
 1. SEMPRE escolher a categoria correta no Strapi
 2. Usar imagens Unsplash que funcionam (evitar as duas listadas acima)

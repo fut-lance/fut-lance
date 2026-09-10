@@ -102,6 +102,21 @@ export default function RootLayout({
             gtag('config', 'G-V6N0JVT695');
           `}
         </Script>
+        {/* ADCASH - Biblioteca */}
+        <Script
+          id="aclib"
+          type="text/javascript"
+          src="//acscdn.com/script/aclib.js"
+          strategy="afterInteractive"
+        />
+        {/* ADCASH - AutoTag */}
+        <Script
+          id="adcash-autotag"
+          type="text/javascript"
+          strategy="afterInteractive"
+        >
+          {`aclib.runAutoTag({zoneId: 'cktkhqd7xx'});`}
+        </Script>
         <Script
           id="website-schema"
           type="application/ld+json"
@@ -117,15 +132,6 @@ export default function RootLayout({
         <meta name="google-site-verification" content="q8QifoOx5_Pxx91Cm7CY-rhcleJ5xoeHzFbF65LV7Js" />
       </head>
       <body className={inter.className}>
-        {/*
-          ADCASH: Inserir script oficial aqui após aprovação do domínio.
-          Exemplo:
-          <Script
-            id="adcash-script"
-            strategy="afterInteractive"
-            src="https://www.adcash.com/script/SEU_SCRIPT_ID.js"
-          />
-        */}
         <Header />
         <main className="min-h-screen">
           {children}

@@ -37,9 +37,9 @@ export const matches: Match[] = [
     data: '10/09/2026',
     horario: '21:30',
     timeMandante: 'Cienciano',
-    logoTimeMandante: 'https://logodetimes.com/times/cienciano/logo-cienciano.png',
+    logoTimeMandante: 'https://cienciano.com/wp-content/uploads/2023/11/LOGO-CIENCIANO.png',
     timeVisitante: 'Montevideo City',
-    logoTimeVisitante: 'https://logodetimes.com/times/montevideo-city/logo-montevideo-city.png',
+    logoTimeVisitante: 'https://montevideocitytorque.com/wp-content/uploads/2020/01/escudo-1.png',
     status: 'em-breve',
     canais: [
       { nome: 'Paramount+', url: 'http://xigfh01.site:80/031532627/513117897/618.m3u8' },
@@ -67,7 +67,7 @@ export const matches: Match[] = [
     timeMandante: 'Vila Nova',
     logoTimeMandante: 'https://logodetimes.com/times/vila-nova/logo-vila-nova.png',
     timeVisitante: 'Goiás',
-    logoTimeVisitante: 'https://logodetimes.com/times/goias/logo-goias.png',
+    logoTimeVisitante: 'https://www.goiasec.com.br/imagens/header/logo-goias.svg',
     status: 'em-breve',
     canais: [
       { nome: 'Disney+', url: 'http://xigfh01.site:80/031532627/513117897/595.m3u8' },

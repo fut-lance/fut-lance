@@ -46,7 +46,7 @@ export default async function NoticiasPage() {
           {noticias.map((noticia: any) => (
             <CardNoticia
               key={noticia.id}
-              slug={noticia.documentId}
+              slug={noticia.slug}
               titulo={noticia.titulo}
               resumo={noticia.resumo}
               imagem={noticia.imagem_url || (noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800')}

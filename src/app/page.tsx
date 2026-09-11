@@ -41,7 +41,7 @@ export default async function Home() {
       itemListElement: [...noticiasDestaque, ...ultimasNoticias].slice(0, 7).map((n: any, i: number) => ({
         '@type': 'ListItem',
         position: i + 1,
-        url: `https://fut-lance.vercel.app/noticias/${n.documentId}`,
+        url: `https://fut-lance.vercel.app/noticias/${n.slug}`,
         name: n.titulo,
       })),
     },
@@ -91,7 +91,7 @@ export default async function Home() {
                   )}
                 </div>
                 <Link
-                  href={`/noticias/${principalNoticia.documentId}`}
+                  href={`/noticias/${principalNoticia.slug}`}
                   className="inline-flex items-center gap-2 bg-fut-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-sm md:text-base"
                 >
                   Ler notícia
@@ -142,7 +142,7 @@ export default async function Home() {
             {ultimasNoticias.map((noticia: any) => (
               <CardNoticia
                 key={noticia.id}
-                slug={noticia.documentId}
+                slug={noticia.slug}
                 titulo={noticia.titulo}
                 resumo={noticia.resumo}
                 imagem={noticia.imagem_url || (noticia.imagem_capa?.url ? `${apiUrl}${noticia.imagem_capa.url}` : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800')}

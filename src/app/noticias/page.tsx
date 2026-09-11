@@ -22,7 +22,7 @@ export default async function NoticiasPage() {
   let noticias: any[] = [];
 
   try {
-    const data = await getNoticias(1, 20);
+    const data = await getNoticias(1, 100);
     noticias = data?.data || [];
   } catch (error) {
     console.error('Erro ao buscar notícias:', error);

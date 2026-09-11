@@ -3,6 +3,7 @@
 ## ⚠️ REGRAS CRÍTICAS (SEMPRE SEGUIR)
 1. **NOTÍCIAS: SEMPRE verificar a data ANTES de publicar.** Buscar no Google "futebol hoje [data]" e só publicar notícias do dia ou últimas 24h. NUNCA publicar notícias antigas.
 2. **JOGOS AO VIVO: Remover jogos encerrados 20 minutos após o fim** (implementado no client-side).
+3. **CONTEÚDO: SEMPRE pesquisar dados atualizados no Google antes de preencher classificação, artilharia, elencos, transferências.** NUNCA usar dados fictícios ou desatualizados. SEMPRE verificar a data atual e buscar informações de HOJE.
 
 ## Informações Gerais
 - **Nome do site**: FUT LANCE
@@ -97,6 +98,8 @@
 
 ## O que NÃO funciona / Cuidados
 - **Tabela do Brasileirão**: NÃO é automática — precisa atualizar manualmente quando jogos são disputados. Fonte: ESPN (espn.com.br/futebol/classificacao/_/liga/bra.1)
+- **Artilharia do Brasileirão**: NÃO é automática — precisa atualizar manualmente. Fonte: ge.globo.com (artilheiro da serie a do brasileirao)
+- **Elenços dos times**: Dados em src/data/times.ts podem ficar desatualizados — verificar sempre no Google antes de usar
 - **Imagens Unsplash quebradas**: photo-1508098682722-e99c43a406b2 e photo-1522778119026-d647f5096c20 retornam 404
 - **Slugs das categorias no Strapi**: Brasileirão e Libertadores têm slug null — o frontend resolve com slugMap no api.ts
 - **Strapi single types**: Não expõem REST API pública por padrão
@@ -134,12 +137,14 @@
 7. Conteúdo em HTML (<p>, <h3>, <strong>)
 8. Data de publicação correta
 9. **REGRAS ADCASH:** Toda notícia DEVE ter imagem funcional. Site sem imagem pode ser reprovado.
-10. **⚠️ REGRA CRÍTICA: ANTES DE CRIAR QUALQUER NOTÍCIA, SEMPRE:**
-    - Buscar no Google/na web a data atual (ex: "notícias futebol hoje [data]")
-    - Verificar se a notícia que será publicada é de HOJE ou no máximo das últimas 24h
+10. **⚠️ REGRA CRÍTICA: ANTES DE CRIAR QUALQUER NOTÍCIA OU CONTEÚDO, SEMPRE:**
+    - Verificar a data atual (ex: "hoje é 11/09/2026")
+    - Buscar no Google dados atualizados (ex: "artilharia Brasileirão 2026 atual", "classificação Brasileirão 2026")
+    - Verificar se a notícia/conteúdo é de HOJE ou no máximo das últimas 24h
     - NUNCA publicar notícias de dias anteriores — mesmo que sejam "reais"
-    - Se a notícia for antiga, DESCARTAR e buscar uma mais recente
-    - Motivo: notícias desatualizadas prejudicam SEO e confiança do usuário
+    - NUNCA usar dados antigos de classificação, artilharia, elencos ou transferências
+    - Se o dado for antigo, DESCARTAR e buscar o mais recente
+    - Motivo: conteúdo desatualizado prejudica SEO, confiança do usuário e monetização
 
 ## API Token (Strapi Full Access)
 - **Token**: `***REMOVED***`

@@ -5,19 +5,71 @@ import { Metadata } from 'next';
 
 export const revalidate = 60;
 
+const categorySeoData: Record<string, { title: string; description: string; keywords: string }> = {
+  'brasileirao': {
+    title: 'Brasileirão — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
+    description: 'Todas as notícias do Brasileirão Série A 2026. Classificação, resultados, jogos, transferências e cobertura completa do campeonato brasileiro.',
+    keywords: 'brasileirão, brasileirão série a, campeonato brasileiro, futebol brasileiro, notícias brasileirão, classificação brasileirão, jogos brasileirão',
+  },
+  'libertadores': {
+    title: 'Libertadores — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
+    description: 'Cobertura completa da Copa Libertadores 2026. Notícias, resultados, classificação, confrontos e jogos ao vivo dos clubes brasileiros.',
+    keywords: 'libertadores, copa libertadores, libertadores 2026, futebol sul-americano, notícias libertadores, jogos libertadores',
+  },
+  'champions-league': {
+    title: 'Champions League — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
+    description: 'Todas as notícias da UEFA Champions League 2026/27. Resultados, classificação, confrontos e cobertura completa da Liga dos Campeões.',
+    keywords: 'champions league, liga dos campeões, uefa champions league, futebol europeu, notícias champions league',
+  },
+  'transferencias': {
+    title: 'Mercado da Bola e Transferências | Fut-Lance',
+    description: 'Fique por dentro de todas as transferências do futebol brasileiro e internacional. Rumores, confirmadas e negociações do mercado da bola.',
+    keywords: 'transferências, mercado da bola, contratações, futebol, negociações, reforços',
+  },
+  'selecao': {
+    title: 'Seleção Brasileira — Notícias e Jogos | Fut-Lance',
+    description: 'Todas as notícias da Seleção Brasileira de Futebol. Convocações, jogos, eliminatórias e cobertura completa da Amarelinha.',
+    keywords: 'seleção brasileira, seleção, canarinho, hexa, eliminarórias, jogos seleção',
+  },
+  'copa-do-brasil': {
+    title: 'Copa do Brasil — Notícias e Jogos | Fut-Lance',
+    description: 'Cobertura completa da Copa do Brasil 2026. Resultados, confrontos, classificação e notícias do torneio nacional.',
+    keywords: 'copa do brasil, copa do brasil 2026, futebol, notícias copa do brasil',
+  },
+  'premier-league': {
+    title: 'Premier League — Notícias e Futebol | Fut-Lance',
+    description: 'Todas as notícias da Premier League inglesa. Resultados, classificação, transferências e cobertura do futebol inglês.',
+    keywords: 'premier league, futebol inglês, liga inglesa, notícias premier league',
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
+  const seoData = categorySeoData[params.slug];
   const nomeFormatado = params.slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return {
-    title: `Notícias de ${nomeFormatado}`,
-    description: `Todas as notícias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
-    keywords: `${nomeFormatado.toLowerCase()}, futebol, notícias`,
+    title: seoData?.title || `${nomeFormatado} — Notícias de Futebol | Fut-Lance`,
+    description: seoData?.description || `Todas as notícias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
+    keywords: seoData?.keywords || `${nomeFormatado.toLowerCase()}, futebol, notícias`,
+    openGraph: {
+      title: seoData?.title || `${nomeFormatado} — Notícias de Futebol | Fut-Lance`,
+      description: seoData?.description || `Todas as notícias de ${nomeFormatado}.`,
+      url: `https://fut-lance.vercel.app/categoria/${params.slug}`,
+      siteName: 'FUT LANCE',
+      locale: 'pt_BR',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoData?.title || `${nomeFormatado} — Notícias de Futebol | Fut-Lance`,
+      description: seoData?.description || `Todas as notícias de ${nomeFormatado}.`,
+    },
     alternates: {
       canonical: `https://fut-lance.vercel.app/categoria/${params.slug}`,
     },
@@ -116,11 +168,24 @@ export default async function CategoriaPage({
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: categoriaNome, item: `https://fut-lance.vercel.app/categoria/${params.slug}` },
+    ],
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1" aria-label="Breadcrumb">

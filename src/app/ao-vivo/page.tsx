@@ -1,343 +1,128 @@
-'use client';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import AoVivoClient from './AoVivoClient';
+import { matches } from '@/data/matches';
 
-import { useEffect, useState, useMemo } from 'react';
-import PlayerStream from '@/components/PlayerStream';
-import Script from 'next/script';
-import { matches as initialMatches, type Match, type MatchChannel } from '@/data/matches';
-
-function getMatchStatus(match: Match): 'em-breve' | 'ao-vivo' | 'encerrado' {
-  const now = new Date();
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const matchStart = new Date(y, m - 1, d, h, min);
-  const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
-
-  if (now < matchStart) return 'em-breve';
-  if (now >= matchStart && now <= matchEnd) return 'ao-vivo';
-  return 'encerrado';
-}
-
-function StatusBadge({ status }: { status: string }) {
-  if (status === 'ao-vivo') {
-    return (
-      <span className="inline-flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
-        <span className="w-2 h-2 bg-white rounded-full" />
-        AO VIVO
-      </span>
-    );
-  }
-  if (status === 'encerrado') {
-    return (
-      <span className="inline-flex items-center gap-1.5 bg-gray-600 text-gray-300 text-xs font-bold px-3 py-1 rounded-full">
-        Encerrado
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center gap-1.5 bg-yellow-600/80 text-white text-xs font-bold px-3 py-1 rounded-full">
-      Em breve
-    </span>
-  );
-}
-
-function MatchCard({
-  match,
-  onWatch,
-}: {
-  match: Match;
-  status: string;
-  onWatch: (match: Match) => void;
-}) {
-  return (
-    <div className="bg-fut-darker rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-700 transition-all hover:shadow-lg hover:shadow-black/20">
-      <div className="px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-fut-green text-xs font-bold uppercase tracking-wider">{match.competicao}</span>
-          <StatusBadge status={getMatchStatus(match)} />
-        </div>
-
-        <div className="text-center text-gray-500 text-xs mb-4">
-          {match.data} • {match.horario}
-        </div>
-
-        <div className="flex items-center justify-between gap-2 mb-4">
-          <div className="flex-1 text-center">
-            <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
-              <img
-                src={match.logoTimeMandante}
-                alt={match.timeMandante}
-                className="w-10 h-10 md:w-12 md:h-12 object-contain"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-lg md:text-xl font-bold text-gray-500">${match.timeMandante.substring(0, 3).toUpperCase()}</span>`;
-                }}
-              />
-            </div>
-            <p className="text-white font-bold text-sm md:text-base leading-tight">{match.timeMandante}</p>
-          </div>
-
-          <div className="flex flex-col items-center px-2">
-            <span className="text-gray-500 text-xl font-bold">×</span>
-          </div>
-
-          <div className="flex-1 text-center">
-            <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
-              <img
-                src={match.logoTimeVisitante}
-                alt={match.timeVisitante}
-                className="w-10 h-10 md:w-12 md:h-12 object-contain"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-lg md:text-xl font-bold text-gray-500">${match.timeVisitante.substring(0, 3).toUpperCase()}</span>`;
-                }}
-              />
-            </div>
-            <p className="text-white font-bold text-sm md:text-base leading-tight">{match.timeVisitante}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-4 pb-4">
-        {getMatchStatus(match) === 'encerrado' ? (
-          <button disabled className="w-full py-3 rounded-xl bg-gray-700 text-gray-400 font-bold text-sm cursor-not-allowed">
-            Partida encerrada
-          </button>
-        ) : (
-          <button
-            onClick={() => onWatch(match)}
-            className="w-full py-3 rounded-xl bg-fut-green hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-lg shadow-fut-green/20 flex items-center justify-center gap-2"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            ASSISTIR AGORA AO VIVO
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function ChannelSelector({
-  match,
-  onSelect,
-  onClose,
-}: {
-  match: Match;
-  onSelect: (channel: MatchChannel) => void;
-  onClose: () => void;
-}) {
-  return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm" onClick={onClose}>
-      <div
-        className="bg-fut-darker w-full md:max-w-md md:rounded-2xl rounded-t-2xl border border-gray-800 shadow-2xl overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
-          <div>
-            <h3 className="text-white font-bold text-base">Escolha uma transmissão</h3>
-            <p className="text-gray-400 text-xs mt-0.5">
-              {match.timeMandante} × {match.timeVisitante}
-            </p>
-          </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-1">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="p-4 space-y-2 max-h-[50vh] overflow-y-auto">
-          {match.canais.map((ch, i) => (
-            <button
-              key={i}
-              onClick={() => onSelect(ch)}
-              className="w-full flex items-center gap-3 p-3 bg-fut-dark hover:bg-fut-dark/80 rounded-xl border border-gray-800 hover:border-fut-green/50 transition-all text-left"
-            >
-              <div className="w-10 h-10 bg-fut-darker rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-fut-green" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" />
-                </svg>
-              </div>
-              <div className="min-w-0">
-                <p className="text-white font-semibold text-sm">{ch.nome}</p>
-                <p className="text-gray-500 text-xs">Clique para assistir</p>
-              </div>
-              <svg className="w-4 h-4 text-gray-500 ml-auto flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          ))}
-        </div>
-
-        <div className="px-4 pb-4">
-          <button onClick={onClose} className="w-full py-2.5 rounded-xl bg-gray-800 text-gray-400 hover:text-white text-sm font-medium transition-colors">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: 'Futebol Ao Vivo Hoje — Jogos de Futebol ao Vivo | Fut-Lance',
+  description: 'Futebol ao vivo hoje: confira os principais jogos, horários, competições e informações das partidas. Acompanhe a programação de futebol ao vivo no Fut-Lance.',
+  keywords: 'futebol ao vivo, futebol ao vivo hoje, jogos de futebol ao vivo, jogos de hoje, assistir futebol ao vivo, futebol na TV, onde assistir futebol hoje, Brasileirão ao vivo, Libertadores ao vivo, Champions League ao vivo',
+  openGraph: {
+    title: 'Futebol Ao Vivo Hoje — Jogos de Futebol ao Vivo | Fut-Lance',
+    description: 'Futebol ao vivo hoje: confira os principais jogos, horários, competições e informações das partidas.',
+    url: 'https://fut-lance.vercel.app/ao-vivo',
+    siteName: 'FUT LANCE',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Futebol Ao Vivo Hoje — Jogos de Futebol ao Vivo | Fut-Lance',
+    description: 'Futebol ao vivo hoje: confira os principais jogos, horários, competições e informações das partidas.',
+  },
+  alternates: {
+    canonical: 'https://fut-lance.vercel.app/ao-vivo',
+  },
+};
 
 export default function AoVivoPage() {
-  const [liveStatuses, setLiveStatuses] = useState<Record<string, string>>({});
-  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
-  const [activeChannel, setActiveChannel] = useState<MatchChannel | null>(null);
-  const [watchingMatch, setWatchingMatch] = useState<Match | null>(null);
-
-  useEffect(() => {
-    const update = () => {
-      const statuses: Record<string, string> = {};
-      for (const m of initialMatches) {
-        statuses[m.id] = getMatchStatus(m);
-      }
-      setLiveStatuses(statuses);
-    };
-    update();
-    const interval = setInterval(update, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const visibleMatches = useMemo(() => {
-    return initialMatches.filter((m) => liveStatuses[m.id] !== 'encerrado');
-  }, [liveStatuses]);
-
-  const handleWatch = (match: Match) => {
-    if (match.canais.length === 1) {
-      setActiveChannel(match.canais[0]);
-      setWatchingMatch(match);
-    } else {
-      setSelectedMatch(match);
-    }
-  };
-
-  const handleSelectChannel = (channel: MatchChannel) => {
-    if (selectedMatch) {
-      setActiveChannel(channel);
-      setWatchingMatch(selectedMatch);
-      setSelectedMatch(null);
-    }
-  };
-
-  const handleClosePlayer = () => {
-    setActiveChannel(null);
-    setWatchingMatch(null);
-  };
-
-  const aoVivoSchema = {
+  const breadcrumbSchema = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'Futebol Ao Vivo - FUT LANCE',
-    description: 'Assista aos jogos de futebol ao vivo. Libertadores, Brasileirão, Champions League e mais.',
-    url: 'https://fut-lance.vercel.app/ao-vivo',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: 'Futebol Ao Vivo', item: 'https://fut-lance.vercel.app/ao-vivo' },
+    ],
   };
+
+  const eventSchemas = matches.slice(0, 10).map((match) => {
+    const [d, m, y] = match.data.split('/').map(Number);
+    const [h, min] = match.horario.split(':').map(Number);
+    const startDate = new Date(y, m - 1, d, h, min);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'SportsEvent',
+      name: `${match.timeMandante} x ${match.timeVisitante}`,
+      description: `${match.competicao} - ${match.timeMandante} x ${match.timeVisitante}`,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      location: { '@type': 'VirtualLocation', url: 'https://fut-lance.vercel.app/ao-vivo' },
+      organizer: { '@type': 'Organization', name: 'FUT LANCE', url: 'https://fut-lance.vercel.app' },
+      performer: [
+        { '@type': 'SportsTeam', name: match.timeMandante },
+        { '@type': 'SportsTeam', name: match.timeVisitante },
+      ],
+      superEvent: { '@type': 'SportsLeague', name: match.competicao },
+    };
+  });
 
   return (
     <>
-      <Script
-        id="ao-vivo-schema"
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aoVivoSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {eventSchemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
       <div className="container mx-auto px-4 py-6 md:py-8">
-        {/* Header */}
+        <nav className="text-sm text-gray-400 mb-6 flex items-center gap-1" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-white transition-colors">Início</Link>
+          <span className="text-gray-600">/</span>
+          <span className="text-gray-300">Futebol Ao Vivo</span>
+        </nav>
+
         <div className="mb-6 md:mb-8">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-3">
             <span className="w-3 h-3 bg-fut-accent rounded-full animate-pulse" />
-            <h1 className="text-2xl md:text-4xl font-bold text-white">Jogos Ao Vivo</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-white">Futebol Ao Vivo Hoje</h1>
           </div>
-          <p className="text-gray-400 text-sm md:text-base">Confira os jogos com transmissão ao vivo. Clique para assistir.</p>
+          <p className="text-gray-400 text-sm md:text-base max-w-3xl leading-relaxed">
+            Confira a programação completa de futebol ao vivo de hoje. Aqui você encontra os principais jogos do dia com horários, competições e informações de cada partida. Acompanhe em tempo real os jogos do Brasileirão, Libertadores, Champions League e outras competições. Selecione um jogo e assista ao vivo.
+          </p>
         </div>
 
-        {/* Player */}
-        {activeChannel && watchingMatch && (
-          <section className="mb-6 md:mb-8">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <p className="text-fut-green font-bold text-sm">{watchingMatch.competicao}</p>
-                <p className="text-white font-semibold">
-                  {watchingMatch.timeMandante} × {watchingMatch.timeVisitante}
-                </p>
-              </div>
-              <button
-                onClick={handleClosePlayer}
-                className="text-gray-400 hover:text-white p-2 hover:bg-fut-darker rounded-lg transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <PlayerStream url={activeChannel.url} titulo={`${watchingMatch.timeMandante} × ${watchingMatch.timeVisitante}`} />
-            {watchingMatch.canais.length > 1 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {watchingMatch.canais.map((ch, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveChannel(ch)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                      activeChannel?.url === ch.url
-                        ? 'bg-fut-green text-white'
-                        : 'bg-fut-darker text-gray-400 hover:text-white border border-gray-800'
-                    }`}
-                  >
-                    {ch.nome}
-                  </button>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
+        <AoVivoClient />
 
-        {/* Placeholder */}
-        {!activeChannel && (
-          <section className="mb-6 md:mb-8 bg-fut-darker rounded-2xl p-8 md:p-10 text-center border border-gray-800">
-            <span className="text-4xl md:text-5xl block mb-3">📺</span>
-            <p className="text-gray-400 text-base md:text-lg">Selecione um jogo abaixo para assistir.</p>
-          </section>
-        )}
+        <section className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link href="/categoria/brasileirao" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
+            <span className="text-2xl block mb-2">🏆</span>
+            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Brasileirão</h2>
+            <p className="text-gray-500 text-sm mt-1">Notícias e jogos do Brasileirão Série A</p>
+          </Link>
+          <Link href="/categoria/libertadores" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
+            <span className="text-2xl block mb-2">🌎</span>
+            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Libertadores</h2>
+            <p className="text-gray-500 text-sm mt-1">Notícias e jogos da Copa Libertadores</p>
+          </Link>
+          <Link href="/categoria/champions-league" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
+            <span className="text-2xl block mb-2">⭐</span>
+            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Champions League</h2>
+            <p className="text-gray-500 text-sm mt-1">Notícias e jogos da Liga dos Campeões</p>
+          </Link>
+        </section>
 
-        {/* Match Cards */}
-        {visibleMatches.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {visibleMatches.map((match) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                status={liveStatuses[match.id] || 'em-breve'}
-                onWatch={handleWatch}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <span className="text-5xl block mb-4">⚽</span>
-            <p className="text-gray-400 text-lg">Nenhum jogo programado no momento.</p>
-            <p className="text-gray-500 text-sm mt-2">Volte mais tarde para conferir as próximas transmissões.</p>
-          </div>
-        )}
-
-        {/* Info */}
-        <section className="mt-10 md:mt-12 bg-fut-darker rounded-2xl p-5 md:p-6 border border-gray-800">
-          <h2 className="text-base font-bold text-white mb-3">ℹ️ Informações</h2>
-          <div className="text-gray-400 space-y-1.5 text-sm">
-            <p>• O status dos jogos é atualizado automaticamente.</p>
-            <p>• Funciona melhor no Google Chrome.</p>
-            <p>• Caso não carregue, tente outro canal ou recarregue a página.</p>
-            <p>• Para melhor experiência, use tela cheia no player.</p>
+        <section className="mt-6 bg-fut-darker rounded-2xl p-5 md:p-6 border border-gray-800">
+          <h2 className="text-base font-bold text-white mb-3">Sobre o Futebol Ao Vivo no Fut-Lance</h2>
+          <div className="text-gray-400 text-sm space-y-2">
+            <p>
+              O Fut-Lance é sua fonte completa para acompanhar futebol ao vivo. Reunimos todos os jogos do dia com horários oficiais, canais de transmissão e informações detalhadas de cada partida. Se você procura por jogos de hoje, resultados ao vivo ou próximos confrontos, está no lugar certo.
+            </p>
+            <p>
+              Acesse nossa seção de notícias para ficar por dentro de tudo o que acontece no Brasileirão, Libertadores, Champions League, transferências e muito mais. Todo conteúdo é atualizado diariamente para garantir que você não perca nada.
+            </p>
           </div>
         </section>
       </div>
-
-      {/* Channel Selector Modal */}
-      {selectedMatch && (
-        <ChannelSelector
-          match={selectedMatch}
-          onSelect={handleSelectChannel}
-          onClose={() => setSelectedMatch(null)}
-        />
-      )}
     </>
   );
 }

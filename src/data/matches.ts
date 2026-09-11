@@ -142,7 +142,7 @@ export const matches: Match[] = [
     timeMandante: 'Grêmio',
     logoTimeMandante: 'https://logodetimes.com/times/gremio/logo-gremio-2048.png',
     timeVisitante: 'Vasco',
-    logoTimeVisitante: 'https://logodetimes.com/times/vasco/logo-vasco-2048.png',
+    logoTimeVisitante: 'https://assets.footylogos.com/logos/vasco-da-gama/vasco-da-gama-logo-footylogos.svg',
     status: 'em-breve',
     canais: [
       { nome: 'Premiere 1 FHD', url: 'http://xigfh01.site:80/031532627/513117897/590.m3u8' },

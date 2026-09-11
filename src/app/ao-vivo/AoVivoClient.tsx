@@ -217,7 +217,8 @@ export default function AoVivoClient() {
   const visibleMatches = useMemo(() => {
     return initialMatches.filter((m) => {
       const status = liveStatuses[m.id];
-      return status !== 'expirado';
+      if (!status) return true;
+      return status !== 'encerrado' && status !== 'expirado';
     });
   }, [liveStatuses]);
 

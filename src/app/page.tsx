@@ -199,21 +199,21 @@ export default async function Home() {
           Campeonatos
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Link href="/categoria/brasileirao" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-fut-green/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/campeonatos/brasileirao" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-fut-green/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">🏆</span>
             <h3 className="text-white font-bold group-hover:text-fut-green transition-colors">Brasileirão</h3>
           </Link>
-          <Link href="/categoria/libertadores" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-yellow-500/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/campeonatos/libertadores" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-yellow-500/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">🌎</span>
             <h3 className="text-white font-bold group-hover:text-yellow-400 transition-colors">Libertadores</h3>
           </Link>
-          <Link href="/categoria/champions-league" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-blue-500/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/campeonatos/champions-league" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-blue-500/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">⭐</span>
             <h3 className="text-white font-bold group-hover:text-blue-400 transition-colors">Champions League</h3>
           </Link>
-          <Link href="/categoria/transferencias" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-purple-500/50 rounded-xl p-6 text-center transition-all">
-            <span className="text-4xl block mb-3">💰</span>
-            <h3 className="text-white font-bold group-hover:text-purple-400 transition-colors">Transferências</h3>
+          <Link href="/campeonatos/copa-do-brasil" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-yellow-500/50 rounded-xl p-6 text-center transition-all">
+            <span className="text-4xl block mb-3">🥇</span>
+            <h3 className="text-white font-bold group-hover:text-yellow-400 transition-colors">Copa do Brasil</h3>
           </Link>
         </div>
       </section>
@@ -224,21 +224,39 @@ export default async function Home() {
           Times
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Link href="/categoria/flamengo" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-red-500/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/times/flamengo" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-red-500/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">🔴⚫</span>
             <h3 className="text-white font-bold group-hover:text-red-400 transition-colors">Flamengo</h3>
           </Link>
-          <Link href="/categoria/palmeiras" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-green-500/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/times/palmeiras" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-green-500/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">🟢🟢</span>
             <h3 className="text-white font-bold group-hover:text-green-400 transition-colors">Palmeiras</h3>
           </Link>
-          <Link href="/categoria/corinthians" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-black/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/times/corinthians" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-black/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">⚫⚪</span>
             <h3 className="text-white font-bold group-hover:text-white transition-colors">Corinthians</h3>
           </Link>
-          <Link href="/categoria/sao-paulo" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-red-600/50 rounded-xl p-6 text-center transition-all">
+          <Link href="/times/sao-paulo" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-red-600/50 rounded-xl p-6 text-center transition-all">
             <span className="text-4xl block mb-3">🔴⚪⚫</span>
             <h3 className="text-white font-bold group-hover:text-red-400 transition-colors">São Paulo</h3>
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+          <Link href="/times/santos" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-white/50 rounded-xl p-6 text-center transition-all">
+            <span className="text-4xl block mb-3">⚫⚪</span>
+            <h3 className="text-white font-bold group-hover:text-white transition-colors">Santos</h3>
+          </Link>
+          <Link href="/times/vasco" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-white/50 rounded-xl p-6 text-center transition-all">
+            <span className="text-4xl block mb-3">⚫⚪</span>
+            <h3 className="text-white font-bold group-hover:text-white transition-colors">Vasco</h3>
+          </Link>
+          <Link href="/times/botafogo" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-white/50 rounded-xl p-6 text-center transition-all">
+            <span className="text-4xl block mb-3">⚫⚪</span>
+            <h3 className="text-white font-bold group-hover:text-white transition-colors">Botafogo</h3>
+          </Link>
+          <Link href="/times/fluminense" className="group bg-fut-darker hover:bg-fut-dark border border-gray-800 hover:border-red-500/50 rounded-xl p-6 text-center transition-all">
+            <span className="text-4xl block mb-3">🔴🟢⚪</span>
+            <h3 className="text-white font-bold group-hover:text-red-400 transition-colors">Fluminense</h3>
           </Link>
         </div>
       </section>

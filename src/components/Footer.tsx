@@ -22,23 +22,23 @@ export default function Footer() {
             <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Campeonatos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/categoria/brasileirao" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                <Link href="/campeonatos/brasileirao" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Brasileirão
                 </Link>
               </li>
               <li>
-                <Link href="/categoria/libertadores" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                <Link href="/campeonatos/libertadores" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Libertadores
                 </Link>
               </li>
               <li>
-                <Link href="/categoria/champions-league" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                <Link href="/campeonatos/champions-league" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Champions League
                 </Link>
               </li>
               <li>
-                <Link href="/categoria/transferencias" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Transferências
+                <Link href="/campeonatos/copa-do-brasil" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Copa do Brasil
                 </Link>
               </li>
             </ul>
@@ -60,6 +60,11 @@ export default function Footer() {
               <li>
                 <Link href="/noticias" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Notícias
+                </Link>
+              </li>
+              <li>
+                <Link href="/onde-assistir" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Onde Assistir
                 </Link>
               </li>
               <li>

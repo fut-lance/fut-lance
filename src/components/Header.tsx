@@ -7,10 +7,10 @@ const navLinks = [
   { href: '/', label: 'Início' },
   { href: '/ao-vivo', label: 'Ao Vivo', live: true },
   { href: '/noticias', label: 'Notícias' },
-  { href: '/categoria/brasileirao', label: 'Brasileirão' },
-  { href: '/categoria/libertadores', label: 'Libertadores' },
-  { href: '/categoria/champions-league', label: 'Champions' },
-  { href: '/categoria/transferencias', label: 'Transferências' },
+  { href: '/campeonatos/brasileirao', label: 'Brasileirão' },
+  { href: '/campeonatos/libertadores', label: 'Libertadores' },
+  { href: '/campeonatos/champions-league', label: 'Champions' },
+  { href: '/onde-assistir', label: 'Onde Assistir' },
 ];
 
 export default function Header() {

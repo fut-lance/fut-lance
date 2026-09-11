@@ -61,8 +61,11 @@
 - [ ] Publicar 5 notícias sobre Libertadores dos jogos do dia 09/09/2026
 
 ## Monetização
-- **Planejado**: AdCash (futuro, ainda não implementado)
-- **Atual**: Nenhuma monetização ativa
+- **Plataforma**: Adcash (ativa)
+- **Publisher ID**: 1213830
+- **Zone ID**: ctkhqd7xx
+- **Scripts**: acscdn.com/script/aclib.js + runAutoTag
+- **Status**: Conta criada, scripts integrados, aguardando aprovação do site
 
 ## O que NÃO funciona / Cuidados
 - **Tabela do Brasileirão**: NÃO é automática — precisa atualizar manualmente quando jogos são disputados. Fonte: ESPN (espn.com.br/futebol/classificacao/_/liga/bra.1)
@@ -101,6 +104,13 @@
 6. Título claro e descritivo
 7. Conteúdo em HTML (<p>, <h3>, <strong>)
 8. Data de publicação correta
+9. **REGRAS ADCASH:** Toda notícia DEVE ter imagem funcional. Site sem imagem pode ser reprovado.
+10. **⚠️ VERIFICAR DATA E HORA ANTES DE PUBLICAR!** NUNCA postar notícias desatualizadas ou de eventos passados. SEMPRE pesquisar a data atual e verificar se a notícia é de HOJE. Se a notícia for de dias anteriores, NÃO publicar — apenas notícias do dia corrente ou muito recentes (últimas 24h).
+
+## API Token (Strapi Full Access)
+- **Token**: `231bc9d148822cbbf909771a5e6c3fa28a58c1ab33b7a06cc183c5b3da2baa85e17a7ead799a7974388111d5853505f2d1707e5bd25723c8ebfe1a9445486cad84836e53541ad8cb909c5919bb2aad2de1eecc64d000eb3441e01ff2619588df9d05f439a6e82f16cc6575fdd0f9ca6a82574f437a807724d8fa1effbf8a9699`
+- **Permissões**: Full Access (leitura e escrita)
+- **Uso**: `Authorization: Bearer {token}` nos headers das requisições API
 
 ## Comandos Úteis
 - Node.js: `C:\Program Files\nodejs\node.exe`

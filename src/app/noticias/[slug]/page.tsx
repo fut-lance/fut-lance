@@ -20,9 +20,13 @@ export async function generateMetadata({
     ? `${apiUrl}${noticia.imagem_capa.url}`
     : 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200');
 
+  const categoryKeywords = noticia.categoria?.nome || 'Futebol';
+  const newsKeywords = `${noticia.titulo}, ${categoryKeywords}, FUT LANCE, futebol brasileiro, notícias de futebol`;
+
   return {
     title: noticia.titulo,
     description: noticia.resumo || noticia.conteudo?.replace(/<[^>]*>/g, '').substring(0, 160) || noticia.titulo,
+    keywords: newsKeywords,
     openGraph: {
       title: noticia.titulo,
       description: noticia.resumo || noticia.titulo,
@@ -42,6 +46,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `https://fut-lance.vercel.app/noticias/${params.slug}`,
+    },
+    other: {
+      'news_keywords': newsKeywords,
+      'article:published_time': noticia.data_publicacao || '',
+      'article:section': categoryKeywords,
     },
   };
 }
@@ -120,7 +129,13 @@ export default async function NoticiaPage({
       '@id': `https://fut-lance.vercel.app/noticias/${params.slug}`,
     },
     articleSection: noticia.categoria?.nome || 'Futebol',
+    keywords: [noticia.categoria?.nome || 'Futebol', 'FUT LANCE', 'futebol', 'notícias'],
     inLanguage: 'pt-BR',
+    isAccessibleForFree: true,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.prose'],
+    },
   };
 
   const breadcrumbSchema = {

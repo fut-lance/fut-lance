@@ -38,7 +38,7 @@ export async function getNoticias(page = 1, pageSize = 10) {
 
 export async function getNoticiaBySlug(slug: string) {
   const data = await fetchAPI(
-    `/noticias?filters[documentId][$eq]=${slug}&populate=*`
+    `/noticias?filters[slug][$eq]=${slug}&populate=*`
   );
   return data?.data?.[0] || null;
 }
@@ -83,7 +83,7 @@ export async function getTransmissoesAoVivo() {
 export async function getRelatedNoticias(categoriaId: number, currentSlug: string, limit = 4) {
   try {
     const data = await fetchAPI(
-      `/noticias?filters[categoria][id][$eq]=${categoriaId}&filters[documentId][$ne]=${currentSlug}&sort=data_publicacao:desc&pagination[pageSize]=${limit}&populate=*`
+      `/noticias?filters[categoria][id][$eq]=${categoriaId}&filters[slug][$ne]=${currentSlug}&sort=data_publicacao:desc&pagination[pageSize]=${limit}&populate=*`
     );
     return data?.data || [];
   } catch {

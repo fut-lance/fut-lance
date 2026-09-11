@@ -4,16 +4,18 @@ import { useEffect, useState, useMemo } from 'react';
 import PlayerStream from '@/components/PlayerStream';
 import { matches as initialMatches, type Match, type MatchChannel } from '@/data/matches';
 
-function getMatchStatus(match: Match): 'em-breve' | 'ao-vivo' | 'encerrado' {
+function getMatchStatus(match: Match): 'em-breve' | 'ao-vivo' | 'encerrado' | 'expirado' {
   const now = new Date();
   const [d, m, y] = match.data.split('/').map(Number);
   const [h, min] = match.horario.split(':').map(Number);
   const matchStart = new Date(y, m - 1, d, h, min);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
+  const removeAfter = new Date(matchEnd.getTime() + 20 * 60 * 1000);
 
   if (now < matchStart) return 'em-breve';
   if (now >= matchStart && now <= matchEnd) return 'ao-vivo';
-  return 'encerrado';
+  if (now > matchEnd && now <= removeAfter) return 'encerrado';
+  return 'expirado';
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -213,7 +215,10 @@ export default function AoVivoClient() {
   }, []);
 
   const visibleMatches = useMemo(() => {
-    return initialMatches.filter((m) => liveStatuses[m.id] !== 'encerrado');
+    return initialMatches.filter((m) => {
+      const status = liveStatuses[m.id];
+      return status !== 'expirado';
+    });
   }, [liveStatuses]);
 
   const handleWatch = (match: Match) => {

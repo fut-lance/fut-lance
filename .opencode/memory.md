@@ -100,6 +100,7 @@
 - **UTF-8 no banco**: Já corrigido, mas podem aparecer caracteres quebrados em notícias antigas
 
 ## Regras para Jogos ao Vivo (matches.ts)
+- **⚠️ REGRAS DE LIMPEZA AUTOMÁTICA:** Jogos encerrados DEVEM ser removidos da página 20 minutos após o encerramento. Implementar no client-side (AoVivoClient.tsx) lógica que compara data/hora atual com data/hora do jogo + 20min. Jogos que passaram desse período somem da listagem automaticamente.
 - **SEMPRE colocar logos oficiais dos times** — buscar sempre a logo oficial de cada time
 - **SEMPRE pesquisar qual canal vai passar o jogo** e colocar o link correto do canal no IPTV
 - Fontes para logos oficiais:

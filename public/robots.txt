@@ -3,21 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-# Google
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-
-# Bing
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-
-# Ads
-User-agent: Mediapartners-Google
-Allow: /
-
 Sitemap: https://fut-lance.vercel.app/sitemap.xml
-Sitemap: https://fut-lance.vercel.app/sitemap-news.xml

@@ -25,6 +25,30 @@ export const metadata: Metadata = {
   },
 };
 
+function getMatchStatusServer(match: { data: string; horario: string }): string {
+  const now = new Date();
+  const [d, m, y] = match.data.split('/').map(Number);
+  const [h, min] = match.horario.split(':').map(Number);
+  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
+
+  if (now < matchStart) return 'Em breve';
+  if (now >= matchStart && now <= matchEnd) return 'AO VIVO';
+  return 'Encerrado';
+}
+
+function getEventStatus(match: { data: string; horario: string }): string {
+  const now = new Date();
+  const [d, m, y] = match.data.split('/').map(Number);
+  const [h, min] = match.horario.split(':').map(Number);
+  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
+
+  if (now < matchStart) return 'https://schema.org/EventScheduled';
+  if (now >= matchStart && now <= matchEnd) return 'https://schema.org/EventLive';
+  return 'https://schema.org/EventCompleted';
+}
+
 export default function AoVivoPage() {
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -35,7 +59,7 @@ export default function AoVivoPage() {
     ],
   };
 
-  const eventSchemas = matches.slice(0, 10).map((match) => {
+  const eventSchemas = matches.map((match) => {
     const [d, m, y] = match.data.split('/').map(Number);
     const [h, min] = match.horario.split(':').map(Number);
     const startDate = new Date(y, m - 1, d, h, min);
@@ -45,10 +69,10 @@ export default function AoVivoPage() {
       '@context': 'https://schema.org',
       '@type': 'SportsEvent',
       name: `${match.timeMandante} x ${match.timeVisitante}`,
-      description: `${match.competicao} - ${match.timeMandante} x ${match.timeVisitante}`,
+      description: `${match.competicao} - ${match.timeMandante} x ${match.timeVisitante} no dia ${match.data} às ${match.horario}.`,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
-      eventStatus: 'https://schema.org/EventScheduled',
+      eventStatus: getEventStatus(match),
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
       location: { '@type': 'VirtualLocation', url: 'https://fut-lance.vercel.app/ao-vivo' },
       organizer: { '@type': 'Organization', name: 'FUT LANCE', url: 'https://fut-lance.vercel.app' },
@@ -87,9 +111,80 @@ export default function AoVivoPage() {
             <h1 className="text-2xl md:text-4xl font-bold text-white">Futebol Ao Vivo Hoje</h1>
           </div>
           <p className="text-gray-400 text-sm md:text-base max-w-3xl leading-relaxed">
-            Confira a programação completa de futebol ao vivo de hoje. Aqui você encontra os principais jogos do dia com horários, competições e informações de cada partida. Acompanhe em tempo real os jogos do Brasileirão, Libertadores, Champions League e outras competições. Selecione um jogo e assista ao vivo.
+            Confira os principais jogos de futebol ao vivo hoje, com horários, competições, times e informações das partidas. Acompanhe os principais campeonatos, incluindo Brasileirão, Libertadores, Champions League e outros torneios.
           </p>
         </div>
+
+        {/* Lista de jogos renderizada no servidor para SEO */}
+        <section className="mb-8" aria-label="Jogos de hoje">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            {matches.map((match) => {
+              const status = getMatchStatusServer(match);
+              return (
+                <Link
+                  key={match.id}
+                  href={`/ao-vivo/${match.id}`}
+                  className="block bg-fut-darker rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-700 transition-all hover:shadow-lg hover:shadow-black/20"
+                >
+                  <div className="px-4 pt-4 pb-2">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-fut-green text-xs font-bold uppercase tracking-wider">{match.competicao}</span>
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full ${
+                        status === 'AO VIVO' ? 'bg-red-600 text-white animate-pulse' :
+                        status === 'Encerrado' ? 'bg-gray-600 text-gray-300' :
+                        'bg-yellow-600/80 text-white'
+                      }`}>
+                        {status === 'AO VIVO' && <span className="w-2 h-2 bg-white rounded-full" />}
+                        {status}
+                      </span>
+                    </div>
+                    <div className="text-center text-gray-500 text-xs mb-4">
+                      {match.data} • {match.horario}
+                    </div>
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <div className="flex-1 text-center">
+                        <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
+                          <img
+                            src={match.logoTimeMandante}
+                            alt={`Escudo do ${match.timeMandante}`}
+                            className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <p className="text-white font-bold text-sm md:text-base leading-tight">{match.timeMandante}</p>
+                      </div>
+                      <div className="flex flex-col items-center px-2">
+                        <span className="text-gray-500 text-xl font-bold">×</span>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
+                          <img
+                            src={match.logoTimeVisitante}
+                            alt={`Escudo do ${match.timeVisitante}`}
+                            className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <p className="text-white font-bold text-sm md:text-base leading-tight">{match.timeVisitante}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-4 pb-4">
+                    <div className={`w-full py-3 rounded-xl text-center font-bold text-sm ${
+                      status === 'AO VIVO' ? 'bg-fut-green text-white' :
+                      status === 'Encerrado' ? 'bg-gray-700 text-gray-400' :
+                      'bg-fut-darker text-gray-300 border border-gray-700'
+                    }`}>
+                      {status === 'AO VIVO' ? 'ASSISTIR AO VIVO' :
+                       status === 'Encerrado' ? 'Partida encerrada' :
+                       'Ver informações'}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
 
         <AoVivoClient />
 

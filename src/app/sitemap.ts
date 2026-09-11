@@ -57,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const jogoPages = matches.map((match) => ({
-    url: `https://fut-lance.vercel.app/ao-vivo#${match.id}`,
+    url: `https://fut-lance.vercel.app/ao-vivo/${match.id}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: 0.6,

@@ -2,6 +2,7 @@ import CardNoticia from '@/components/CardNoticia';
 import { getNoticiasByCategoria } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
@@ -120,6 +121,7 @@ export default async function CategoriaPage({
 }: {
   params: { slug: string };
 }) {
+  headers();
   let noticias: any[] = [];
   let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';

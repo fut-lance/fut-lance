@@ -16,6 +16,8 @@ export interface Match {
   canais: MatchChannel[];
 }
 
+const BASE = 'http://filtror7679.site:80/031532627/513117897';
+
 export const matches: Match[] = [
   {
     id: 'bras-12-001',
@@ -27,7 +29,18 @@ export const matches: Match[] = [
     timeVisitante: 'Vasco',
     logoTimeVisitante: 'https://assets.footylogos.com/logos/vasco-da-gama/vasco-da-gama-logo-footylogos.svg',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
+      { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },
+      { nome: 'Premiere 2 FHD', url: `${BASE}/424212.m3u8` },
+      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
+      { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },
+      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
+      { nome: 'Premiere 4 FHD', url: `${BASE}/424220.m3u8` },
+      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
+      { nome: 'SporTV FHD', url: `${BASE}/423791.m3u8` },
+      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
+    ],
   },
   {
     id: 'bras-12-002',
@@ -39,7 +52,16 @@ export const matches: Match[] = [
     timeVisitante: 'Fluminense',
     logoTimeVisitante: 'https://logodetimes.com/times/fluminense/logo-fluminense-2048.png',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere 5 HD', url: `${BASE}/424224.m3u8` },
+      { nome: 'Premiere 5 SD', url: `${BASE}/424225.m3u8` },
+      { nome: 'Premiere 6 FHD', url: `${BASE}/424227.m3u8` },
+      { nome: 'Premiere 6 HD', url: `${BASE}/424228.m3u8` },
+      { nome: 'Premiere 7 FHD', url: `${BASE}/424231.m3u8` },
+      { nome: 'Premiere 7 HD', url: `${BASE}/424232.m3u8` },
+      { nome: 'SporTV 2 FHD', url: `${BASE}/423795.m3u8` },
+      { nome: 'SporTV 2 HD', url: `${BASE}/423796.m3u8` },
+    ],
   },
   {
     id: 'bras-12-003',
@@ -51,7 +73,12 @@ export const matches: Match[] = [
     timeVisitante: 'Internacional',
     logoTimeVisitante: 'https://logodetimes.com/times/internacional/logo-internacional-2048.png',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere 8 FHD', url: `${BASE}/424235.m3u8` },
+      { nome: 'Premiere 8 HD', url: `${BASE}/424236.m3u8` },
+      { nome: 'SporTV 3 FHD', url: `${BASE}/423799.m3u8` },
+      { nome: 'SporTV 3 HD', url: `${BASE}/423800.m3u8` },
+    ],
   },
   {
     id: 'bras-12-004',
@@ -63,7 +90,16 @@ export const matches: Match[] = [
     timeVisitante: 'São Paulo',
     logoTimeVisitante: 'https://logodetimes.com/times/sao-paulo/logo-sao-paulo-2048.png',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
+      { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },
+      { nome: 'Premiere 2 FHD', url: `${BASE}/424212.m3u8` },
+      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
+      { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },
+      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
+      { nome: 'SporTV FHD', url: `${BASE}/423791.m3u8` },
+      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
+    ],
   },
   {
     id: 'bras-12-005',
@@ -75,7 +111,14 @@ export const matches: Match[] = [
     timeVisitante: 'Bragantino',
     logoTimeVisitante: 'https://logodetimes.com/times/bragantino/logo-bragantino-2048.png',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere 4 FHD', url: `${BASE}/424220.m3u8` },
+      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
+      { nome: 'Premiere 5 HD', url: `${BASE}/424224.m3u8` },
+      { nome: 'Premiere 5 SD', url: `${BASE}/424225.m3u8` },
+      { nome: 'SporTV 2 FHD', url: `${BASE}/423795.m3u8` },
+      { nome: 'SporTV 2 HD', url: `${BASE}/423796.m3u8` },
+    ],
   },
   {
     id: 'bras-12-006',
@@ -87,6 +130,13 @@ export const matches: Match[] = [
     timeVisitante: 'Cruzeiro',
     logoTimeVisitante: 'https://logodetimes.com/times/cruzeiro/logo-cruzeiro-2048.png',
     status: 'em-breve',
-    canais: [],
+    canais: [
+      { nome: 'Premiere 6 FHD', url: `${BASE}/424227.m3u8` },
+      { nome: 'Premiere 6 HD', url: `${BASE}/424228.m3u8` },
+      { nome: 'Premiere 7 FHD', url: `${BASE}/424231.m3u8` },
+      { nome: 'Premiere 7 HD', url: `${BASE}/424232.m3u8` },
+      { nome: 'SporTV 3 FHD', url: `${BASE}/423799.m3u8` },
+      { nome: 'SporTV 3 HD', url: `${BASE}/423800.m3u8` },
+    ],
   },
 ];

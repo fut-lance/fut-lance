@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getCampeonato, getAllCampeonatos } from '@/data/campeonatos';
+import { getNoticiasByCategoria } from '@/lib/api';
+import CardNoticia from '@/components/CardNoticia';
 import Script from 'next/script';
 
 interface PageProps {
@@ -41,6 +43,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CampeonatoPage({ params }: PageProps) {
   const { slug } = await params;
   const campeonato = getCampeonato(slug);
+
+  let noticias: any[] = [];
+  try {
+    const slugMap: Record<string, string> = {
+      'brasileirao': 'brasileirao',
+      'libertadores': 'libertadores',
+      'champions-league': 'champions-league',
+    };
+    const catSlug = slugMap[slug] || slug;
+    const data = await getNoticiasByCategoria(catSlug);
+    noticias = (data?.data || []).slice(0, 8);
+  } catch {}
 
   if (!campeonato) {
     return (
@@ -185,6 +199,31 @@ export default async function CampeonatoPage({ params }: PageProps) {
                   </div>
                   <span className="text-2xl font-extrabold text-fut-accent">{art.gols}</span>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Notícias */}
+        {noticias.length > 0 && (
+          <div className="mt-10">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white">Notícias</h2>
+              <Link href={`/categoria/${slug}`} className="text-fut-green hover:text-green-400 text-sm font-semibold">
+                Ver todas →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {noticias.map((noticia: any) => (
+                <CardNoticia
+                  key={noticia.id}
+                  slug={noticia.slug}
+                  titulo={noticia.titulo}
+                  resumo={noticia.resumo}
+                  imagem={noticia.imagem_url || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800'}
+                  categoria={noticia.categoria?.nome || campeonato.nome}
+                  data={noticia.data_publicacao}
+                />
               ))}
             </div>
           </div>

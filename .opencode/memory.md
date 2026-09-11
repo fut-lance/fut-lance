@@ -1,5 +1,9 @@
 # FUT LANCE - Memória do Projeto
 
+## ⚠️ REGRAS CRÍTICAS (SEMPRE SEGUIR)
+1. **NOTÍCIAS: SEMPRE verificar a data ANTES de publicar.** Buscar no Google "futebol hoje [data]" e só publicar notícias do dia ou últimas 24h. NUNCA publicar notícias antigas.
+2. **JOGOS AO VIVO: Remover jogos encerrados 20 minutos após o fim** (implementado no client-side).
+
 ## Informações Gerais
 - **Nome do site**: FUT LANCE
 - **Dono**: Rafael Melegari de Souza (rafaelmelegari86@gmail.com)
@@ -130,7 +134,12 @@
 7. Conteúdo em HTML (<p>, <h3>, <strong>)
 8. Data de publicação correta
 9. **REGRAS ADCASH:** Toda notícia DEVE ter imagem funcional. Site sem imagem pode ser reprovado.
-10. **⚠️ VERIFICAR DATA E HORA ANTES DE PUBLICAR!** NUNCA postar notícias desatualizadas ou de eventos passados. SEMPRE pesquisar a data atual e verificar se a notícia é de HOJE. Se a notícia for de dias anteriores, NÃO publicar — apenas notícias do dia corrente ou muito recentes (últimas 24h).
+10. **⚠️ REGRA CRÍTICA: ANTES DE CRIAR QUALQUER NOTÍCIA, SEMPRE:**
+    - Buscar no Google/na web a data atual (ex: "notícias futebol hoje [data]")
+    - Verificar se a notícia que será publicada é de HOJE ou no máximo das últimas 24h
+    - NUNCA publicar notícias de dias anteriores — mesmo que sejam "reais"
+    - Se a notícia for antiga, DESCARTAR e buscar uma mais recente
+    - Motivo: notícias desatualizadas prejudicam SEO e confiança do usuário
 
 ## API Token (Strapi Full Access)
 - **Token**: `***REMOVED***`

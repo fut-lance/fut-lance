@@ -1,9 +1,107 @@
 # FUT LANCE - Memória do Projeto
 
-## ⚠️ REGRAS CRÍTICAS (SEMPRE SEGUIR)
-1. **NOTÍCIAS: SEMPRE verificar a data ANTES de publicar.** Buscar no Google "futebol hoje [data]" e só publicar notícias do dia ou últimas 24h. NUNCA publicar notícias antigas.
-2. **JOGOS AO VIVO: Remover jogos encerrados 20 minutos após o fim** (implementado no client-side).
-3. **CONTEÚDO: SEMPRE pesquisar dados atualizados no Google antes de preencher classificação, artilharia, elencos, transferências.** NUNCA usar dados fictícios ou desatualizados. SEMPRE verificar a data atual e buscar informações de HOJE.
+## ⚠️ INSTRUÇÕES PERMANENTES — PRIORIDADE MÁXIMA
+
+### 1. SEMPRE CONSIDERAR A DATA ATUAL
+- Antes de qualquer tarefa, verifique a data atual
+- Nunca presuma que informação antiga continua atual
+- Nunca invente datas
+- Nunca trate notícia antiga como recente
+- Confira data de publicação/atualização da fonte
+- Se houver dúvida, pesquise novamente antes de usar
+
+### 2. NOTÍCIAS DEVEM SER ATUALIZADAS
+1. Verifique a data atual
+2. Busque informações recentes
+3. Dê preferência a fontes confiáveis
+4. Confira se a notícia corresponde ao momento atual
+5. Evite publicar informações antigas como novas
+6. Não invente notícias, declarações, resultados, escalações ou transferências
+7. Quando possível, confirme em mais de uma fonte
+8. Se não houver confirmação suficiente, deixe claro em vez de inventar
+
+### 3. VERIFICAR ANTES DE ALTERAR O CÓDIGO
+- Analise a estrutura existente primeiro
+- Identifique quais arquivos serão afetados
+- Entenda como o sistema atual funciona
+- Verifique dependências entre componentes
+- Não altere arquivos desnecessários
+- Não remova funcionalidades sem autorização
+- Não substitua código funcional por simplificação sem verificar consequências
+
+### 4. NÃO FAZER ALTERAÇÕES ÀS CEGAS
+- NUNCA altere apenas supondo como funciona
+- Antes de implementar: Leia o código relacionado
+- Identifique possíveis conflitos
+- Verifique rotas, componentes, APIs, banco de dados, variáveis de ambiente
+- Verifique responsividade e SEO quando aplicável
+
+### 5. TESTAR TUDO APÓS ALTERAÇÕES
+- Execute testes disponíveis
+- Verifique erros de TypeScript e build
+- Verifique rotas afetadas
+- Verifique se funcionalidades anteriores continuam
+- Corrija erros antes de considerar tarefa concluída
+- Não diga que está concluído se houver erros conhecidos
+
+### 6. PRESERVAR O QUE JÁ FUNCIONA
+- Não altere Home sem necessidade
+- Não altere páginas de notícias sem necessidade
+- Não altere categorias sem necessidade
+- Não altere SEO existente sem verificar consequências
+- Não remova componentes ou funcionalidades para simplificar
+- Faça alterações pequenas, controladas e justificadas
+
+### 7. SEO
+- Preserve URLs existentes
+- Evite quebrar links internos
+- Verifique title, meta description, canonical, headings
+- Verifique dados estruturados quando aplicáveis
+- Evite conteúdo duplicado ou páginas vazias
+- Priorize conteúdo útil e original
+
+### 8. CONTEÚDO DE FUTEBOL
+- Diferencie: notícia, rumor, informação confirmada, opinião, resultado, programação
+- Nunca transforme rumor em fato
+- Para jogos: confira competição, times, data, horário, status, resultado, rodada, local
+
+### 9. PENSAR ANTES DE EXECUTAR
+- Sequência: ANALISAR → VERIFICAR → PLANEJAR → IMPLEMENTAR → TESTAR → REVISAR
+- Não tenha pressa para alterar código
+- Identifique riscos antes de executar
+
+### 10. QUANDO FALTAR INFORMAÇÃO
+- Não invente, não suponha, não apresente como fato
+- Procure fonte confiável
+- Se não for possível confirmar, informe a limitação
+
+### 11. MEMÓRIA DO PROJETO
+- Consulte estas regras antes de cada tarefa
+- Objetivo evitar: notícias desatualizadas, datas erradas, informações inventadas, alterações desnecessárias, quebra de funcionalidades, erros de código, perda de SEO, retrabalho
+
+### REGRA PRINCIPAL
+**É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
+
+### CHECKLIST FINAL
+✓ Solicitação atendida exatamente como pedida
+✓ Data atual considerada quando necessário
+✓ Informações recentes verificadas quando necessário
+✓ Nenhuma informação inventada
+✓ Nenhuma funcionalidade quebrada
+✓ Código testado
+✓ Sem erros conhecidos
+✓ Resultado corresponde ao solicitado
+
+---
+
+## ⚠️ REGRAS ADICIONAIS FUT-LANCE
+1. **NOTÍCIAS:** SEMPRE verificar a data ANTES de publicar. Buscar no Google "futebol hoje [data]" e só publicar notícias do dia ou últimas 24h. NUNCA publicar notícias antigas.
+2. **JOGOS AO VIVO:** Remover jogos encerrados 20 minutos após o fim (implementado no client-side).
+3. **CONTEÚDO:** SEMPRE pesquisar dados atualizados no Google antes de preencher classificação, artilharia, elencos, transferências. NUNCA usar dados fictícios ou desatualizados.
+4. **DATAS:** SEMPRE verificar a data atual antes de criar qualquer conteúdo temporal.
+5. **FONTES:** Usar apenas fontes confiáveis (ge.globo.com, espn.com.br, uol.com.br, etc.)
+6. **NÃO INVENTAR:** Nunca inventar notícias, resultados, transferências ou escalações.
+7. **CONFIRMAR:** Quando possível, confirmar informações em mais de uma fonte.
 
 ## Informações Gerais
 - **Nome do site**: FUT LANCE

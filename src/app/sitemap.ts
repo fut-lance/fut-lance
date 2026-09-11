@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { matches } from '@/data/matches';
+import { getAllCampeonatos } from '@/data/campeonatos';
+import { getAllTimes } from '@/data/times';
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
 
@@ -30,11 +32,14 @@ async function fetchCategorias() {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const noticias = await fetchNoticias();
   const categorias = await fetchCategorias();
+  const campeonatos = getAllCampeonatos();
+  const times = getAllTimes();
 
   const staticPages = [
     { url: 'https://fut-lance.vercel.app', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
     { url: 'https://fut-lance.vercel.app/noticias', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
     { url: 'https://fut-lance.vercel.app/ao-vivo', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: 'https://fut-lance.vercel.app/onde-assistir', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
     { url: 'https://fut-lance.vercel.app/sobre', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.5 },
     { url: 'https://fut-lance.vercel.app/contato', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.5 },
     { url: 'https://fut-lance.vercel.app/politica-de-privacidade', lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
@@ -56,6 +61,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const campeonatosPages = campeonatos.map((c) => ({
+    url: `https://fut-lance.vercel.app/campeonatos/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const timesPages = times.map((t) => ({
+    url: `https://fut-lance.vercel.app/times/${t.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   const jogoPages = matches.map((match) => ({
     url: `https://fut-lance.vercel.app/ao-vivo/${match.id}`,
     lastModified: new Date(),
@@ -63,5 +82,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...categoriasPages, ...noticiasPages, ...jogoPages];
+  return [...staticPages, ...categoriasPages, ...campeonatosPages, ...timesPages, ...noticiasPages, ...jogoPages];
 }

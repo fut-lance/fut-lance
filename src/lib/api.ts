@@ -10,7 +10,8 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}) {
   const { method = 'GET', body, headers = {} } = options;
 
   const defaultHeaders: Record<string, string> = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
+    'Accept-Charset': 'utf-8',
   };
 
   const response = await fetch(`${STRAPI_URL}/api${endpoint}`, {
@@ -24,7 +25,8 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}) {
     throw new Error(`API error: ${response.status}`);
   }
 
-  return response.json();
+  const text = await response.text();
+  return JSON.parse(text);
 }
 
 export async function getNoticias(page = 1, pageSize = 10) {

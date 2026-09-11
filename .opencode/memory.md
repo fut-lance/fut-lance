@@ -257,3 +257,45 @@
 - Build: `& "C:\Program Files\nodejs\npm.cmd" run build`
 - Push: `& "C:\Program Files\Git\bin\git.exe" push`
 - PowerShell não roda npm.ps1 — usar npm.cmd diretamente
+
+---
+
+## 📋 PROMPT MESTRE — EXECUÇÃO EDITORIAL EM ETAPAS
+
+### ORDEM OBRIGATÓRIA:
+ETAPA 0 → PREPARAÇÃO E BACKUP
+ETAPA 1 → AUDITORIA
+ETAPA 2 → VALIDAÇÃO DA AUDITORIA
+ETAPA 3 → LIMPEZA
+ETAPA 4 → VALIDAÇÃO DA LIMPEZA
+ETAPA 5 → PESQUISA DE NOVAS PAUTAS
+ETAPA 6 → CRIAÇÃO DAS NOTÍCIAS
+ETAPA 7 → IMAGENS
+ETAPA 8 → SEO
+ETAPA 9 → VALIDAÇÃO FINAL
+ETAPA 10 → PUBLICAÇÃO/DEPLOY
+ETAPA 11 → RELATÓRIO FINAL
+
+### REGRA ABSOLUTA — DATA ATUAL:
+1. Verifique a data e hora REAL do sistema
+2. Não utilize conhecimento antigo do modelo como fonte
+3. Pesquise informações atuais na internet
+4. Confirme os fatos
+5. Não invente informações
+6. Se a data real for diferente da referência, utilize a data real
+
+### FLUXO EDITORIAL PERMANENTE:
+DATA ATUAL → PESQUISA → CONFIRMAÇÃO → DUPLICAÇÃO → CATEGORIA → CONTEÚDO → IMAGEM → LICENÇA → SEO → VALIDAÇÃO → PUBLICAÇÃO
+
+### PRIORIDADES:
+1. PRECISÃO
+2. ATUALIDADE
+3. SEGURANÇA
+4. QUALIDADE
+5. IMAGENS ADEQUADAS
+6. SEO
+7. ORGANIZAÇÃO
+8. QUANTIDADE
+
+### REGRA DE PARADA:
+PARE se houver: dúvida sobre dados, falta de fonte, conflito entre fontes, dúvida sobre licença, erro de banco, erro de build, risco de apagar dados importantes.

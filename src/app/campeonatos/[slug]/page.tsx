@@ -119,87 +119,41 @@ export default async function CampeonatoPage({ params }: PageProps) {
       </section>
 
       <div className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Classificação */}
-          {campeonato.classificacao.length > 0 && (
-            <div className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-white mb-6">Classificação</h2>
-              <div className="bg-fut-darker rounded-xl border border-gray-800 overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-fut-dark border-b border-gray-800">
-                        <th className="text-left py-3 px-4 text-gray-400 font-semibold">#</th>
-                        <th className="text-left py-3 px-4 text-gray-400 font-semibold">Time</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">P</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">J</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">V</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">E</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">D</th>
-                        <th className="text-center py-3 px-4 text-gray-400 font-semibold">SG</th>
+        {/* Classificação */}
+        {campeonato.classificacao.length > 0 && (
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-white mb-6">Classificação</h2>
+            <div className="bg-fut-darker rounded-xl border border-gray-800 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-fut-dark border-b border-gray-800">
+                      <th className="text-left py-3 px-4 text-gray-400 font-semibold">#</th>
+                      <th className="text-left py-3 px-4 text-gray-400 font-semibold">Time</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">P</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">J</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">V</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">E</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">D</th>
+                      <th className="text-center py-3 px-4 text-gray-400 font-semibold">SG</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {campeonato.classificacao.map((time) => (
+                      <tr key={time.pos} className="border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors">
+                        <td className="py-3 px-4 text-gray-400 font-semibold">{time.pos}º</td>
+                        <td className="py-3 px-4 text-white font-semibold">{time.time}</td>
+                        <td className="py-3 px-4 text-fut-green font-bold text-center">{time.pts}</td>
+                        <td className="py-3 px-4 text-gray-400 text-center">{time.j}</td>
+                        <td className="py-3 px-4 text-gray-400 text-center">{time.v}</td>
+                        <td className="py-3 px-4 text-gray-400 text-center">{time.e}</td>
+                        <td className="py-3 px-4 text-gray-400 text-center">{time.d}</td>
+                        <td className="py-3 px-4 text-gray-400 text-center">{time.sg > 0 ? `+${time.sg}` : time.sg}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {campeonato.classificacao.map((time) => (
-                        <tr key={time.pos} className="border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors">
-                          <td className="py-3 px-4 text-gray-400 font-semibold">{time.pos}º</td>
-                          <td className="py-3 px-4 text-white font-semibold">{time.time}</td>
-                          <td className="py-3 px-4 text-fut-green font-bold text-center">{time.pts}</td>
-                          <td className="py-3 px-4 text-gray-400 text-center">{time.j}</td>
-                          <td className="py-3 px-4 text-gray-400 text-center">{time.v}</td>
-                          <td className="py-3 px-4 text-gray-400 text-center">{time.e}</td>
-                          <td className="py-3 px-4 text-gray-400 text-center">{time.d}</td>
-                          <td className="py-3 px-4 text-gray-400 text-center">{time.sg > 0 ? `+${time.sg}` : time.sg}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </div>
-          )}
-
-          {/* Próximos Jogos */}
-          <div className={campeonato.classificacao.length > 0 ? '' : 'lg:col-span-2'}>
-            <h2 className="text-2xl font-bold text-white mb-6">Próximos Jogos</h2>
-            <div className="space-y-4">
-              {campeonato.proximosJogos.map((jogo, i) => (
-                <div key={i} className="bg-fut-darker rounded-xl border border-gray-800 p-4">
-                  <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
-                    <span>{jogo.data}</span>
-                    <span className="bg-fut-dark px-2 py-1 rounded">{jogo.horario}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-center flex-1">
-                      <p className="text-white font-bold text-sm">{jogo.mandante}</p>
-                    </div>
-                    <span className="text-fut-green font-bold mx-3">VS</span>
-                    <div className="text-center flex-1">
-                      <p className="text-white font-bold text-sm">{jogo.visitante}</p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 text-center mt-2">{jogo.local}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Artilheiros */}
-        {campeonato.artilheiros.length > 0 && (
-          <div className="mt-10">
-            <h2 className="text-2xl font-bold text-white mb-6">Artilharia</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {campeonato.artilheiros.map((art) => (
-                <div key={art.pos} className="bg-fut-darker rounded-xl border border-gray-800 p-4 flex items-center gap-4">
-                  <span className="text-2xl font-extrabold text-fut-green w-8 text-center">{art.pos}º</span>
-                  <div className="flex-1">
-                    <p className="text-white font-bold">{art.jogador}</p>
-                    <p className="text-gray-400 text-sm">{art.time}</p>
-                  </div>
-                  <span className="text-2xl font-extrabold text-fut-accent">{art.gols}</span>
-                </div>
-              ))}
             </div>
           </div>
         )}

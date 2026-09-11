@@ -248,7 +248,7 @@ export default async function NoticiaPage({
             {relatedNoticias.map((rel: any) => (
               <Link
                 key={rel.id}
-                href={`/noticias/${rel.documentId}`}
+                href={`/noticias/${rel.slug}`}
                 className="flex gap-4 p-4 bg-fut-darker rounded-lg hover:bg-fut-dark border border-gray-800 hover:border-gray-700 transition-all"
               >
                 <img

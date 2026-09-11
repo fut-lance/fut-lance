@@ -58,7 +58,31 @@
 - Canal GETV (GE TV) funcionando
 
 ## Pendências
-- [ ] Publicar 5 notícias sobre Libertadores dos jogos do dia 09/09/2026
+- [ ] Solicitar inclusão no Google News (news.google.com/newspublishers)
+- [ ] Configurar Google Search Console para monitorar indexação
+- [ ] Criar redes sociais: Instagram @futlance, Twitter @fut_lance, Facebook
+
+## SEO Implementado
+- robots.txt configurado
+- sitemap.xml (normal)
+- sitemap-news.xml (Google News - últimos 48 artigos)
+- IndexNow API (indexação instantânea Bing/Yandex)
+- NewsArticle schema completo
+- news_keywords meta tag
+- Canonical URLs
+- OpenGraph e Twitter Cards
+- JSON-LD结构化数据
+
+## SEO Implementado
+- robots.txt configurado
+- sitemap.xml (normal)
+- sitemap-news.xml (Google News - últimos 48 artigos)
+- IndexNow API (indexação instantânea Bing/Yandex)
+- NewsArticle schema completo
+- news_keywords meta tag
+- Canonical URLs
+- OpenGraph e Twitter Cards
+- JSON-LD结构化数据
 
 ## Monetização
 - **Plataforma**: Adcash (ativa)

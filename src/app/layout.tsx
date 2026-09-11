@@ -115,7 +115,16 @@ export default function RootLayout({
           type="text/javascript"
           strategy="afterInteractive"
         >
-          {`aclib.runAutoTag({zoneId: 'cktkhqd7xx'});`}
+          {`
+            function initAdcash() {
+              if (typeof aclib !== 'undefined' && typeof aclib.runAutoTag === 'function') {
+                aclib.runAutoTag({zoneId: 'cktkhqd7xx'});
+              } else {
+                setTimeout(initAdcash, 500);
+              }
+            }
+            initAdcash();
+          `}
         </Script>
         <Script
           id="website-schema"

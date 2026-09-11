@@ -20,34 +20,33 @@ print()
 
 # 1. Buscar todas as notícias
 print("1. Buscando todas as notícias no Strapi...")
-try:
-    resp = requests.get(f"{STRAPI_URL}/api/noticias?pagination[pageSize]=100&populate=*", headers=headers, timeout=30)
-    if resp.status_code == 200:
-        data = resp.json()
-        noticias = data.get("data", [])
-        print(f"   Total encontrado: {len(noticias)} notícias")
-    else:
-        print(f"   Erro ao buscar notícias: {resp.status_code}")
-        noticias = []
-except Exception as e:
-    print(f"   Erro: {e}")
-    noticias = []
+noticias = []
+for attempt in range(3):
+    try:
+        resp = requests.get(f"{STRAPI_URL}/api/noticias?pagination[pageSize]=100&populate=*", headers=headers, timeout=60)
+        if resp.status_code == 200:
+            data = resp.json()
+            noticias = data.get("data", [])
+            print(f"   Total encontrado: {len(noticias)} notícias")
+            break
+        else:
+            print(f"   Tentativa {attempt+1}: Erro {resp.status_code}")
+    except Exception as e:
+        print(f"   Tentativa {attempt+1}: {e}")
+    time.sleep(5)
 
 # 2. Buscar categorias
 print("\n2. Buscando categorias...")
+categorias = []
 try:
-    resp = requests.get(f"{STRAPI_URL}/api/categorias", headers=headers, timeout=30)
+    resp = requests.get(f"{STRAPI_URL}/api/categorias", headers=headers, timeout=60)
     if resp.status_code == 200:
         categorias = resp.json().get("data", [])
         print(f"   Total: {len(categorias)} categorias")
         for cat in categorias:
             print(f"   - {cat['nome']} (id: {cat['documentId']})")
-    else:
-        print(f"   Erro: {resp.status_code}")
-        categorias = []
 except Exception as e:
     print(f"   Erro: {e}")
-    categorias = []
 
 # 3. Salvar backup
 print("\n3. Salvando backup...")
@@ -78,30 +77,6 @@ with open("D:/open code/fut-lance/backup_noticias.json", "w", encoding="utf-8") 
 
 print(f"   Backup salvo em: backup_noticias.json")
 print(f"   Total: {len(backup['noticias'])} notícias")
-
-# 4. Criar checkpoint Git
-print("\n4. Criando checkpoint Git...")
-import subprocess
-try:
-    result = subprocess.run(
-        ["C:\\Program Files\\Git\\bin\\git.exe", "status", "--porcelain"],
-        capture_output=True, text=True, cwd="D:\\open code\\fut-lance"
-    )
-    if result.stdout.strip():
-        print("   Há alterações pendentes. Criando commit de checkpoint...")
-        subprocess.run(
-            ["C:\\Program Files\\Git\\bin\\git.exe", "add", "-A"],
-            cwd="D:\\open code\\fut-lance"
-        )
-        subprocess.run(
-            ["C:\\Program Files\\Git\\bin\\git.exe", "commit", "-m", f"checkpoint: backup antes de limpeza editorial ({datetime.now().strftime('%d/%m/%Y')})"],
-            cwd="D:\\open code\\fut-lance"
-        )
-        print("   Checkpoint criado!")
-    else:
-        print("   Nenhuma alteração pendente. Checkpoint não necessário.")
-except Exception as e:
-    print(f"   Erro ao criar checkpoint: {e}")
 
 print("\n" + "=" * 60)
 print("ETAPA 0 CONCLUÍDA")

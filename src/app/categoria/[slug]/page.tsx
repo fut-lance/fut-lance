@@ -3,7 +3,7 @@ import { getNoticiasByCategoria } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 const categorySeoData: Record<string, { title: string; description: string; keywords: string }> = {
   'brasileirao': {

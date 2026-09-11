@@ -206,7 +206,7 @@ export default async function CategoriaPage({
             <span className="text-lg">🏆</span>
             <div>
               <h2 className="text-base font-bold text-white">Classificação do Brasileirão 2026</h2>
-              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 09/09/2026 • Fonte: ESPN</p>
+              <p className="text-gray-500 text-[10px]">Rodada 25 • Atualizado em 11/09/2026 • Fonte: CBF</p>
             </div>
           </div>
           <div className="overflow-x-auto">

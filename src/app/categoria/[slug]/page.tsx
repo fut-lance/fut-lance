@@ -158,6 +158,21 @@ export default async function CategoriaPage({
         <span className="text-5xl mb-4 block">{icon}</span>
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
         <p className="text-gray-400">{categoriaDescricao}</p>
+        {params.slug === 'brasileirao' && (
+          <Link href="/campeonatos/brasileirao" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            📊 Ver classificação do Brasileirão
+          </Link>
+        )}
+        {params.slug === 'libertadores' && (
+          <Link href="/campeonatos/libertadores" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            📊 Ver informações da Libertadores
+          </Link>
+        )}
+        {params.slug === 'champions-league' && (
+          <Link href="/campeonatos/champions-league" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            📊 Ver informações da Champions League
+          </Link>
+        )}
       </div>
 
       {noticias.length > 0 ? (

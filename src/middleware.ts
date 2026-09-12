@@ -11,5 +11,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/categoria/:path*',
+  matcher: ['/categoria/:path*', '/campeonatos/:path*', '/ao-vivo/:path*'],
 };

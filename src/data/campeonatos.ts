@@ -118,7 +118,7 @@ export const campeonatos: Record<string, Campeonato> = {
     periodo: 'Setembro 2026 - Maio 2027',
     times: 36,
     formato: 'Liga (36 times) + Eliminatórias',
-    fase: 'Fase de Ligada',
+    fase: 'Fase de Liga',
     logo: '⭐',
     descricao: 'A Liga dos Campeões da UEFA é a principal competição de clubes de futebol da Europa. Organizada pela UEFA desde 1955, é considerada a competição de clubes mais prestigiada do mundo. Em 2026/27, a competição adota o novo formato de liga com 36 times.',
     proximosJogos: [

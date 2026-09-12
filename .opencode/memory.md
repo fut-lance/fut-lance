@@ -103,6 +103,8 @@
 6. **NÃO INVENTAR:** Nunca inventar notícias, resultados, transferências ou escalações.
 7. **CONFIRMAR:** Quando possível, confirmar informações em mais de uma fonte.
 8. **CANAIS DE TRANSMISSÃO:** SEMPRE pesquisar no Google quais canais irão transmitir cada jogo ANTES de cadastrar os canais em `matches.ts`. Buscar "onde assistir [time] x [time] [data]" ou "transmissão brasileirão rodada [X]". Não inventar canais — usar apenas os confirmados em fontes oficiais (ge.globo.com, CBF, portalmidiaesporte.com, etc.).
+9. **PÁGINA DE CADA JOGO:** Toda página de jogo (`/ao-vivo/[slug]`) DEVE ter: player de vídeo no topo, seletor de canais (se tiver mais de 1), placar visual com escudos, informações da partida, jogos relacionados. Isso é essencial para a experiência do usuário.
+10. **CRIAR JOGO = CRIAR PÁGINA + SEO:** Sempre que cadastrar um novo jogo em `matches.ts`, a página do jogo é criada automaticamente via `generateStaticParams()`. Porém, SEMPRE verificar se o SEO está correto: título, descrição, keywords, Open Graph, Twitter Card, JSON-LD SportsEvent, BreadcrumbList. Se faltar algo, ajustar antes de publicar.
 
 ## Informações Gerais
 - **Nome do site**: FUT LANCE

@@ -68,6 +68,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/ligas" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Ligas Internacionais
+                </Link>
+              </li>
+              <li>
+                <Link href="/jogadores" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Jogadores
+                </Link>
+              </li>
+              <li>
                 <Link href="/sobre" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Sobre
                 </Link>

@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { matches } from '@/data/matches';
 import { getAllCampeonatos } from '@/data/campeonatos';
 import { getAllTimes } from '@/data/times';
+import { ligas } from '@/data/ligas';
+import { jogadores } from '@/data/jogadores';
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
 
@@ -39,6 +41,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://fut-lance.vercel.app', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
     { url: 'https://fut-lance.vercel.app/noticias', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
     { url: 'https://fut-lance.vercel.app/ao-vivo', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: 'https://fut-lance.vercel.app/ligas', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: 'https://fut-lance.vercel.app/jogadores', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: 'https://fut-lance.vercel.app/onde-assistir', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
     { url: 'https://fut-lance.vercel.app/sobre', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.5 },
     { url: 'https://fut-lance.vercel.app/contato', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.5 },
@@ -82,5 +86,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...categoriasPages, ...campeonatosPages, ...timesPages, ...noticiasPages, ...jogoPages];
+  const ligasPages = ligas.map((liga) => ({
+    url: `https://fut-lance.vercel.app/ligas/${liga.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  const jogadoresPages = jogadores.map((jogador) => ({
+    url: `https://fut-lance.vercel.app/jogadores/${jogador.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...categoriasPages, ...campeonatosPages, ...timesPages, ...noticiasPages, ...jogoPages, ...ligasPages, ...jogadoresPages];
 }

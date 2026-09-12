@@ -1,55 +1,28 @@
 import requests
-import time
-import re
-from datetime import datetime
 
-STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
 TOKEN = "231bc9d148822cbbf909771a5e6c3fa28a58c1ab33b7a06cc183c5b3da2baa85e17a7ead799a7974388111d5853505f2d1707e5bd25723c8ebfe1a9445486cad84836e53541ad8cb909c5919bb2aad2de1eecc64d000eb3441e01ff2619588df9d05f439a6e82f16cc6575fdd0f9ca6a82574f437a807724d8fa1effbf8a9699"
+headers = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 
-headers = {
-    "Authorization": f"Bearer {TOKEN}",
-    "Content-Type": "application/json",
-    "Accept-Charset": "utf-8"
-}
+# Fix slugs for categories that are missing them
+fixes = [
+    (1, "brasileirao"),
+    (2, "libertadores"),
+]
 
-def generate_slug(title):
-    slug = title.lower()
-    slug = re.sub(r'[àáâãäå]', 'a', slug)
-    slug = re.sub(r'[èéêë]', 'e', slug)
-    slug = re.sub(r'[ìíîï]', 'i', slug)
-    slug = re.sub(r'[òóôõö]', 'o', slug)
-    slug = re.sub(r'[ùúûü]', 'u', slug)
-    slug = re.sub(r'[ç]', 'c', slug)
-    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
-    slug = re.sub(r'[\s]+', '-', slug)
-    slug = re.sub(r'-+', '-', slug)
-    slug = slug.strip('-')
-    return slug
+for cat_id, slug in fixes:
+    r = requests.put(
+        f"https://fut-lance-cms-v2.onrender.com/api/categorias/{cat_id}",
+        headers=headers,
+        json={"data": {"slug": slug}},
+        timeout=60
+    )
+    if r.status_code == 200:
+        print(f"OK: Categoria {cat_id} agora tem slug={slug}")
+    else:
+        print(f"ERRO {r.status_code}: {r.text[:200]}")
 
-print("=" * 60)
-print("CORRIGINDO SLUGS")
-print("=" * 60)
-
-resp = requests.get(f"{STRAPI_URL}/api/noticias?pagination[pageSize]=10", headers=headers, timeout=60)
-if resp.status_code == 200:
-    noticias = resp.json().get("data", [])
-    print(f"Total: {len(noticias)} noticias")
-    
-    for n in noticias:
-        if not n.get("slug"):
-            slug = generate_slug(n["titulo"])
-            print(f"Atualizando: {n['titulo'][:40]}... -> {slug}")
-            
-            update_resp = requests.put(
-                f"{STRAPI_URL}/api/noticias/{n['documentId']}",
-                headers=headers,
-                json={"data": {"slug": slug}},
-                timeout=60
-            )
-            if update_resp.status_code == 200:
-                print(f"  OK")
-            else:
-                print(f"  ERRO: {update_resp.status_code}")
-            time.sleep(3)
-
-print("\nCONCLUIDO")
+# Verify
+print("\n=== VERIFICAÇÃO ===")
+r = requests.get("https://fut-lance-cms-v2.onrender.com/api/categorias?pagination[pageSize]=100", headers=headers, timeout=60)
+for c in r.json().get("data", []):
+    print(f"  id={c['id']} nome={c.get('nome','?')} slug={c.get('slug','?')}")

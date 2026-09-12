@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { matches, type Match } from '@/data/matches';
 import { notFound } from 'next/navigation';
+import MatchPlayer from './MatchPlayer';
 
 export async function generateStaticParams() {
   return matches.map((match) => ({
@@ -205,6 +206,9 @@ export default function JogoPage({
                 <p>{match.data} às {match.horario}</p>
               </div>
             </div>
+
+            {/* Player */}
+            <MatchPlayer match={match} />
 
             {/* Conteúdo editorial */}
             <div className="bg-fut-darker rounded-2xl border border-gray-800 p-6 mb-6">

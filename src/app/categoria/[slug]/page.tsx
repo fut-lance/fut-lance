@@ -48,7 +48,18 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const seoData = categorySeoData[params.slug];
+  const normalize = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+  const slugNormalizado = normalize(params.slug);
+  const seoData = categorySeoData[slugNormalizado];
   const nomeFormatado = params.slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
@@ -81,12 +92,24 @@ export default async function CategoriaPage({
 }: {
   params: { slug: string };
 }) {
+  const normalize = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+  const slugNormalizado = normalize(params.slug);
+
   let noticias: any[] = [];
   let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';
 
   try {
-    const data = await getNoticiasByCategoria(params.slug);
+    const data = await getNoticiasByCategoria(slugNormalizado);
     noticias = data?.data || [];
 
     if (noticias.length > 0 && noticias[0].categoria) {
@@ -113,7 +136,7 @@ export default async function CategoriaPage({
     'sao-paulo': '🔴⚪⚫',
   };
 
-  const icon = categoriaIcons[params.slug] || '📰';
+  const icon = categoriaIcons[slugNormalizado] || '📰';
 
   const categorySchema = {
     '@context': 'https://schema.org',

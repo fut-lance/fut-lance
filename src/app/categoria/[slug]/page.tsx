@@ -58,9 +58,9 @@ export async function generateMetadata({
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-  const slugNormalizado = normalize(params.slug);
+  const slugNormalizado = normalize(decodeURIComponent(params.slug));
   const seoData = categorySeoData[slugNormalizado];
-  const nomeFormatado = params.slug
+  const nomeFormatado = decodeURIComponent(params.slug)
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
@@ -102,10 +102,10 @@ export default async function CategoriaPage({
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-  const slugNormalizado = normalize(params.slug);
+  const slugNormalizado = normalize(decodeURIComponent(params.slug));
 
   let noticias: any[] = [];
-  let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
+  let categoriaNome = decodeURIComponent(params.slug).replace(/-/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';
 
   try {
@@ -181,17 +181,17 @@ export default async function CategoriaPage({
         <span className="text-5xl mb-4 block">{icon}</span>
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
         <p className="text-gray-400">{categoriaDescricao}</p>
-        {params.slug === 'brasileirao' && (
+        {slugNormalizado === 'brasileirao' && (
           <Link href="/campeonatos/brasileirao" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
             📊 Ver classificação do Brasileirão
           </Link>
         )}
-        {params.slug === 'libertadores' && (
+        {slugNormalizado === 'libertadores' && (
           <Link href="/campeonatos/libertadores" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
             📊 Ver informações da Libertadores
           </Link>
         )}
-        {params.slug === 'champions-league' && (
+        {slugNormalizado === 'champions-league' && (
           <Link href="/campeonatos/champions-league" className="inline-flex items-center gap-2 mt-3 bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
             📊 Ver informações da Champions League
           </Link>

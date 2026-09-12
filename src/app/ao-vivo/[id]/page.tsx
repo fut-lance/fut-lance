@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   return matches.map((match) => ({
-    id: match.id,
+    id: match.slug,
   }));
 }
 
@@ -14,20 +14,20 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const match = matches.find((m) => m.id === params.id);
+  const match = matches.find((m) => m.slug === params.id);
   if (!match) return { title: 'Jogo não encontrado' };
 
-  const title = `${match.timeMandante} x ${match.timeVisitante} ao vivo: onde assistir e horário | Fut-Lance`;
-  const description = `${match.timeMandante} x ${match.timeVisitante} ao vivo. Veja horário, competição, informações da partida e opções disponíveis para acompanhar o jogo no Fut-Lance.`;
+  const title = `${match.timeMandante} x ${match.timeVisitante} ao vivo: horário e informações | Fut-Lance`;
+  const description = `${match.timeMandante} x ${match.timeVisitante} ao vivo. Confira horário, competição, informações da partida e acompanhe a transmissão disponível no Fut-Lance.`;
 
   return {
     title,
     description,
-    keywords: `${match.timeMandante}, ${match.timeVisitante}, ${match.competicao}, futebol ao vivo, jogos de hoje`,
+    keywords: `${match.timeMandante}, ${match.timeVisitante}, ${match.competicao}, futebol ao vivo, jogos de hoje, ${match.timeMandante} ao vivo, ${match.timeVisitante} ao vivo`,
     openGraph: {
       title,
       description,
-      url: `https://fut-lance.vercel.app/ao-vivo/${match.id}`,
+      url: `https://fut-lance.vercel.app/ao-vivo/${match.slug}`,
       siteName: 'FUT LANCE',
       locale: 'pt_BR',
       type: 'website',
@@ -38,7 +38,7 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `https://fut-lance.vercel.app/ao-vivo/${match.id}`,
+      canonical: `https://fut-lance.vercel.app/ao-vivo/${match.slug}`,
     },
   };
 }
@@ -72,7 +72,7 @@ export default function JogoPage({
 }: {
   params: { id: string };
 }) {
-  const match = matches.find((m) => m.id === params.id);
+  const match = matches.find((m) => m.slug === params.id);
   if (!match) notFound();
 
   const [d, m, y] = match.data.split('/').map(Number);
@@ -115,7 +115,7 @@ export default function JogoPage({
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
       { '@type': 'ListItem', position: 2, name: 'Futebol Ao Vivo', item: 'https://fut-lance.vercel.app/ao-vivo' },
-      { '@type': 'ListItem', position: 3, name: `${match.timeMandante} x ${match.timeVisitante}`, item: `https://fut-lance.vercel.app/ao-vivo/${match.id}` },
+      { '@type': 'ListItem', position: 3, name: `${match.timeMandante} x ${match.timeVisitante}`, item: `https://fut-lance.vercel.app/ao-vivo/${match.slug}` },
     ],
   };
 
@@ -286,7 +286,7 @@ export default function JogoPage({
                   {relatedMatches.map((m) => (
                     <Link
                       key={m.id}
-                      href={`/ao-vivo/${m.id}`}
+                      href={`/ao-vivo/${m.slug}`}
                       className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all"
                     >
                       <p className="text-fut-green text-xs font-bold">{m.competicao}</p>

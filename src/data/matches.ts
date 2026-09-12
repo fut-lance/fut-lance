@@ -101,8 +101,8 @@ export const matches: Match[] = [
     canais: [
       { nome: 'Record', url: '' },
       { nome: 'CazéTV', url: '' },
-      { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },
-      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
+      { nome: 'Premiere 6 FHD', url: `${BASE}/424227.m3u8` },
+      { nome: 'Premiere 6 HD', url: `${BASE}/424228.m3u8` },
     ],
   },
   {

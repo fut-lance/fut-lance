@@ -140,6 +140,19 @@
 - **Servidor principal**: http://blackbr.fun:80/get.php?username=031532627&password=513117897&type=m3u_plus&output=m3u8
 - **Servidor antigo (pode estar fora)**: http://filtror7679.site:80/031532627/513117897/{id}.m3u8
 - **Stream URL**: http://blackbr.fun:80/031532627/513117897/{id}.m3u8
+- **Canais Premiere disponíveis**:
+  - Premiere Clubes: 424208 (FHD), 424209 (HD), 424210 (SD)
+  - Premiere 2: 424212 (FHD), 424213 (HD), 424214 (SD)
+  - Premiere 3: 424216 (FHD), 424217 (HD), 424218 (SD)
+  - Premiere 4: 424220 (FHD), 424221 (HD), 424222 (SD)
+  - Premiere 5: 424224 (HD), 424225 (SD)
+  - Premiere 6: 424227 (FHD), 424228 (HD), 424229 (SD)
+  - Premiere 7: 424231 (FHD), 424232 (HD), 424233 (SD)
+  - Premiere 8: 424235 (FHD), 424236 (HD), 424237 (SD)
+- **Canais SporTV disponíveis**:
+  - SporTV: 423791 (FHD), 423792 (HD)
+  - SporTV 2: 423795 (FHD), 423796 (HD)
+  - SporTV 3: 423799 (FHD), 423800 (HD)
 - Canais permitidos: ESPN, SporTV, Premiere, Band Sports, Combate, GE TV, Cazé TV, Record, Paramount+, Amazon Prime
 - NÃO incluir: DAZN, canais não-esportivos
 

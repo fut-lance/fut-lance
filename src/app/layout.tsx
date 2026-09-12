@@ -19,6 +19,20 @@ export const metadata: Metadata = {
   creator: 'FUT LANCE',
   publisher: 'FUT LANCE',
   metadataBase: new URL('https://fut-lance.vercel.app'),
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { url: '/icon-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512x512.png', type: 'image/png', sizes: '512x512' },
+    ],
+  },
   openGraph: {
     title: 'FUT LANCE - Notícias de Futebol ao Vivo',
     description: 'O melhor blog de notícias de futebol do Brasil. Notícias, vídeos, transmissões ao vivo e muito mais.',
@@ -28,10 +42,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&q=80',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'FUT LANCE - Notícias de Futebol',
+        alt: 'FUT LANCE - Notícias de Futebol ao Vivo',
       },
     ],
   },
@@ -39,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'FUT LANCE - Notícias de Futebol ao Vivo',
     description: 'O melhor blog de notícias de futebol do Brasil.',
-    images: ['https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&q=80'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -73,6 +87,12 @@ export default function RootLayout({
       '@type': 'Organization',
       name: 'FUT LANCE',
       url: 'https://fut-lance.vercel.app',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://fut-lance.vercel.app/logo.png',
+        width: 800,
+        height: 400,
+      },
     },
   };
 
@@ -81,8 +101,12 @@ export default function RootLayout({
     '@type': 'Organization',
     name: 'FUT LANCE',
     url: 'https://fut-lance.vercel.app',
-    logo: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=200&q=80',
-    sameAs: [],
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://fut-lance.vercel.app/logo.png',
+      width: 800,
+      height: 400,
+    },
     description: 'Blog de notícias de futebol brasileiro e internacional.',
   };
 
@@ -136,7 +160,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#00E676" />
         <meta name="google-site-verification" content="q8QifoOx5_Pxx91Cm7CY-rhcleJ5xoeHzFbF65LV7Js" />
       </head>

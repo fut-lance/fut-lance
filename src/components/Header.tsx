@@ -24,11 +24,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-3xl">⚽</span>
-            <span className="text-2xl font-extrabold tracking-tight">
-              <span className="text-fut-green">FUT</span>
-              <span className="text-white">LANCE</span>
-            </span>
+            <img src="/logo.png" alt="FUT LANCE" className="h-12 md:h-14 w-auto" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">

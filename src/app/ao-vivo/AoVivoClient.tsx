@@ -237,11 +237,9 @@ export default function AoVivoClient() {
   }, [liveStatuses, searchQuery, selectedCompetition]);
 
   const handleWatch = (match: Match) => {
-    if (match.canais.length === 1) {
+    if (match.canais.length > 0) {
       setActiveChannel(match.canais[0]);
       setWatchingMatch(match);
-    } else {
-      setSelectedMatch(match);
     }
   };
 

@@ -99,7 +99,7 @@ export default function AoVivoPage() {
             <h1 className="text-2xl md:text-4xl font-bold text-white">Futebol Ao Vivo Hoje</h1>
           </div>
           <p className="text-gray-400 text-sm md:text-base max-w-3xl leading-relaxed">
-            Confira os principais jogos de futebol ao vivo hoje, com horários, competições, times e informações das partidas. Acompanhe os principais campeonatos, incluindo Brasileirão, Libertadores, Champions League e outros torneios.
+            Confira a programação completa de futebol ao vivo de hoje. Aqui você encontra todos os jogos do dia com horários, canais de transmissão e informações detalhadas de cada partida. Acompanhe partidas ao vivo do Brasileirão, Libertadores, Champions League e outros campeonatos — tudo em um só lugar.
           </p>
         </div>
 
@@ -124,13 +124,16 @@ export default function AoVivoPage() {
         </section>
 
         <section className="mt-6 bg-fut-darker rounded-2xl p-5 md:p-6 border border-gray-800">
-          <h2 className="text-base font-bold text-white mb-3">Sobre o Futebol Ao Vivo no Fut-Lance</h2>
+          <h2 className="text-base font-bold text-white mb-3">Como Assistir Futebol Ao Vivo no Fut-Lance</h2>
           <div className="text-gray-400 text-sm space-y-2">
             <p>
-              O Fut-Lance é sua fonte completa para acompanhar futebol ao vivo. Reunimos todos os jogos do dia com horários oficiais, canais de transmissão e informações detalhadas de cada partida. Se você procura por jogos de hoje, resultados ao vivo ou próximos confrontos, está no lugar certo.
+              O Fut-Lance reúne em um único lugar todos os jogos de futebol ao vivo do dia. Se você quer assistir partidas do Brasileirão ao vivo, acompanhar os jogos da Libertadores ou conferir os horários da Champions League, encontrou o site certo. Aqui você tem acesso a horários oficiais, canais de transmissão e informações detalhadas de cada confronto.
             </p>
             <p>
-              Acesse nossa seção de notícias para ficar por dentro de tudo o que acontece no Brasileirão, Libertadores, Champions League, transferências e muito mais. Todo conteúdo é atualizado diariamente para garantir que você não perca nada.
+              Para cada partida, oferecemos uma página completa com o nome dos times, competição, data, horário, estádio e status do jogo. Seja para buscar &quot;Flamengo x Palmeiras ao vivo&quot;, &quot;onde assistir o jogo do Corinthians hoje&quot; ou simplesmente &quot;jogos de futebol ao vivo&quot;, nosso conteúdo é atualizado constantemente para garantir que você não perca nenhum lance.
+            </p>
+            <p>
+              Acesse também nossa seção de <Link href="/noticias" className="text-fut-green hover:underline">notícias de futebol</Link> para ficar por dentro de tudo o que acontece no Brasileirão, Libertadores, Champions League, transferências e muito mais.
             </p>
           </div>
         </section>

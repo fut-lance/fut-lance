@@ -79,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `https://fut-lance.vercel.app/ao-vivo/${match.id}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
-    priority: 0.6,
+    priority: 0.8,
   }));
 
   return [...staticPages, ...categoriasPages, ...campeonatosPages, ...timesPages, ...noticiasPages, ...jogoPages];

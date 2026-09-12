@@ -2,7 +2,6 @@ import CardNoticia from '@/components/CardNoticia';
 import { getNoticiasByCategoria } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,26 +77,26 @@ export async function generateMetadata({
 }
 
 const tabelaBrasileirao = [
-  { pos: 1, time: 'Flamengo', pts: 54, j: 26, v: 16, e: 6, d: 4, gp: 51, gc: 21, sg: 30 },
-  { pos: 2, time: 'Palmeiras', pts: 53, j: 26, v: 15, e: 8, d: 3, gp: 45, gc: 21, sg: 24 },
-  { pos: 3, time: 'Athletico-PR', pts: 45, j: 26, v: 13, e: 6, d: 7, gp: 38, gc: 28, sg: 10 },
-  { pos: 4, time: 'Fluminense', pts: 45, j: 26, v: 12, e: 9, d: 5, gp: 40, gc: 32, sg: 8 },
-  { pos: 5, time: 'Bahia', pts: 43, j: 26, v: 11, e: 10, d: 5, gp: 40, gc: 32, sg: 8 },
-  { pos: 6, time: 'Cruzeiro', pts: 42, j: 26, v: 12, e: 6, d: 8, gp: 38, gc: 37, sg: 1 },
-  { pos: 7, time: 'Coritiba', pts: 37, j: 26, v: 10, e: 7, d: 9, gp: 34, gc: 35, sg: -1 },
-  { pos: 8, time: 'Atlético-MG', pts: 36, j: 25, v: 10, e: 6, d: 9, gp: 32, gc: 30, sg: 2 },
-  { pos: 9, time: 'Bragantino', pts: 35, j: 25, v: 10, e: 5, d: 10, gp: 31, gc: 28, sg: 3 },
-  { pos: 10, time: 'São Paulo', pts: 33, j: 25, v: 9, e: 6, d: 10, gp: 31, gc: 28, sg: 3 },
-  { pos: 11, time: 'Corinthians', pts: 32, j: 26, v: 8, e: 8, d: 10, gp: 26, gc: 27, sg: 0 },
-  { pos: 12, time: 'Santos', pts: 32, j: 25, v: 8, e: 8, d: 9, gp: 37, gc: 38, sg: -1 },
-  { pos: 13, time: 'Botafogo', pts: 31, j: 25, v: 8, e: 7, d: 10, gp: 37, gc: 40, sg: -3 },
-  { pos: 14, time: 'Vitória', pts: 29, j: 25, v: 8, e: 5, d: 12, gp: 24, gc: 37, sg: -13 },
-  { pos: 15, time: 'Grêmio', pts: 28, j: 24, v: 7, e: 7, d: 10, gp: 27, gc: 32, sg: -5 },
-  { pos: 16, time: 'Mirassol', pts: 28, j: 26, v: 7, e: 7, d: 12, gp: 29, gc: 40, sg: -11 },
-  { pos: 17, time: 'Vasco', pts: 25, j: 25, v: 6, e: 7, d: 12, gp: 27, gc: 40, sg: -13 },
-  { pos: 18, time: 'Internacional', pts: 25, j: 26, v: 5, e: 10, d: 11, gp: 28, gc: 34, sg: -6 },
-  { pos: 19, time: 'Remo', pts: 23, j: 26, v: 5, e: 8, d: 13, gp: 30, gc: 43, sg: -13 },
-  { pos: 20, time: 'Chapecoense', pts: 14, j: 25, v: 3, e: 8, d: 14, gp: 27, gc: 50, sg: -23 },
+  { pos: 1, time: 'Flamengo', pts: 54, j: 26, v: 16, e: 6, d: 4, sg: 30 },
+  { pos: 2, time: 'Palmeiras', pts: 53, j: 26, v: 15, e: 8, d: 3, sg: 24 },
+  { pos: 3, time: 'Athletico-PR', pts: 45, j: 26, v: 13, e: 6, d: 7, sg: 10 },
+  { pos: 4, time: 'Fluminense', pts: 45, j: 26, v: 12, e: 9, d: 5, sg: 8 },
+  { pos: 5, time: 'Bahia', pts: 43, j: 26, v: 11, e: 10, d: 5, sg: 8 },
+  { pos: 6, time: 'Cruzeiro', pts: 42, j: 26, v: 12, e: 6, d: 8, sg: 1 },
+  { pos: 7, time: 'Coritiba', pts: 37, j: 26, v: 10, e: 7, d: 9, sg: -1 },
+  { pos: 8, time: 'Atlético-MG', pts: 36, j: 25, v: 10, e: 6, d: 9, sg: 2 },
+  { pos: 9, time: 'Red Bull Bragantino', pts: 35, j: 25, v: 10, e: 5, d: 10, sg: 3 },
+  { pos: 10, time: 'São Paulo', pts: 33, j: 25, v: 9, e: 6, d: 10, sg: 3 },
+  { pos: 11, time: 'Vitória', pts: 32, j: 26, v: 9, e: 5, d: 12, sg: -12 },
+  { pos: 12, time: 'Corinthians', pts: 32, j: 26, v: 8, e: 8, d: 10, sg: 0 },
+  { pos: 13, time: 'Santos', pts: 32, j: 25, v: 8, e: 8, d: 9, sg: -1 },
+  { pos: 14, time: 'Botafogo', pts: 31, j: 25, v: 8, e: 7, d: 10, sg: -3 },
+  { pos: 15, time: 'Grêmio', pts: 28, j: 25, v: 7, e: 7, d: 11, sg: -6 },
+  { pos: 16, time: 'Mirassol', pts: 28, j: 26, v: 7, e: 7, d: 12, sg: -11 },
+  { pos: 17, time: 'Vasco', pts: 25, j: 25, v: 6, e: 7, d: 12, sg: -13 },
+  { pos: 18, time: 'Internacional', pts: 25, j: 26, v: 5, e: 10, d: 11, sg: -6 },
+  { pos: 19, time: 'Remo', pts: 23, j: 26, v: 5, e: 8, d: 13, sg: -13 },
+  { pos: 20, time: 'Chapecoense', pts: 17, j: 25, v: 3, e: 8, d: 14, sg: -23 },
 ];
 
 function getZonaColor(pos: number): string {
@@ -121,7 +120,6 @@ export default async function CategoriaPage({
 }: {
   params: { slug: string };
 }) {
-  headers();
   let noticias: any[] = [];
   let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';
@@ -208,7 +206,7 @@ export default async function CategoriaPage({
             <span className="text-lg">🏆</span>
             <div>
               <h2 className="text-base font-bold text-white">Classificação do Brasileirão 2026</h2>
-              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 07/09/2026 • Fonte: CBF</p>
+              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 11/09/2026 • Fonte: CBF</p>
             </div>
           </div>
           <div className="overflow-x-auto">

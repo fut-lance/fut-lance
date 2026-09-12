@@ -107,7 +107,7 @@ export const matches: Match[] = [
     logoTimeMandante: 'https://logodetimes.com/times/palmeiras/logo-palmeiras-2048.png',
     timeVisitante: 'São Paulo',
     logoTimeVisitante: 'https://logodetimes.com/times/sao-paulo/logo-sao-paulo-2048.png',
-    status: 'em-breve',
+    status: 'ao-vivo',
     canais: [
       { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
       { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },

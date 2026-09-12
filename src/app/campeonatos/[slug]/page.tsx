@@ -193,6 +193,9 @@ export default async function CampeonatoPage({ params }: PageProps) {
             <Link href={`/categoria/${campeonato.slug}`} className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
               📰 Notícias
             </Link>
+            <Link href="/onde-assistir" className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+              📺 Onde Assistir
+            </Link>
             {campeonato.slug !== 'brasileirao' && (
               <Link href="/campeonatos/brasileirao" className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
                 🏆 Brasileirão

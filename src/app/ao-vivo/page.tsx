@@ -105,7 +105,7 @@ export default function AoVivoPage() {
 
         <AoVivoClient />
 
-        <section className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <section className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
           <Link href="/categoria/brasileirao" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
             <span className="text-2xl block mb-2">🏆</span>
             <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Brasileirão</h2>
@@ -120,6 +120,11 @@ export default function AoVivoPage() {
             <span className="text-2xl block mb-2">⭐</span>
             <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Champions League</h2>
             <p className="text-gray-500 text-sm mt-1">Notícias e jogos da Liga dos Campeões</p>
+          </Link>
+          <Link href="/onde-assistir" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
+            <span className="text-2xl block mb-2">📺</span>
+            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Onde Assistir</h2>
+            <p className="text-gray-500 text-sm mt-1">Guia de canais e streaming</p>
           </Link>
         </section>
 

@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Sobre o FUT LANCE - Portal de Notícias do Futebol',
   description: 'Conheça o FUT LANCE: seu portal completo de notícias do futebol brasileiro e internacional. Notícias, resultados, ao vivo e muito mais.',
+  keywords: 'FUT LANCE, sobre FUT LANCE, portal de futebol, notícias de futebol, futebol brasileiro',
   alternates: { canonical: 'https://fut-lance.vercel.app/sobre' },
   openGraph: {
     title: 'Sobre o FUT LANCE',
@@ -11,12 +13,33 @@ export const metadata: Metadata = {
     url: 'https://fut-lance.vercel.app/sobre',
     siteName: 'FUT LANCE',
     type: 'website',
+    images: [{ url: 'https://fut-lance.vercel.app/og-image.png', width: 1200, height: 630, alt: 'Sobre o FUT LANCE' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre o FUT LANCE',
+    description: 'Conheça o FUT LANCE: seu portal completo de notícias do futebol.',
+    images: ['https://fut-lance.vercel.app/og-image.png'],
   },
 };
 
 export default function SobrePage() {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: 'Sobre', item: 'https://fut-lance.vercel.app/sobre' },
+    ],
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+      <Script
+        id="breadcrumb-schema-sobre"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <nav className="text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-fut-green transition-colors">Início</Link>
         <span className="mx-2">/</span>

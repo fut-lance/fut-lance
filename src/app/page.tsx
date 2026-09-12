@@ -3,8 +3,33 @@ import CardNoticia from '@/components/CardNoticia';
 import { getNoticias, getTransmissoesAoVivo } from '@/lib/api';
 import Script from 'next/script';
 import { AdContainer } from '@/components/ads';
+import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'FUT LANCE - Notícias de Futebol ao Vivo | Brasileirão, Libertadores, Champions',
+  description: 'O melhor blog de notícias de futebol do Brasil. Acompanhe o Brasileirão, Libertadores, Champions League, Seleção Brasileira ao vivo. Notícias, classificação, artilharia e transmissões ao vivo.',
+  keywords: 'futebol ao vivo, brasileirão ao vivo, libertadores, champions league, notícias de futebol, FUT LANCE, futebol brasileiro, transmissão ao vivo, classificação do brasileirão',
+  alternates: {
+    canonical: 'https://fut-lance.vercel.app',
+  },
+  openGraph: {
+    title: 'FUT LANCE - Notícias de Futebol ao Vivo',
+    description: 'O melhor blog de notícias de futebol do Brasil. Brasileirão, Libertadores, Champions League e muito mais.',
+    url: 'https://fut-lance.vercel.app',
+    siteName: 'FUT LANCE',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [{ url: 'https://fut-lance.vercel.app/og-image.png', width: 1200, height: 630, alt: 'FUT LANCE - Futebol ao Vivo' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FUT LANCE - Notícias de Futebol ao Vivo',
+    description: 'O melhor blog de notícias de futebol do Brasil.',
+    images: ['https://fut-lance.vercel.app/og-image.png'],
+  },
+};
 
 export default async function Home() {
   let noticiasDestaque: any[] = [];

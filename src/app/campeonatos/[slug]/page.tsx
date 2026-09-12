@@ -33,6 +33,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'FUT LANCE',
       locale: 'pt_BR',
       type: 'website',
+      images: [{ url: 'https://fut-lance.vercel.app/og-image.png', width: 1200, height: 630, alt: `${campeonato.nome} - FUT LANCE` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${campeonato.nome} 2026 | FUT LANCE`,
+      description: campeonato.descricao,
+      images: ['https://fut-lance.vercel.app/og-image.png'],
     },
     alternates: {
       canonical: `https://fut-lance.vercel.app/campeonatos/${campeonato.slug}`,
@@ -56,6 +63,16 @@ export default async function CampeonatoPage({ params }: PageProps) {
     noticias = (data?.data || []).slice(0, 8);
   } catch {}
 
+  const teamSlugMap: Record<string, string> = {
+    'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras', 'Athletico-PR': 'atletico-pr',
+    'Fluminense': 'fluminense', 'Bahia': 'bahia', 'Cruzeiro': 'cruzeiro',
+    'Coritiba': 'coritiba', 'Atlético-MG': 'atletico-mg', 'RB Bragantino': 'bragantino',
+    'São Paulo': 'sao-paulo', 'Santos': 'santos', 'Vasco': 'vasco',
+    'Botafogo': 'botafogo', 'Corinthians': 'corinthians', 'Grêmio': 'gremio',
+    'Internacional': 'internacional', 'Mirassol': 'mirassol', 'Vitória': 'vitoria',
+    'Remo': 'remo', 'Chapecoense': 'chapecoense',
+  };
+
   if (!campeonato) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
@@ -67,10 +84,11 @@ export default async function CampeonatoPage({ params }: PageProps) {
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'SportsEvent',
+    '@type': 'SportsLeague',
     name: `${campeonato.nome} 2026`,
     description: campeonato.descricao,
     url: `https://fut-lance.vercel.app/campeonatos/${campeonato.slug}`,
+    sport: 'Soccer',
     location: {
       '@type': 'Country',
       name: campeonato.pais,
@@ -81,12 +99,27 @@ export default async function CampeonatoPage({ params }: PageProps) {
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: 'Campeonatos', item: 'https://fut-lance.vercel.app/campeonatos' },
+      { '@type': 'ListItem', position: 3, name: campeonato.nome, item: `https://fut-lance.vercel.app/campeonatos/${campeonato.slug}` },
+    ],
+  };
+
   return (
     <div>
       <Script
         id={`campeonato-schema-${slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <Script
+        id={`breadcrumb-schema-${slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* Breadcrumb */}
@@ -142,7 +175,13 @@ export default async function CampeonatoPage({ params }: PageProps) {
                     {campeonato.classificacao.map((time) => (
                       <tr key={time.pos} className="border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors">
                         <td className="py-3 px-4 text-gray-400 font-semibold">{time.pos}º</td>
-                        <td className="py-3 px-4 text-white font-semibold">{time.time}</td>
+                        <td className="py-3 px-4 text-white font-semibold">
+                          {teamSlugMap[time.time] ? (
+                            <Link href={`/times/${teamSlugMap[time.time]}`} className="hover:text-fut-green transition-colors">
+                              {time.time}
+                            </Link>
+                          ) : time.time}
+                        </td>
                         <td className="py-3 px-4 text-fut-green font-bold text-center">{time.pts}</td>
                         <td className="py-3 px-4 text-gray-400 text-center">{time.j}</td>
                         <td className="py-3 px-4 text-gray-400 text-center">{time.v}</td>

@@ -111,9 +111,8 @@ export default async function NoticiaPage({
     datePublished: noticia.data_publicacao,
     dateModified: noticia.updatedAt || noticia.data_publicacao,
     author: {
-      '@type': 'Organization',
+      '@type': 'Person',
       name: noticia.autor || 'FUT LANCE',
-      url: 'https://fut-lance.vercel.app',
     },
     publisher: {
       '@type': 'Organization',
@@ -121,7 +120,9 @@ export default async function NoticiaPage({
       url: 'https://fut-lance.vercel.app',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=200&q=80',
+        url: 'https://fut-lance.vercel.app/logo.png',
+        width: 800,
+        height: 400,
       },
     },
     mainEntityOfPage: {

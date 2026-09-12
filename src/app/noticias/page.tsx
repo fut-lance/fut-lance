@@ -1,6 +1,7 @@
 import CardNoticia from '@/components/CardNoticia';
 import { getNoticias } from '@/lib/api';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export const revalidate = 60;
 
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
     title: 'Todas as Notícias de Futebol | FUT LANCE',
     description: 'Confira todas as últimas notícias de futebol do Brasil e do mundo.',
     url: 'https://fut-lance.vercel.app/noticias',
+    images: [{ url: 'https://fut-lance.vercel.app/og-image.png', width: 1200, height: 630, alt: 'Notícias de Futebol - FUT LANCE' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Todas as Notícias de Futebol | FUT LANCE',
+    description: 'Confira todas as últimas notícias de futebol do Brasil e do mundo.',
+    images: ['https://fut-lance.vercel.app/og-image.png'],
   },
 };
 
@@ -30,8 +38,35 @@ export default async function NoticiasPage() {
 
   const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || '';
 
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Todas as Notícias de Futebol',
+    description: 'Confira todas as últimas notícias de futebol do Brasil e do mundo.',
+    url: 'https://fut-lance.vercel.app/noticias',
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: 'https://fut-lance.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: 'Notícias', item: 'https://fut-lance.vercel.app/noticias' },
+    ],
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
+      <Script
+        id="noticias-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema-noticias"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
           Todas as Notícias
@@ -59,7 +94,7 @@ export default async function NoticiasPage() {
         <div className="text-center py-16">
           <span className="text-5xl block mb-4">📰</span>
           <p className="text-gray-400 text-lg">Nenhuma notícia encontrada.</p>
-          <p className="text-gray-500 mt-2">Cadastre notícias no Strapi para que apareçam aqui.</p>
+          <p className="text-gray-500 mt-2">Volte em breve para conferir as últimas notícias.</p>
         </div>
       )}
     </div>

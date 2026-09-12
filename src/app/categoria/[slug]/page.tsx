@@ -76,45 +76,6 @@ export async function generateMetadata({
   };
 }
 
-const tabelaBrasileirao = [
-  { pos: 1, time: 'Flamengo', pts: 54, j: 26, v: 16, e: 6, d: 4, sg: 30 },
-  { pos: 2, time: 'Palmeiras', pts: 53, j: 26, v: 15, e: 8, d: 3, sg: 24 },
-  { pos: 3, time: 'Athletico-PR', pts: 45, j: 26, v: 13, e: 6, d: 7, sg: 10 },
-  { pos: 4, time: 'Fluminense', pts: 45, j: 26, v: 12, e: 9, d: 5, sg: 8 },
-  { pos: 5, time: 'Bahia', pts: 43, j: 26, v: 11, e: 10, d: 5, sg: 8 },
-  { pos: 6, time: 'Cruzeiro', pts: 42, j: 26, v: 12, e: 6, d: 8, sg: 1 },
-  { pos: 7, time: 'Coritiba', pts: 37, j: 26, v: 10, e: 7, d: 9, sg: -1 },
-  { pos: 8, time: 'Atlético-MG', pts: 36, j: 25, v: 10, e: 6, d: 9, sg: 2 },
-  { pos: 9, time: 'Red Bull Bragantino', pts: 35, j: 25, v: 10, e: 5, d: 10, sg: 3 },
-  { pos: 10, time: 'São Paulo', pts: 33, j: 25, v: 9, e: 6, d: 10, sg: 3 },
-  { pos: 11, time: 'Vitória', pts: 32, j: 26, v: 9, e: 5, d: 12, sg: -12 },
-  { pos: 12, time: 'Corinthians', pts: 32, j: 26, v: 8, e: 8, d: 10, sg: 0 },
-  { pos: 13, time: 'Santos', pts: 32, j: 25, v: 8, e: 8, d: 9, sg: -1 },
-  { pos: 14, time: 'Botafogo', pts: 31, j: 25, v: 8, e: 7, d: 10, sg: -3 },
-  { pos: 15, time: 'Grêmio', pts: 28, j: 25, v: 7, e: 7, d: 11, sg: -6 },
-  { pos: 16, time: 'Mirassol', pts: 28, j: 26, v: 7, e: 7, d: 12, sg: -11 },
-  { pos: 17, time: 'Vasco', pts: 25, j: 25, v: 6, e: 7, d: 12, sg: -13 },
-  { pos: 18, time: 'Internacional', pts: 25, j: 26, v: 5, e: 10, d: 11, sg: -6 },
-  { pos: 19, time: 'Remo', pts: 23, j: 26, v: 5, e: 8, d: 13, sg: -13 },
-  { pos: 20, time: 'Chapecoense', pts: 17, j: 25, v: 3, e: 8, d: 14, sg: -23 },
-];
-
-function getZonaColor(pos: number): string {
-  if (pos <= 4) return 'bg-green-500/10 text-green-400';
-  if (pos === 5) return 'bg-blue-500/10 text-blue-400';
-  if (pos >= 6 && pos <= 9) return 'bg-yellow-500/10 text-yellow-400';
-  if (pos >= 17) return 'bg-red-500/10 text-red-400';
-  return '';
-}
-
-function getZonaLabel(pos: number): string {
-  if (pos <= 4) return 'Libertadores';
-  if (pos === 5) return 'Libertadores ( Prévia )';
-  if (pos >= 6 && pos <= 9) return 'Sul-Americana';
-  if (pos >= 17) return 'Rebaixamento';
-  return '';
-}
-
 export default async function CategoriaPage({
   params,
 }: {
@@ -153,7 +114,6 @@ export default async function CategoriaPage({
   };
 
   const icon = categoriaIcons[params.slug] || '📰';
-  const isBrasileirao = params.slug === 'brasileirao';
 
   const categorySchema = {
     '@context': 'https://schema.org',
@@ -199,59 +159,6 @@ export default async function CategoriaPage({
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{categoriaNome}</h1>
         <p className="text-gray-400">{categoriaDescricao}</p>
       </div>
-
-      {isBrasileirao && (
-        <section className="mb-10 bg-fut-darker rounded-xl border border-gray-800 overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-800 flex items-center gap-2">
-            <span className="text-lg">🏆</span>
-            <div>
-              <h2 className="text-base font-bold text-white">Classificação do Brasileirão 2026</h2>
-              <p className="text-gray-500 text-[10px]">Rodada 26 • Atualizado em 11/09/2026 • Fonte: CBF</p>
-            </div>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-gray-500 text-[10px] uppercase border-b border-gray-800">
-                  <th className="text-left px-2 py-1.5 w-6">#</th>
-                  <th className="text-left px-2 py-1.5">Time</th>
-                  <th className="text-center px-1.5 py-1.5">P</th>
-                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">J</th>
-                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">V</th>
-                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">E</th>
-                  <th className="text-center px-1.5 py-1.5 hidden sm:table-cell">D</th>
-                  <th className="text-center px-1.5 py-1.5 hidden md:table-cell">SG</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tabelaBrasileirao.map((row) => (
-                  <tr
-                    key={row.pos}
-                    className={`border-b border-gray-800/50 hover:bg-fut-dark/50 transition-colors ${getZonaColor(row.pos)}`}
-                  >
-                    <td className="px-2 py-1.5 font-bold">{row.pos}</td>
-                    <td className="px-2 py-1.5 font-semibold text-white">{row.time}</td>
-                    <td className="text-center px-1.5 py-1.5 font-bold text-fut-green">{row.pts}</td>
-                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.j}</td>
-                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.v}</td>
-                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.e}</td>
-                    <td className="text-center px-1.5 py-1.5 hidden sm:table-cell text-gray-400">{row.d}</td>
-                    <td className={`text-center px-1.5 py-1.5 hidden md:table-cell font-bold ${row.sg > 0 ? 'text-green-400' : row.sg < 0 ? 'text-red-400' : 'text-gray-400'}`}>
-                      {row.sg > 0 ? `+${row.sg}` : row.sg}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="px-4 py-2 border-t border-gray-800 flex flex-wrap gap-3 text-[10px] text-gray-500">
-            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span> Libertadores</span>
-            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block"></span> Pré-Libertadores</span>
-            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block"></span> Sul-Americana</span>
-            <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span> Rebaixamento</span>
-          </div>
-        </section>
-      )}
 
       {noticias.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

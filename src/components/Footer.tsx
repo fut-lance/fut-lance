@@ -102,12 +102,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
-          <p>© {new Date().getFullYear()} FUT LANCE. Todos os direitos reservados.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/politica-de-privacidade" className="hover:text-fut-green transition-colors">Privacidade</Link>
-            <Link href="/politica-de-cookies" className="hover:text-fut-green transition-colors">Cookies</Link>
-            <Link href="/termos-de-uso" className="hover:text-fut-green transition-colors">Termos</Link>
+        <div className="border-t border-gray-800 mt-8 pt-8">
+          <div className="text-gray-500 text-xs space-y-2 mb-6">
+            <p>
+              <strong className="text-gray-400">FUT LANCE</strong> — Assistir futebol ao vivo online grátis. Acompanhe jogos ao vivo do Brasileirão, Libertadores, Champions League, Premier League e outros campeonatos. Horários, resultados, classificação e notícias de futebol atualizados diariamente.
+            </p>
+            <p>
+              Futebol ao vivo hoje · Jogos de futebol ao vivo · Onde assistir futebol · Futebol na TV · Jogos de hoje · Brasileirão ao vivo · Libertadores ao vivo · Champions League ao vivo · Transferências do futebol · Mercado da bola
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
+            <p>© {new Date().getFullYear()} FUT LANCE. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-4">
+              <Link href="/politica-de-privacidade" className="hover:text-fut-green transition-colors">Privacidade</Link>
+              <Link href="/politica-de-cookies" className="hover:text-fut-green transition-colors">Cookies</Link>
+              <Link href="/termos-de-uso" className="hover:text-fut-green transition-colors">Termos</Link>
+            </div>
           </div>
         </div>
       </div>

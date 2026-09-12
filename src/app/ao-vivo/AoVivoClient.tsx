@@ -52,24 +52,20 @@ function MatchCard({
   const matchStatus = getMatchStatus(match);
 
   return (
-    <div className="bg-fut-darker rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-700 transition-all hover:shadow-lg hover:shadow-black/20">
+    <div className="bg-fut-darker rounded-2xl border border-gray-800 overflow-hidden hover:border-fut-green/30 transition-all hover:shadow-lg hover:shadow-black/20">
       <div className="px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3">
           <span className="text-fut-green text-xs font-bold uppercase tracking-wider">{match.competicao}</span>
           <StatusBadge status={matchStatus} />
         </div>
 
-        <div className="text-center text-gray-500 text-xs mb-4">
-          {match.data} • {match.horario}
-        </div>
-
-        <div className="flex items-center justify-between gap-2 mb-4">
+        <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex-1 text-center">
-            <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
+            <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
               <img
                 src={match.logoTimeMandante}
                 alt={`Escudo do ${match.timeMandante}`}
-                className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
                 loading="lazy"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
@@ -81,15 +77,17 @@ function MatchCard({
           </div>
 
           <div className="flex flex-col items-center px-2">
-            <span className="text-gray-500 text-xl font-bold">×</span>
+            <span className="text-gray-500 text-2xl font-bold">×</span>
+            <span className="text-gray-600 text-xs mt-1">{match.data}</span>
+            <span className="text-fut-green text-xs font-bold">{match.horario}</span>
           </div>
 
           <div className="flex-1 text-center">
-            <div className="w-14 h-14 md:w-16 md:h-16 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
+            <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-fut-dark rounded-full flex items-center justify-center border border-gray-700 mb-2 overflow-hidden">
               <img
                 src={match.logoTimeVisitante}
                 alt={`Escudo do ${match.timeVisitante}`}
-                className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
                 loading="lazy"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
@@ -115,7 +113,7 @@ function MatchCard({
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
-            Ver informações
+            Ver transmissões
           </button>
         ) : (
           <button
@@ -125,7 +123,7 @@ function MatchCard({
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
-            ASSISTIR AGORA AO VIVO
+            ASSISTIR AO VIVO
           </button>
         )}
       </div>
@@ -200,6 +198,8 @@ export default function AoVivoClient() {
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [activeChannel, setActiveChannel] = useState<MatchChannel | null>(null);
   const [watchingMatch, setWatchingMatch] = useState<Match | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCompetition, setSelectedCompetition] = useState<string>('all');
 
   useEffect(() => {
     const update = () => {
@@ -214,13 +214,27 @@ export default function AoVivoClient() {
     return () => clearInterval(interval);
   }, []);
 
+  const competitions = useMemo(() => {
+    const comps = new Set(initialMatches.map(m => m.competicao));
+    return ['all', ...Array.from(comps)];
+  }, []);
+
   const visibleMatches = useMemo(() => {
     return initialMatches.filter((m) => {
       const status = liveStatuses[m.id];
-      if (!status) return true;
-      return status !== 'encerrado' && status !== 'expirado';
+      if (status === 'encerrado' || status === 'expirado') return false;
+      if (selectedCompetition !== 'all' && m.competicao !== selectedCompetition) return false;
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        return (
+          m.timeMandante.toLowerCase().includes(query) ||
+          m.timeVisitante.toLowerCase().includes(query) ||
+          m.competicao.toLowerCase().includes(query)
+        );
+      }
+      return true;
     });
-  }, [liveStatuses]);
+  }, [liveStatuses, searchQuery, selectedCompetition]);
 
   const handleWatch = (match: Match) => {
     if (match.canais.length === 1) {
@@ -286,9 +300,36 @@ export default function AoVivoClient() {
       )}
 
       {!activeChannel && (
-        <section className="mb-6 md:mb-8 bg-fut-darker rounded-2xl p-8 md:p-10 text-center border border-gray-800">
-          <span className="text-4xl md:text-5xl block mb-3">📺</span>
-          <p className="text-gray-400 text-base md:text-lg">Selecione um jogo abaixo para assistir.</p>
+        <section className="mb-6 md:mb-8 bg-fut-darker rounded-2xl p-6 md:p-8 border border-gray-800">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Buscar por time ou campeonato..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-fut-dark border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-fut-green transition-colors"
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {competitions.map((comp) => (
+                <button
+                  key={comp}
+                  onClick={() => setSelectedCompetition(comp)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                    selectedCompetition === comp
+                      ? 'bg-fut-green text-white'
+                      : 'bg-fut-dark text-gray-400 hover:text-white border border-gray-700 hover:border-gray-600'
+                  }`}
+                >
+                  {comp === 'all' ? 'Todos' : comp}
+                </button>
+              ))}
+            </div>
+          </div>
         </section>
       )}
 

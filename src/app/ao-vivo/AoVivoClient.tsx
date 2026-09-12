@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
+import Link from 'next/link';
 import PlayerStream from '@/components/PlayerStream';
 import { matches as initialMatches, type Match, type MatchChannel } from '@/data/matches';
 
@@ -53,7 +54,7 @@ function MatchCard({
 
   return (
     <div className="bg-fut-darker rounded-2xl border border-gray-800 overflow-hidden hover:border-fut-green/30 transition-all hover:shadow-lg hover:shadow-black/20">
-      <div className="px-4 pt-4 pb-2">
+      <Link href={`/ao-vivo/${match.slug}`} className="block px-4 pt-4 pb-2">
         <div className="flex items-center justify-between mb-3">
           <span className="text-fut-green text-xs font-bold uppercase tracking-wider">{match.competicao}</span>
           <StatusBadge status={matchStatus} />
@@ -98,23 +99,23 @@ function MatchCard({
             <p className="text-white font-bold text-sm md:text-base leading-tight">{match.timeVisitante}</p>
           </div>
         </div>
-      </div>
+      </Link>
 
       <div className="px-4 pb-4">
         {matchStatus === 'encerrado' ? (
-          <button disabled className="w-full py-3 rounded-xl bg-gray-700 text-gray-400 font-bold text-sm cursor-not-allowed">
-            Partida encerrada
-          </button>
-        ) : matchStatus === 'em-breve' ? (
-          <button
-            onClick={() => onWatch(match)}
-            className="w-full py-3 rounded-xl bg-fut-darker hover:bg-gray-800 text-gray-300 font-bold text-sm transition-colors border border-gray-700 flex items-center justify-center gap-2"
+          <Link
+            href={`/ao-vivo/${match.slug}`}
+            className="block w-full py-3 rounded-xl bg-gray-700 hover:bg-gray-600 text-gray-300 font-bold text-sm text-center transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
+            Ver resultado
+          </Link>
+        ) : matchStatus === 'em-breve' ? (
+          <Link
+            href={`/ao-vivo/${match.slug}`}
+            className="block w-full py-3 rounded-xl bg-fut-darker hover:bg-gray-800 text-gray-300 font-bold text-sm text-center transition-colors border border-gray-700"
+          >
             Ver transmissões
-          </button>
+          </Link>
         ) : (
           <button
             onClick={() => onWatch(match)}

@@ -5,6 +5,7 @@ export interface MatchChannel {
 
 export interface Match {
   id: string;
+  slug: string;
   competicao: string;
   data: string;
   horario: string;
@@ -16,11 +17,25 @@ export interface Match {
   canais: MatchChannel[];
 }
 
+function generateSlug(timeMandante: string, timeVisitante: string): string {
+  const normalize = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  return `${normalize(timeMandante)}-x-${normalize(timeVisitante)}`;
+}
+
 const BASE = 'http://filtror7679.site:80/031532627/513117897';
 
 export const matches: Match[] = [
   {
     id: 'bras-12-001',
+    slug: generateSlug('Grêmio', 'Vasco'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '16:00',
@@ -44,6 +59,7 @@ export const matches: Match[] = [
   },
   {
     id: 'bras-12-002',
+    slug: generateSlug('Atlético-MG', 'Fluminense'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '16:00',
@@ -65,6 +81,7 @@ export const matches: Match[] = [
   },
   {
     id: 'bras-12-003',
+    slug: generateSlug('Chapecoense', 'Internacional'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '17:00',
@@ -82,6 +99,7 @@ export const matches: Match[] = [
   },
   {
     id: 'bras-12-004',
+    slug: generateSlug('Palmeiras', 'São Paulo'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '18:30',
@@ -103,6 +121,7 @@ export const matches: Match[] = [
   },
   {
     id: 'bras-12-005',
+    slug: generateSlug('Botafogo', 'Bragantino'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '20:30',
@@ -122,6 +141,7 @@ export const matches: Match[] = [
   },
   {
     id: 'bras-12-006',
+    slug: generateSlug('Santos', 'Cruzeiro'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
     horario: '21:00',

@@ -33,6 +33,7 @@ export const metadata: Metadata = {
       { url: '/icon-512x512.png', type: 'image/png', sizes: '512x512' },
     ],
   },
+  manifest: '/manifest.json',
   openGraph: {
     title: 'FUT LANCE - Notícias de Futebol ao Vivo',
     description: 'O melhor blog de notícias de futebol do Brasil. Notícias, vídeos, transmissões ao vivo e muito mais.',

@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/ligas', label: 'Ligas' },
   { href: '/jogadores', label: 'Jogadores' },
   { href: '/onde-assistir', label: 'Onde Assistir' },
+  { href: '/sobre', label: 'Sobre' },
 ];
 
 export default function Header() {

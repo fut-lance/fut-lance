@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { matches } from '@/data/matches';
+import { getCampeonato } from '@/data/campeonatos';
 
 export const metadata: Metadata = {
   title: 'Brasileirão Ao Vivo — Jogos Hoje, Classificação e Onde Assistir | Fut-Lance',
@@ -71,18 +72,15 @@ export default function BrasileiraoAoVivoPage() {
     };
   });
 
-  const ranking = [
-    { pos: 1, time: 'Flamengo', pts: 54, j: 26, v: 16, e: 6, d: 4, gp: 51, gc: 21, sg: 30 },
-    { pos: 2, time: 'Palmeiras', pts: 53, j: 26, v: 15, e: 8, d: 3, gp: 45, gc: 21, sg: 24 },
-    { pos: 3, time: 'Athletico-PR', pts: 45, j: 26, v: 13, e: 6, d: 7, gp: 38, gc: 28, sg: 10 },
-    { pos: 4, time: 'Fluminense', pts: 45, j: 26, v: 12, e: 9, d: 5, gp: 40, gc: 32, sg: 8 },
-    { pos: 5, time: 'Bahia', pts: 43, j: 26, v: 11, e: 10, d: 5, gp: 40, gc: 32, sg: 8 },
-    { pos: 6, time: 'Cruzeiro', pts: 42, j: 26, v: 12, e: 6, d: 8, gp: 38, gc: 37, sg: 1 },
-    { pos: 7, time: 'Coritiba', pts: 37, j: 26, v: 10, e: 7, d: 9, gp: 34, gc: 35, sg: -1 },
-    { pos: 8, time: 'Atlético-MG', pts: 36, j: 25, v: 10, e: 6, d: 9, gp: 32, gc: 30, sg: 2 },
-    { pos: 9, time: 'Bragantino', pts: 35, j: 25, v: 10, e: 5, d: 10, gp: 31, gc: 28, sg: 3 },
-    { pos: 10, time: 'São Paulo', pts: 33, j: 25, v: 9, e: 6, d: 10, gp: 31, gc: 28, sg: 3 },
-  ];
+  const teamSlugMap: Record<string, string> = {
+    'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras', 'Athletico-PR': 'atletico-pr',
+    'Fluminense': 'fluminense', 'Bahia': 'bahia', 'Cruzeiro': 'cruzeiro',
+    'Coritiba': 'coritiba', 'Atlético-MG': 'atletico-mg', 'Bragantino': 'bragantino',
+    'São Paulo': 'sao-paulo',
+  };
+
+  const brasileirao = getCampeonato('brasileirao');
+  const ranking = brasileirao?.classificacao || [];
 
   return (
     <>
@@ -171,7 +169,13 @@ export default function BrasileiraoAoVivoPage() {
                 {ranking.map((team) => (
                   <tr key={team.pos} className="border-b border-gray-800 hover:bg-fut-dark/50">
                     <td className="py-2 px-2 text-gray-400">{team.pos}º</td>
-                    <td className="py-2 px-2 text-white font-medium">{team.time}</td>
+                    <td className="py-2 px-2 text-white font-medium">
+                      {teamSlugMap[team.time] ? (
+                        <Link href={`/times/${teamSlugMap[team.time]}`} className="hover:text-fut-green transition-colors">
+                          {team.time}
+                        </Link>
+                      ) : team.time}
+                    </td>
                     <td className="py-2 px-2 text-fut-green font-bold text-center">{team.pts}</td>
                     <td className="py-2 px-2 text-gray-400 text-center">{team.j}</td>
                     <td className="py-2 px-2 text-gray-400 text-center">{team.v}</td>
@@ -194,12 +198,12 @@ export default function BrasileiraoAoVivoPage() {
             <p className="text-gray-400 text-sm">Brasileirão ao vivo na: SporTV, Premiere, Globo, CazéTV (jogos selecionados)</p>
           </div>
           <div className="bg-fut-darker rounded-xl p-5 border border-gray-800">
-            <h3 className="text-white font-bold mb-2">📊 Rodada Atual</h3>
-            <p className="text-gray-400 text-sm">Rodada 27 do Brasileirão Série A 2026 em andamento</p>
+            <h3 className="text-white font-bold mb-2">📊 Fase Atual</h3>
+            <p className="text-gray-400 text-sm">{brasileirao?.fase || 'Brasileirão Série A'} {brasileirao?.periodo?.split('-')[1]?.trim() || '2026'}</p>
           </div>
           <div className="bg-fut-darker rounded-xl p-5 border border-gray-800">
             <h3 className="text-white font-bold mb-2">⚽ Artilheiro</h3>
-            <p className="text-gray-400 text-sm">Kevin Rodallega (17 gols) é o artilheiro do Brasileirão 2026</p>
+            <p className="text-gray-400 text-sm">{brasileirao?.artilheiros?.[0]?.jogador || 'Em atualização'} ({brasileirao?.artilheiros?.[0]?.gols || '-'} gols) é o artilheiro do Brasileirão 2026</p>
           </div>
         </section>
 

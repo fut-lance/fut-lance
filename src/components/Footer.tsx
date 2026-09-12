@@ -41,6 +41,24 @@ export default function Footer() {
           </div>
 
           <div>
+            <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Times</h3>
+            <ul className="space-y-2">
+              <li><Link href="/times/flamengo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Flamengo</Link></li>
+              <li><Link href="/times/palmeiras" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Palmeiras</Link></li>
+              <li><Link href="/times/corinthians" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Corinthians</Link></li>
+              <li><Link href="/times/sao-paulo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">São Paulo</Link></li>
+              <li><Link href="/times/santos" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Santos</Link></li>
+              <li><Link href="/times/vasco" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Vasco</Link></li>
+              <li><Link href="/times/botafogo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Botafogo</Link></li>
+              <li><Link href="/times/fluminense" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Fluminense</Link></li>
+              <li><Link href="/times/internacional" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Internacional</Link></li>
+              <li><Link href="/times/gremio" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Grêmio</Link></li>
+              <li><Link href="/times/cruzeiro" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Cruzeiro</Link></li>
+              <li><Link href="/times/atletico-mg" className="text-gray-400 hover:text-fut-green text-sm transition-colors">Atlético-MG</Link></li>
+            </ul>
+          </div>
+
+          <div>
             <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Navegação</h3>
             <ul className="space-y-2">
               <li>
@@ -116,10 +134,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="text-gray-500 text-xs space-y-2 mb-6">
             <p>
-              <strong className="text-gray-400">FUT LANCE</strong> — Assistir futebol ao vivo online grátis. Acompanhe jogos ao vivo do Brasileirão, Libertadores, Champions League, Premier League e outros campeonatos. Horários, resultados, classificação e notícias de futebol atualizados diariamente.
-            </p>
-            <p>
-              Futebol ao vivo hoje · Jogos de futebol ao vivo · Onde assistir futebol · Futebol na TV · Jogos de hoje · Brasileirão ao vivo · Libertadores ao vivo · Champions League ao vivo · Transferências do futebol · Mercado da bola
+              <strong className="text-gray-400">FUT LANCE</strong> — Seu portal completo de notícias de futebol. Acompanhe o Brasileirão, Libertadores, Champions League, Seleção Brasileira e muito mais. Notícias, resultados, classificação e transmissões ao vivo.
             </p>
           </div>
 

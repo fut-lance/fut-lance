@@ -62,7 +62,6 @@ export async function generateMetadata({
   const seoData = categorySeoData[slugNormalizado];
   const nomeFormatado = params.slug
     .replace(/-/g, ' ')
-    .replace(/%20/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return {
@@ -106,7 +105,7 @@ export default async function CategoriaPage({
   const slugNormalizado = normalize(params.slug);
 
   let noticias: any[] = [];
-  let categoriaNome = params.slug.replace(/-/g, ' ').replace(/%20/g, ' ').toUpperCase();
+  let categoriaNome = params.slug.replace(/-/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';
 
   try {

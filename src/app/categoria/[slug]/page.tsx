@@ -139,7 +139,6 @@ export default async function CategoriaPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div data-cache-bust={Date.now()} className="hidden" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}

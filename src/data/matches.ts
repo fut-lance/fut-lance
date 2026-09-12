@@ -102,7 +102,7 @@ export const matches: Match[] = [
     slug: generateSlug('Palmeiras', 'São Paulo'),
     competicao: 'Brasileirão',
     data: '12/09/2026',
-    horario: '18:30',
+    horario: '11:00',
     timeMandante: 'Palmeiras',
     logoTimeMandante: 'https://logodetimes.com/times/palmeiras/logo-palmeiras-2048.png',
     timeVisitante: 'São Paulo',

@@ -102,6 +102,7 @@
 5. **FONTES:** Usar apenas fontes confiáveis (ge.globo.com, espn.com.br, uol.com.br, etc.)
 6. **NÃO INVENTAR:** Nunca inventar notícias, resultados, transferências ou escalações.
 7. **CONFIRMAR:** Quando possível, confirmar informações em mais de uma fonte.
+8. **CANAIS DE TRANSMISSÃO:** SEMPRE pesquisar no Google quais canais irão transmitir cada jogo ANTES de cadastrar os canais em `matches.ts`. Buscar "onde assistir [time] x [time] [data]" ou "transmissão brasileirão rodada [X]". Não inventar canais — usar apenas os confirmados em fontes oficiais (ge.globo.com, CBF, portalmidiaesporte.com, etc.).
 
 ## Informações Gerais
 - **Nome do site**: FUT LANCE

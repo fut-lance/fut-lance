@@ -118,15 +118,15 @@ function MatchCard({
             Ver transmissões
           </Link>
         ) : (
-          <button
-            onClick={() => onWatch(match)}
-            className="w-full py-3 rounded-xl bg-fut-green hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-lg shadow-fut-green/20 flex items-center justify-center gap-2"
+          <Link
+            href={`/ao-vivo/${match.slug}`}
+            className="block w-full py-3 rounded-xl bg-fut-green hover:bg-green-600 text-white font-bold text-sm transition-colors shadow-lg shadow-fut-green/20 flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
             ASSISTIR AO VIVO
-          </button>
+          </Link>
         )}
       </div>
     </div>

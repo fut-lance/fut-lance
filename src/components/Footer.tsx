@@ -58,6 +58,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/brasileirao-ao-vivo" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Brasileirão Ao Vivo
+                </Link>
+              </li>
+              <li>
                 <Link href="/noticias" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Notícias
                 </Link>

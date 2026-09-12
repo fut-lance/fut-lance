@@ -6,6 +6,7 @@ import { useState } from 'react';
 const navLinks = [
   { href: '/', label: 'Início' },
   { href: '/ao-vivo', label: 'Ao Vivo', live: true },
+  { href: '/brasileirao-ao-vivo', label: 'Brasileirão Ao Vivo' },
   { href: '/noticias', label: 'Notícias' },
   { href: '/campeonatos/brasileirao', label: 'Brasileirão' },
   { href: '/campeonatos/libertadores', label: 'Libertadores' },

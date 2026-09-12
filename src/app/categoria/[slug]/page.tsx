@@ -58,10 +58,11 @@ export async function generateMetadata({
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-  const slugNormalizado = normalize(decodeURIComponent(params.slug));
+  const slugNormalizado = normalize(params.slug);
   const seoData = categorySeoData[slugNormalizado];
-  const nomeFormatado = decodeURIComponent(params.slug)
+  const nomeFormatado = params.slug
     .replace(/-/g, ' ')
+    .replace(/%20/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return {
@@ -102,10 +103,10 @@ export default async function CategoriaPage({
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-  const slugNormalizado = normalize(decodeURIComponent(params.slug));
+  const slugNormalizado = normalize(params.slug);
 
   let noticias: any[] = [];
-  let categoriaNome = decodeURIComponent(params.slug).replace(/-/g, ' ').toUpperCase();
+  let categoriaNome = params.slug.replace(/-/g, ' ').replace(/%20/g, ' ').toUpperCase();
   let categoriaDescricao = 'Notícias desta categoria.';
 
   try {

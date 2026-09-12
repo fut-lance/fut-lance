@@ -30,7 +30,7 @@ export const ligas: Liga[] = [
     slug: 'premier-league',
     nome: 'Premier League',
     pais: 'Inglaterra',
-    logo: 'https://logodetimes.com/times/premier-league/logo-premier-league-2048.png',
+    logo: 'https://crests.football-data.org/PL.png',
     descricao: 'A Premier League é a primeira divisão do futebol inglês e uma das ligas mais disputadas do mundo. Com 20 times, a competição oferece jogos de alta qualidade e grandes estrelas do futebol mundial.',
     times: ['Manchester City', 'Arsenal', 'Hull City', 'Chelsea', 'Liverpool', 'Manchester United', 'Tottenham', 'Newcastle', 'Aston Villa', 'Brighton', 'West Ham', 'Brentford', 'Crystal Palace', 'Wolves', 'Fulham', 'Bournemouth', 'Everton', 'Nottingham Forest', 'Burnley', 'Luton Town'],
     estatisticas: {
@@ -54,7 +54,7 @@ export const ligas: Liga[] = [
     slug: 'la-liga',
     nome: 'La Liga',
     pais: 'Espanha',
-    logo: 'https://logodetimes.com/times/la-liga/logo-la-liga-2048.png',
+    logo: 'https://crests.football-data.org/laliga.png',
     descricao: 'A La Liga é a primeira divisão do futebol espanhol, conhecida por sua qualidade técnica e rivalidades históricas. Real Madrid e Barcelona dominam a competição há décadas.',
     times: ['Barcelona', 'Real Madrid', 'Bétis', 'Deportivo de A Coruña', 'Alaves', 'Osasuna', 'Real Sociedad', 'Atlético Madrid', 'Sevilla', 'Valencia', 'Villarreal', 'Athletic Bilbao', 'Celta Vigo', 'Mallorca', 'Las Palmas', 'Getafe', 'Rayo Vallecano', 'Espanyol', 'Leganes', 'Valladolid'],
     estatisticas: {
@@ -78,7 +78,7 @@ export const ligas: Liga[] = [
     slug: 'bundesliga',
     nome: 'Bundesliga',
     pais: 'Alemanha',
-    logo: 'https://logodetimes.com/times/bundesliga/logo-bundesliga-2048.png',
+    logo: 'https://crests.football-data.org/BL1.png',
     descricao: 'A Bundesliga é a primeira divisão do futebol alemão, conhecida por sua torcida apaixonada e jogos de alta intensidade. O Bayern München é o dominador histórico da competição.',
     times: ['Freiburg', 'Borussia Dortmund', 'Elversberg', 'Bayern de Munique', 'Bayer Leverkusen', 'Augsburg', 'Leipzig', 'Stuttgart', 'Werder Bremen', 'Colônia', 'Eintracht Frankfurt', 'Mainz', 'Paderborn', 'Schalke', 'Union Berlin', 'Hoffenheim', 'Hamburgo', 'Borussia Mönchengladbach'],
     estatisticas: {
@@ -102,7 +102,7 @@ export const ligas: Liga[] = [
     slug: 'serie-a',
     nome: 'Serie A',
     pais: 'Itália',
-    logo: 'https://logodetimes.com/times/serie-a/logo-serie-a-2048.png',
+    logo: 'https://crests.football-data.org/SA.png',
     descricao: 'A Serie A é a primeira divisão do futebol italiano, uma das ligas mais táticas e defensivas do mundo. Juventus, Milan e Inter são os maiores clubes da história.',
     times: ['AS Roma', 'Inter', 'Como 1907', 'AC Milan', 'Juventus', 'Frosinone', 'Lazio', 'Atalanta', 'Udinese', 'Sassuolo', 'Napoli', 'Cagliari', 'Torino', 'Lecce', 'Bologna', 'Parma', 'Genoa', 'Venezia', 'Monza', 'Fiorentina'],
     estatisticas: {
@@ -126,7 +126,7 @@ export const ligas: Liga[] = [
     slug: 'ligue-1',
     nome: 'Ligue 1',
     pais: 'França',
-    logo: 'https://logodetimes.com/times/ligue-1/logo-ligue-1-2048.png',
+    logo: 'https://crests.football-data.org/FL1.png',
     descricao: 'A Ligue 1 é a primeira divisão do futebol francês, conhecida por revelar grandes talentos e oferecer jogos disputados. O PSG é o dominador recente da competição.',
     times: ['Monaco', 'Paris FC', 'Lyon', 'Lille', 'Rennes', 'Strasbourg', 'Brest', 'Lorient', 'Troyes', 'Marseille', 'Lens', 'Angers', 'Paris Saint-Germain', 'Le Mans', 'Nice', 'Le Havre', 'Toulouse', 'Auxerre'],
     estatisticas: {

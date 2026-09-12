@@ -197,7 +197,7 @@ export const jogadores: Jogador[] = [
     posicao: 'Zagueiro',
     timeAtual: 'Paris Saint-Germain',
     selecao: 'Brasil',
-    foto: 'https://logodetimes.com/times/paris-saint-germain/logo-paris-saint-germain-2048.png',
+    foto: 'https://logodownload.org/wp-content/uploads/2017/02/psg-logo-escudo-paris-saint-germain-1.png',
     descricao: 'Marquinhos é o capitão do Paris Saint-Germain e um dos melhores zagueiros do mundo. Liderança, marcação e capacidade de jogo são suas principais qualidades.',
     estatisticas: {
       gols: 38,

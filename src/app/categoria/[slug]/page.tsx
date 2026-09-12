@@ -7,39 +7,39 @@ export const dynamic = 'force-dynamic';
 
 const categorySeoData: Record<string, { title: string; description: string; keywords: string }> = {
   'brasileirao': {
-    title: 'Brasileirão — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
-    description: 'Todas as notícias do Brasileirão Série A 2026. Classificação, resultados, jogos, transferências e cobertura completa do campeonato brasileiro.',
-    keywords: 'brasileirão, brasileirão série a, campeonato brasileiro, futebol brasileiro, notícias brasileirão, classificação brasileirão, jogos brasileirão',
+    title: 'Brasileirão Ao Vivo — Notícias, Jogos e Classificação | Fut-Lance',
+    description: 'Acompanhe o Brasileirão ao vivo: notícias, jogos do dia, classificação atualizada, resultados e tudo sobre o Campeonato Brasileiro Série A 2026.',
+    keywords: 'brasileirão ao vivo, brasileirão série a, campeonato brasileiro, futebol brasileiro, jogos brasileirão, classificação brasileirão, resultados brasileirão',
   },
   'libertadores': {
-    title: 'Libertadores — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
-    description: 'Cobertura completa da Copa Libertadores 2026. Notícias, resultados, classificação, confrontos e jogos ao vivo dos clubes brasileiros.',
-    keywords: 'libertadores, copa libertadores, libertadores 2026, futebol sul-americano, notícias libertadores, jogos libertadores',
+    title: 'Libertadores Ao Vivo — Notícias, Jogos e Confrontos | Fut-Lance',
+    description: 'Copa Libertadores ao vivo: notícias, jogos, resultados, confrontos e cobertura completa dos clubes brasileiros na Libertadores 2026.',
+    keywords: 'libertadores ao vivo, copa libertadores, libertadores 2026, jogos libertadores, resultados libertadores, futebol sul-americano',
   },
   'champions-league': {
-    title: 'Champions League — Notícias, Jogos e Futebol ao Vivo | Fut-Lance',
-    description: 'Todas as notícias da UEFA Champions League 2026/27. Resultados, classificação, confrontos e cobertura completa da Liga dos Campeões.',
-    keywords: 'champions league, liga dos campeões, uefa champions league, futebol europeu, notícias champions league',
+    title: 'Champions League Ao Vivo — Notícias, Jogos e Resultados | Fut-Lance',
+    description: 'UEFA Champions League ao vivo: notícias, jogos, resultados, classificação e cobertura completa da Liga dos Campeões 2026/27.',
+    keywords: 'champions league ao vivo, liga dos campeões, uefa champions league, jogos champions league, resultados champions league, futebol europeu',
   },
   'transferencias': {
-    title: 'Mercado da Bola e Transferências | Fut-Lance',
-    description: 'Fique por dentro de todas as transferências do futebol brasileiro e internacional. Rumores, confirmadas e negociações do mercado da bola.',
-    keywords: 'transferências, mercado da bola, contratações, futebol, negociações, reforços',
+    title: 'Transferências e Mercado da Bola | Fut-Lance',
+    description: 'Fique por dentro de todas as transferências do futebol brasileiro e internacional. Rumores, contratações confirmadas e negociações do mercado da bola.',
+    keywords: 'transferências, mercado da bola, contratações, futebol, negociações, reforços, rumores transferências',
   },
   'selecao': {
-    title: 'Seleção Brasileira — Notícias e Jogos | Fut-Lance',
-    description: 'Todas as notícias da Seleção Brasileira de Futebol. Convocações, jogos, eliminatórias e cobertura completa da Amarelinha.',
-    keywords: 'seleção brasileira, seleção, canarinho, hexa, eliminarórias, jogos seleção',
+    title: 'Seleção Brasileira — Notícias, Convocações e Jogos | Fut-Lance',
+    description: 'Todas as notícias da Seleção Brasileira: convocações, jogos ao vivo, eliminatórias, resultados e cobertura completa da Amarelinha.',
+    keywords: 'seleção brasileira, seleção, canarinho, hexa, eliminarórias, jogos seleção, convocações seleção',
   },
   'copa-do-brasil': {
-    title: 'Copa do Brasil — Notícias e Jogos | Fut-Lance',
-    description: 'Cobertura completa da Copa do Brasil 2026. Resultados, confrontos, classificação e notícias do torneio nacional.',
-    keywords: 'copa do brasil, copa do brasil 2026, futebol, notícias copa do brasil',
+    title: 'Copa do Brasil Ao Vivo — Notícias, Jogos e Resultados | Fut-Lance',
+    description: 'Copa do Brasil ao vivo: notícias, jogos, resultados, confrontos e cobertura completa do torneio por eliminação do futebol brasileiro.',
+    keywords: 'copa do brasil ao vivo, copa do brasil 2026, jogos copa do brasil, resultados copa do brasil, futebol brasileiro',
   },
   'premier-league': {
-    title: 'Premier League — Notícias e Futebol | Fut-Lance',
-    description: 'Todas as notícias da Premier League inglesa. Resultados, classificação, transferências e cobertura do futebol inglês.',
-    keywords: 'premier league, futebol inglês, liga inglesa, notícias premier league',
+    title: 'Premier League Ao Vivo — Notícias, Jogos e Resultados | Fut-Lance',
+    description: 'Premier League ao vivo: notícias, jogos, resultados, classificação e cobertura completa do Campeonato Inglês.',
+    keywords: 'premier league ao vivo, futebol inglês, liga inglesa, jogos premier league, resultados premier league',
   },
 };
 
@@ -203,6 +203,22 @@ export default async function CategoriaPage({
           </Link>
         </div>
       )}
+
+      {/* Links para partidas e ao vivo */}
+      <div className="mt-10 bg-fut-darker rounded-xl border border-gray-800 p-6">
+        <h2 className="text-xl font-bold text-white mb-4">Acompanhe ao Vivo</h2>
+        <div className="flex flex-wrap gap-4">
+          <Link href="/ao-vivo" className="bg-fut-accent hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            ⚽ Futebol Ao Vivo
+          </Link>
+          <Link href={`/campeonatos/${params.slug}`} className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            📊 Classificação e Detalhes
+          </Link>
+          <Link href="/onde-assistir" className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+            📺 Onde Assistir
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -41,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://fut-lance.vercel.app', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 1.0 },
     { url: 'https://fut-lance.vercel.app/noticias', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
     { url: 'https://fut-lance.vercel.app/ao-vivo', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
+    { url: 'https://fut-lance.vercel.app/brasileirao-ao-vivo', lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.9 },
     { url: 'https://fut-lance.vercel.app/ligas', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: 'https://fut-lance.vercel.app/jogadores', lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
     { url: 'https://fut-lance.vercel.app/onde-assistir', lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },

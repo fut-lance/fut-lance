@@ -7,11 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">⚽</span>
-              <span className="text-xl font-extrabold tracking-tight">
-                <span className="text-fut-green">FUT</span>
-                <span className="text-white">LANCE</span>
-              </span>
+              <img src="/logo.png" alt="FUT LANCE" className="h-10 w-auto" />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               O melhor portal de notícias de futebol do Brasil. Notícias, vídeos, transmissões ao vivo e muito mais.

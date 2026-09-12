@@ -10,11 +10,12 @@ function getMatchStatus(match: Match): 'em-breve' | 'ao-vivo' | 'encerrado' | 'e
   const [d, m, y] = match.data.split('/').map(Number);
   const [h, min] = match.horario.split(':').map(Number);
   const matchStart = new Date(y, m - 1, d, h, min);
+  const playerStart = new Date(matchStart.getTime() - 10 * 60 * 1000);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
   const removeAfter = new Date(matchEnd.getTime() + 20 * 60 * 1000);
 
-  if (now < matchStart) return 'em-breve';
-  if (now >= matchStart && now <= matchEnd) return 'ao-vivo';
+  if (now < playerStart) return 'em-breve';
+  if (now >= playerStart && now <= matchEnd) return 'ao-vivo';
   if (now > matchEnd && now <= removeAfter) return 'encerrado';
   return 'expirado';
 }

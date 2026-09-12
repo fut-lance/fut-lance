@@ -30,7 +30,7 @@ function generateSlug(timeMandante: string, timeVisitante: string): string {
   return `${normalize(timeMandante)}-x-${normalize(timeVisitante)}`;
 }
 
-const BASE = 'http://filtror7679.site:80/031532627/513117897';
+const BASE = 'http://blackbr.fun:80/031532627/513117897';
 
 export const matches: Match[] = [
   {

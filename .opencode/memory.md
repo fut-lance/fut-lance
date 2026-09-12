@@ -134,12 +134,13 @@
 - NEXT_PUBLIC_STRAPI_URL = https://fut-lance-cms-v2.onrender.com
 - STRAPI_ADMIN_EMAIL
 - STRAPI_ADMIN_PASSWORD
-- IPTV_URL = http://radiogolive.site:80/get.php?username=031532627&password=513117897&type=m3u_plus&output=m3u8
+- IPTV_URL = http://blackbr.fun:80/get.php?username=031532627&password=513117897&type=m3u_plus&output=m3u8
 
 ## IPTV
-- Streams: http://xigfh01.site:80/031532627/513117897/{id}.m3u8 (HLS)
-- Canal GETV: ids 588(FHD), 589(HD), 590(SD)
-- Canais permitidos: ESPN, SporTV, Premiere, Band Sports, Combate, GE TV, Cazé TV, Paramount+, Amazon Prime
+- **Servidor principal**: http://blackbr.fun:80/get.php?username=031532627&password=513117897&type=m3u_plus&output=m3u8
+- **Servidor antigo (pode estar fora)**: http://filtror7679.site:80/031532627/513117897/{id}.m3u8
+- **Stream URL**: http://blackbr.fun:80/031532627/513117897/{id}.m3u8
+- Canais permitidos: ESPN, SporTV, Premiere, Band Sports, Combate, GE TV, Cazé TV, Record, Paramount+, Amazon Prime
 - NÃO incluir: DAZN, canais não-esportivos
 
 ## Google Analytics

@@ -99,8 +99,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/internacional/logo-internacional-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Record', url: '' },
-      { nome: 'CazéTV', url: '' },
+      { nome: 'CazéTV 01 FHD', url: `${BASE}/424908.m3u8` },
+      { nome: 'CazéTV 01 HD', url: `${BASE}/424909.m3u8` },
       { nome: 'Premiere 6 FHD', url: `${BASE}/424227.m3u8` },
       { nome: 'Premiere 6 HD', url: `${BASE}/424228.m3u8` },
     ],

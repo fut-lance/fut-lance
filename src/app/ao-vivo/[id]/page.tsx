@@ -17,8 +17,8 @@ export async function generateMetadata({
   const match = matches.find((m) => m.id === params.id);
   if (!match) return { title: 'Jogo não encontrado' };
 
-  const title = `${match.timeMandante} x ${match.timeVisitante} ao vivo hoje — ${match.competicao} | Fut-Lance`;
-  const description = `${match.timeMandante} x ${match.timeVisitante} ao vivo pelo ${match.competicao}. Horário: ${match.horario} - ${match.data}. Acompanhe no Fut-Lance.`;
+  const title = `${match.timeMandante} x ${match.timeVisitante} ao vivo: onde assistir e horário | Fut-Lance`;
+  const description = `${match.timeMandante} x ${match.timeVisitante} ao vivo. Veja horário, competição, informações da partida e opções disponíveis para acompanhar o jogo no Fut-Lance.`;
 
   return {
     title,
@@ -211,16 +211,15 @@ export default function JogoPage({
               <h2 className="text-white font-bold text-lg mb-4">Sobre a Partida</h2>
               <div className="text-gray-400 text-sm space-y-3">
                 <p>
-                  Confira informações de <strong className="text-white">{match.timeMandante} x {match.timeVisitante}</strong>, válido pelo <strong className="text-white">{match.competicao}</strong>. Veja horário, competição, situação da partida e outras informações.
+                  Partida entre <strong className="text-white">{match.timeMandante}</strong> e <strong className="text-white">{match.timeVisitante}</strong>, válida pelo <strong className="text-white">{match.competicao}</strong>. O jogo está marcado para <strong className="text-white">{match.data}</strong> às <strong className="text-white">{match.horario}</strong>.
                 </p>
                 <p>
-                  O jogo entre {match.timeMandante} e {match.timeVisitante} está marcado para {match.data} às {match.horario}, pela {match.competicao}.
-                  {status === 'Em breve' && ' A partida ainda não começou. Fique atento para acompanhar ao vivo.'}
-                  {status === 'AO VIVO' && ' A partida está acontecendo neste momento! Acompanhe ao vivo.'}
-                  {status === 'Encerrado' && ' A partida já foi encerrada. Confira o resultado abaixo.'}
+                  {status === 'Em breve' && `${match.timeMandante} x ${match.timeVisitante} ao vivo ainda não começou. Fique atento para acompanhar a partida em tempo real.`}
+                  {status === 'AO VIVO' && `A partida entre ${match.timeMandante} e ${match.timeVisitante} está acontecendo neste momento! Acompanhe ao vivo pelo Fut-Lance.`}
+                  {status === 'Encerrado' && `A partida ${match.timeMandante} x ${match.timeVisitante} já foi encerrada. Confira o resultado e as informações abaixo.`}
                 </p>
                 <p>
-                  Acesse as notícias do <Link href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`} className="text-fut-green hover:underline">{match.competicao}</Link> para ficar por dentro de tudo o que acontece no campeonato.
+                  Para assistir {match.timeMandante} x {match.timeVisitante} ao vivo, confira os canais de transmissão disponíveis na seção acima. Acesse também as <Link href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`} className="text-fut-green hover:underline">notícias do {match.competicao}</Link> para ficar por dentro de tudo o que acontece no campeonato.
                 </p>
               </div>
             </div>
@@ -301,12 +300,20 @@ export default function JogoPage({
 
             <div className="bg-fut-darker rounded-xl p-5 border border-gray-800">
               <h2 className="text-white font-bold mb-3">Notícias Relacionadas</h2>
-              <Link
-                href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`}
-                className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"
-              >
-                <p className="text-fut-green text-sm font-bold">Ver notícias de {match.competicao}</p>
-              </Link>
+              <div className="space-y-2">
+                <Link
+                  href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"
+                >
+                  <p className="text-fut-green text-sm font-bold">Ver notícias de {match.competicao}</p>
+                </Link>
+                <Link
+                  href="/ao-vivo"
+                  className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"
+                >
+                  <p className="text-gray-300 text-sm font-bold">Ver todos os jogos ao vivo</p>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -117,6 +117,11 @@
 - NUNCA diga que está correto se não verificou
 - Se não tem certeza, diga "não sei" ou "vou verificar"
 
+### PENDENTE (13/09/2026)
+- Colocar notícia do Palmeiras em destaque com conteúdo
+- Colocar imagem na notícia do Atletico-MG
+- Verificar SEO de tudo que foi feito hoje
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 

@@ -111,6 +111,12 @@
 - `times.ts` tem informações dos times
 - Só busque na internet se os dados não estiverem no projeto
 
+### 17. NÃO MENTIR
+- NUNCA invente informações
+- NUNCA diga que fez algo se não fez
+- NUNCA diga que está correto se não verificou
+- Se não tem certeza, diga "não sei" ou "vou verificar"
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 

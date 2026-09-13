@@ -264,7 +264,7 @@ export const matches: Match[] = [
     data: '13/09/2026',
     horario: '18:30',
     timeMandante: 'Novorizontino',
-    logoTimeMandante: 'https://media.api-sports.io/football/teams/1193.png',
+    logoTimeMandante: 'https://media.api-sports.io/football/teams/18127.png',
     timeVisitante: 'Cuiabá',
     logoTimeVisitante: 'https://logodetimes.com/times/cuiaba/logo-cuiaba-2048.png',
     status: 'em-breve',

@@ -79,6 +79,12 @@
 - Consulte estas regras antes de cada tarefa
 - Objetivo evitar: notícias desatualizadas, datas erradas, informações inventadas, alterações desnecessárias, quebra de funcionalidades, erros de código, perda de SEO, retrabalho
 
+### 12. REFERÊNCIA PARA TABELAS DE CLASSIFICAÇÃO
+- **Série A**: `https://www.espn.com.br/futebol/classificacao/_/liga/bra.1`
+- **Série B**: `https://www.espn.com.br/futebol/classificacao/_/liga/bra.2`
+- Sempre usar essas fontes ao atualizar as tabelas de classificação
+- ESPN é a fonte oficial e mais atualizada
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 
@@ -153,6 +159,11 @@
   - SporTV: 423791 (FHD), 423792 (HD)
   - SporTV 2: 423795 (FHD), 423796 (HD)
   - SporTV 3: 423799 (FHD), 423800 (HD)
+- **Canais CazéTV disponíveis**:
+  - CazéTV 01: 424908 (FHD), 424909 (HD)
+  - CazéTV 02: 424910 (FHD), 424911 (HD)
+  - CazéTV 03: 424912 (FHD), 424913 (HD)
+  - CazéTV 04: 424914 (FHD), 424915 (HD)
 - Canais permitidos: ESPN, SporTV, Premiere, Band Sports, Combate, GE TV, Cazé TV, Record, Paramount+, Amazon Prime
 - NÃO incluir: DAZN, canais não-esportivos
 
@@ -211,9 +222,38 @@
 - **Scripts**: acscdn.com/script/aclib.js + runAutoTag
 - **Status**: Conta criada, scripts integrados, aguardando aprovação do site
 
+## Classificação Brasileirão 2026 (Rodada 27 - 13/09/2026)
+| Pos | Time | Pts | J | V | E | D | GP | GC | SG |
+|-----|------|-----|---|---|---|---|----|----|-----|
+| 1 | Palmeiras | 56 | 27 | 16 | 8 | 3 | 47 | 21 | +26 |
+| 2 | Flamengo | 54 | 26 | 16 | 6 | 4 | 51 | 21 | +30 |
+| 3 | Athletico-PR | 46 | 27 | 13 | 7 | 7 | 41 | 31 | +10 |
+| 4 | Fluminense | 45 | 27 | 12 | 9 | 6 | 41 | 35 | +6 |
+| 5 | Bahia | 43 | 26 | 11 | 10 | 5 | 40 | 32 | +8 |
+| 6 | Cruzeiro | 42 | 27 | 12 | 6 | 9 | 39 | 39 | 0 |
+| 7 | Atlético-MG | 39 | 26 | 11 | 6 | 9 | 35 | 31 | +4 |
+| 8 | Coritiba | 38 | 27 | 10 | 8 | 9 | 37 | 38 | -1 |
+| 9 | Bragantino | 35 | 25 | 10 | 5 | 10 | 31 | 28 | +3 |
+| 10 | São Paulo | 33 | 25 | 9 | 6 | 10 | 31 | 28 | +3 |
+| 11 | Corinthians | 32 | 26 | 8 | 8 | 10 | 27 | 27 | 0 |
+| 12 | Santos | 32 | 25 | 8 | 8 | 9 | 37 | 38 | -1 |
+| 13 | Botafogo | 31 | 25 | 8 | 7 | 10 | 37 | 40 | -3 |
+| 14 | Vitória | 29 | 25 | 8 | 5 | 12 | 24 | 37 | -13 |
+| 15 | Grêmio | 28 | 25 | 7 | 7 | 11 | 27 | 33 | -6 |
+| 16 | Mirassol | 28 | 26 | 7 | 7 | 12 | 29 | 40 | -11 |
+| 17 | Vasco | 25 | 25 | 6 | 7 | 12 | 27 | 40 | -13 |
+| 18 | Internacional | 25 | 26 | 5 | 10 | 11 | 28 | 34 | -6 |
+| 19 | Remo | 23 | 26 | 5 | 8 | 13 | 30 | 43 | -13 |
+| 20 | Chapecoense | 17 | 25 | 3 | 8 | 14 | 27 | 50 | -23 |
+
+## Artilharia Brasileirão 2026 (Rodada 27)
+1. Kevin Viveros (Athletico-PR) - 18 gols
+2. Pedro (Flamengo) - 15 gols
+3. Carlos Vinícius (Grêmio) - 10 gols
+
 ## O que NÃO funciona / Cuidados
-- **Tabela do Brasileirão**: NÃO é automática — precisa atualizar manualmente quando jogos são disputados. Fonte: ESPN (espn.com.br/futebol/classificacao/_/liga/bra.1)
-- **Artilharia do Brasileirão**: NÃO é automática — precisa atualizar manualmente. Fonte: ge.globo.com (artilheiro da serie a do brasileirao)
+- **Tabela do Brasileirão**: NÃO é automática — precisa atualizar manualmente quando jogos são disputados. Fonte: UmDois Esportes (umdoisesportes.com.br/tabelas/brasileirao-serie-a)
+- **Artilharia do Brasileirão**: NÃO é automática — precisa atualizar manualmente. Fonte: ge.globo.com
 - **Elenços dos times**: Dados em src/data/times.ts podem ficar desatualizados — verificar sempre no Google antes de usar
 - **Imagens Unsplash quebradas**: photo-1508098682722-e99c43a406b2 e photo-1522778119026-d647f5096c20 retornam 404
 - **Slugs das categorias no Strapi**: Brasileirão e Libertadores têm slug null — o frontend resolve com slugMap no api.ts

@@ -57,6 +57,7 @@ export default async function CampeonatoPage({ params }: PageProps) {
       'brasileirao': 'brasileirao',
       'libertadores': 'libertadores',
       'champions-league': 'champions-league',
+      'serie-b': 'brasileirao-serie-b',
     };
     const catSlug = slugMap[slug] || slug;
     const data = await getNoticiasByCategoria(catSlug);

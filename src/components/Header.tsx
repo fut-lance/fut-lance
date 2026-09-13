@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/brasileirao-ao-vivo', label: 'Brasileirão Ao Vivo' },
   { href: '/noticias', label: 'Notícias' },
   { href: '/campeonatos/brasileirao', label: 'Brasileirão' },
+  { href: '/campeonatos/serie-b', label: 'Série B' },
   { href: '/campeonatos/libertadores', label: 'Libertadores' },
   { href: '/campeonatos/champions-league', label: 'Champions' },
   { href: '/ligas', label: 'Ligas' },

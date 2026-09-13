@@ -84,7 +84,7 @@ export default async function Home() {
 
       {/* Hero / Destaque Principal */}
       <section className="relative bg-gradient-to-br from-fut-dark via-fut-darker to-fut-dark">
-        <div className="absolute inset-0 bg-gradient-to-t from-fut-darker via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-10" />
         {principalNoticia ? (
           <div className="relative">
             <div className="h-[50vh] md:h-[60vh] lg:h-[70vh] w-full overflow-hidden">

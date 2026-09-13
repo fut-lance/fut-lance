@@ -42,7 +42,7 @@ export const matches: Match[] = [
     timeMandante: 'Coritiba',
     logoTimeMandante: 'https://logodetimes.com/times/coritiba/logo-coritiba-2048.png',
     timeVisitante: 'Athletico-PR',
-    logoTimeVisitante: 'https://logodetimes.com/times/athletico-paranaense/logo-athletico-paranaense-2048.png',
+    logoTimeVisitante: 'https://www.ogol.com.br/team/athletico-pr/logo.png',
     status: 'em-breve',
     canais: [
       { nome: 'SporTV FHD', url: `${BASE}/423791.m3u8` },
@@ -201,7 +201,7 @@ export const matches: Match[] = [
     timeMandante: 'Bahia',
     logoTimeMandante: 'https://logodetimes.com/times/bahia/logo-bahia-2048.png',
     timeVisitante: 'Remo',
-    logoTimeVisitante: 'https://media.api-sports.io/football/teams/1953.png',
+    logoTimeVisitante: 'https://www.ogol.com.br/team/remo/logo.png',
     status: 'em-breve',
     canais: [
       { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },

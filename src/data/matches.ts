@@ -201,7 +201,7 @@ export const matches: Match[] = [
     timeMandante: 'Bahia',
     logoTimeMandante: 'https://logodetimes.com/times/bahia/logo-bahia-2048.png',
     timeVisitante: 'Remo',
-    logoTimeVisitante: 'https://logodetimes.com/times/remo/logo-remo-2048.png',
+    logoTimeVisitante: 'https://media.api-sports.io/football/teams/1953.png',
     status: 'em-breve',
     canais: [
       { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },

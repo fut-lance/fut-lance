@@ -23,6 +23,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/campeonatos/serie-b" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                  Série B
+                </Link>
+              </li>
+              <li>
                 <Link href="/campeonatos/libertadores" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Libertadores
                 </Link>

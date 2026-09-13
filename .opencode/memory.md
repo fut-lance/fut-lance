@@ -104,6 +104,13 @@
 - Nunca publique sem autorização explícita
 - Mostre: título, resumo, conteúdo e data
 
+### 16. USAR DADOS DO PROJETO PRIMEIRO
+- ANTES de buscar dados na internet, consulte os arquivos do projeto
+- `campeonatos.ts` tem classificação atualizada
+- `matches.ts` tem jogos e placares
+- `times.ts` tem informações dos times
+- Só busque na internet se os dados não estiverem no projeto
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 

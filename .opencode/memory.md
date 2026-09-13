@@ -85,6 +85,12 @@
 - Sempre usar essas fontes ao atualizar as tabelas de classificação
 - ESPN é a fonte oficial e mais atualizada
 
+### 13. JOGOS CADASTRADOS DEVEM TER PLAYER
+- Todo jogo cadastrado em matches.ts DEVE ter canais com URLs de streaming funcionais
+- Nunca cadastrar jogos sem URLs nos canais
+- Usar canais Premiere e SporTV do servidor IPTV
+- Não usar canais que não estão na lista de canais permitidos
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 

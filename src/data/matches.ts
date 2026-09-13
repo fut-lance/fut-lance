@@ -222,7 +222,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://media.api-sports.io/football/teams/1194.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Disney+', url: '' },
+      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
+      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
     ],
   },
   {
@@ -237,9 +238,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://media.api-sports.io/football/teams/1191.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Xsports', url: '' },
-      { nome: 'SportyNet', url: '' },
-      { nome: 'Disney+', url: '' },
+      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
+      { nome: 'SporTV 2 HD', url: `${BASE}/423796.m3u8` },
     ],
   },
   {
@@ -254,7 +254,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/ceara/logo-ceara-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Disney+', url: '' },
+      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
+      { nome: 'SporTV 3 HD', url: `${BASE}/423800.m3u8` },
     ],
   },
   {
@@ -269,7 +270,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/cuiaba/logo-cuiaba-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Disney+', url: '' },
+      { nome: 'Premiere 5 HD', url: `${BASE}/424225.m3u8` },
+      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
     ],
   },
 ];

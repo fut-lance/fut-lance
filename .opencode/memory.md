@@ -91,6 +91,19 @@
 - Usar canais Premiere e SporTV do servidor IPTV
 - Não usar canais que não estão na lista de canais permitidos
 
+### 14. NÃO PODE TER ERRO NAS NOTÍCIAS
+- Todo conteúdo publicado DEVE ser 100% correto e verificado
+- Dados errados prejudicam o SEO e fazem o blog cair nas buscas
+- NUNCA publique algo sem ter certeza absoluta
+- Se houver dúvida, NÃO publique
+- Erros de dados, estádios, jogadores, datas ou placares são inaceitáveis
+
+### 15. APROVAÇÃO DO USUÁRIO ANTES DE PUBLICAR
+- ANTES de criar qualquer notícia no Strapi, mostre o conteúdo completo para o usuário
+- O usuário DEVE aprovar antes de publicar
+- Nunca publique sem autorização explícita
+- Mostre: título, resumo, conteúdo e data
+
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
 

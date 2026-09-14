@@ -18,7 +18,7 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}) {
     method,
     headers: { ...defaultHeaders, ...headers },
     body: body ? JSON.stringify(body) : undefined,
-    next: { revalidate: 60 },
+    cache: 'no-store',
   });
 
   if (!response.ok) {

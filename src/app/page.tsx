@@ -40,7 +40,7 @@ export default async function Home() {
     const data = await getNoticias(1, 12);
     const allNoticias = data?.data || [];
     noticiasDestaque = allNoticias.slice(0, 1);
-    ultimasNoticias = allNoticias.slice(1, 7);
+    ultimasNoticias = allNoticias.slice(1, 11);
   } catch (error) {
     console.error('Erro ao buscar notícias:', error);
   }

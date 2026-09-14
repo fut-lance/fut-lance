@@ -37,7 +37,7 @@ export default async function Home() {
   let transmissoes: any[] = [];
 
   try {
-    const data = await getNoticias(1, 8);
+    const data = await getNoticias(1, 12);
     const allNoticias = data?.data || [];
     noticiasDestaque = allNoticias.slice(0, 1);
     ultimasNoticias = allNoticias.slice(1, 7);

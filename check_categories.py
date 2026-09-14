@@ -1,7 +1,8 @@
 import requests
 from collections import Counter
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 HDR = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 
 page = 1

@@ -1,6 +1,7 @@
 import requests
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 headers = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 
 # Get first 5 Brasileirão news with slugs

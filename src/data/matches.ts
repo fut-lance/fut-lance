@@ -30,7 +30,6 @@ function generateSlug(timeMandante: string, timeVisitante: string): string {
   return `${normalize(timeMandante)}-x-${normalize(timeVisitante)}`;
 }
 
-const BASE = 'http://blackbr.fun:80/031532627/513117897';
 
 export const matches: Match[] = [
   {
@@ -45,10 +44,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://www.ogol.com.br/team/athletico-pr/logo.png',
     status: 'em-breve',
     canais: [
-      { nome: 'SporTV FHD', url: `${BASE}/423791.m3u8` },
-      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
-      { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
-      { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },
+      { nome: 'SporTV FHD', url: `/api/stream?ch=423791` },
+      { nome: 'SporTV HD', url: `/api/stream?ch=423792` },
+      { nome: 'Premiere Clubes FHD', url: `/api/stream?ch=424208` },
+      { nome: 'Premiere Clubes HD', url: `/api/stream?ch=424209` },
     ],
   },
   {
@@ -63,10 +62,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/fluminense/logo-fluminense-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 2 FHD', url: `${BASE}/424212.m3u8` },
-      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
-      { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },
-      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
+      { nome: 'Premiere 2 FHD', url: `/api/stream?ch=424212` },
+      { nome: 'Premiere 2 HD', url: `/api/stream?ch=424213` },
+      { nome: 'Premiere 3 FHD', url: `/api/stream?ch=424216` },
+      { nome: 'Premiere 3 HD', url: `/api/stream?ch=424217` },
     ],
   },
   {
@@ -81,10 +80,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://assets.footylogos.com/logos/vasco-da-gama/vasco-da-gama-logo-footylogos.svg',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 4 FHD', url: `${BASE}/424220.m3u8` },
-      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
-      { nome: 'Premiere 5 FHD', url: `${BASE}/424224.m3u8` },
-      { nome: 'Premiere 5 HD', url: `${BASE}/424225.m3u8` },
+      { nome: 'Premiere 4 FHD', url: `/api/stream?ch=424220` },
+      { nome: 'Premiere 4 HD', url: `/api/stream?ch=424221` },
+      { nome: 'Premiere 5 FHD', url: `/api/stream?ch=424224` },
+      { nome: 'Premiere 5 HD', url: `/api/stream?ch=424225` },
     ],
   },
   {
@@ -99,10 +98,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/internacional/logo-internacional-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'CazéTV 01 FHD', url: `${BASE}/424908.m3u8` },
-      { nome: 'CazéTV 01 HD', url: `${BASE}/424909.m3u8` },
-      { nome: 'Premiere 6 FHD', url: `${BASE}/424227.m3u8` },
-      { nome: 'Premiere 6 HD', url: `${BASE}/424228.m3u8` },
+      { nome: 'CazéTV 01 FHD', url: `/api/stream?ch=424908` },
+      { nome: 'CazéTV 01 HD', url: `/api/stream?ch=424909` },
+      { nome: 'Premiere 6 FHD', url: `/api/stream?ch=424227` },
+      { nome: 'Premiere 6 HD', url: `/api/stream?ch=424228` },
     ],
   },
   {
@@ -117,10 +116,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/sao-paulo/logo-sao-paulo-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
-      { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },
-      { nome: 'Premiere 2 FHD', url: `${BASE}/424212.m3u8` },
-      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
+      { nome: 'Premiere Clubes FHD', url: `/api/stream?ch=424208` },
+      { nome: 'Premiere Clubes HD', url: `/api/stream?ch=424209` },
+      { nome: 'Premiere 2 FHD', url: `/api/stream?ch=424212` },
+      { nome: 'Premiere 2 HD', url: `/api/stream?ch=424213` },
     ],
   },
   {
@@ -150,10 +149,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/cruzeiro/logo-cruzeiro-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'SporTV 2 FHD', url: `${BASE}/423795.m3u8` },
-      { nome: 'SporTV 2 HD', url: `${BASE}/423796.m3u8` },
-      { nome: 'Premiere 7 FHD', url: `${BASE}/424231.m3u8` },
-      { nome: 'Premiere 7 HD', url: `${BASE}/424232.m3u8` },
+      { nome: 'SporTV 2 FHD', url: `/api/stream?ch=423795` },
+      { nome: 'SporTV 2 HD', url: `/api/stream?ch=423796` },
+      { nome: 'Premiere 7 FHD', url: `/api/stream?ch=424231` },
+      { nome: 'Premiere 7 HD', url: `/api/stream?ch=424232` },
     ],
   },
   {
@@ -168,8 +167,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/vitoria/logo-vitoria-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 8 FHD', url: `${BASE}/424235.m3u8` },
-      { nome: 'Premiere 8 HD', url: `${BASE}/424236.m3u8` },
+      { nome: 'Premiere 8 FHD', url: `/api/stream?ch=424235` },
+      { nome: 'Premiere 8 HD', url: `/api/stream?ch=424236` },
     ],
   },
   {
@@ -186,10 +185,10 @@ export const matches: Match[] = [
     canais: [
       { nome: 'Globo', url: '' },
       { nome: 'GE TV', url: '' },
-      { nome: 'Premiere Clubes FHD', url: `${BASE}/424208.m3u8` },
-      { nome: 'Premiere Clubes HD', url: `${BASE}/424209.m3u8` },
-      { nome: 'Premiere 2 FHD', url: `${BASE}/424212.m3u8` },
-      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
+      { nome: 'Premiere Clubes FHD', url: `/api/stream?ch=424208` },
+      { nome: 'Premiere Clubes HD', url: `/api/stream?ch=424209` },
+      { nome: 'Premiere 2 FHD', url: `/api/stream?ch=424212` },
+      { nome: 'Premiere 2 HD', url: `/api/stream?ch=424213` },
     ],
   },
   {
@@ -204,10 +203,10 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://www.clubedoremo.com.br/escudo.svg',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 3 FHD', url: `${BASE}/424216.m3u8` },
-      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
-      { nome: 'Premiere 4 FHD', url: `${BASE}/424220.m3u8` },
-      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
+      { nome: 'Premiere 3 FHD', url: `/api/stream?ch=424216` },
+      { nome: 'Premiere 3 HD', url: `/api/stream?ch=424217` },
+      { nome: 'Premiere 4 FHD', url: `/api/stream?ch=424220` },
+      { nome: 'Premiere 4 HD', url: `/api/stream?ch=424221` },
     ],
   },
   {
@@ -222,8 +221,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://media.api-sports.io/football/teams/1194.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 2 HD', url: `${BASE}/424213.m3u8` },
-      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
+      { nome: 'Premiere 2 HD', url: `/api/stream?ch=424213` },
+      { nome: 'SporTV HD', url: `/api/stream?ch=423792` },
     ],
   },
   {
@@ -238,8 +237,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://media.api-sports.io/football/teams/1191.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 3 HD', url: `${BASE}/424217.m3u8` },
-      { nome: 'SporTV 2 HD', url: `${BASE}/423796.m3u8` },
+      { nome: 'Premiere 3 HD', url: `/api/stream?ch=424217` },
+      { nome: 'SporTV 2 HD', url: `/api/stream?ch=423796` },
     ],
   },
   {
@@ -254,8 +253,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/ceara/logo-ceara-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 4 HD', url: `${BASE}/424221.m3u8` },
-      { nome: 'SporTV 3 HD', url: `${BASE}/423800.m3u8` },
+      { nome: 'Premiere 4 HD', url: `/api/stream?ch=424221` },
+      { nome: 'SporTV 3 HD', url: `/api/stream?ch=423800` },
     ],
   },
   {
@@ -270,8 +269,8 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://logodetimes.com/times/cuiaba/logo-cuiaba-2048.png',
     status: 'em-breve',
     canais: [
-      { nome: 'Premiere 5 HD', url: `${BASE}/424225.m3u8` },
-      { nome: 'SporTV HD', url: `${BASE}/423792.m3u8` },
+      { nome: 'Premiere 5 HD', url: `/api/stream?ch=424225` },
+      { nome: 'SporTV HD', url: `/api/stream?ch=423792` },
     ],
   },
 ];

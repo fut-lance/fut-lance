@@ -1,7 +1,8 @@
 import requests
 import time
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 HDR = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 HDR_GET = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 

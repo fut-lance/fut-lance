@@ -4,7 +4,8 @@ import re
 import unicodedata
 
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 HDR = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 
 IMG = "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop"

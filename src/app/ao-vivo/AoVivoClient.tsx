@@ -195,8 +195,18 @@ function ChannelSelector({
   );
 }
 
+function computeStatuses(): Record<string, string> {
+  const statuses: Record<string, string> = {};
+  for (const m of initialMatches) {
+    statuses[m.id] = getMatchStatus(m);
+  }
+  return statuses;
+}
+
 export default function AoVivoClient() {
-  const [liveStatuses, setLiveStatuses] = useState<Record<string, string>>({});
+  // Inicializa já filtrado (SSR + primeira pintura) para jogos
+  // encerrados/expirados não aparecerem como "Em breve"
+  const [liveStatuses, setLiveStatuses] = useState<Record<string, string>>(computeStatuses);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [activeChannel, setActiveChannel] = useState<MatchChannel | null>(null);
   const [watchingMatch, setWatchingMatch] = useState<Match | null>(null);
@@ -205,11 +215,7 @@ export default function AoVivoClient() {
 
   useEffect(() => {
     const update = () => {
-      const statuses: Record<string, string> = {};
-      for (const m of initialMatches) {
-        statuses[m.id] = getMatchStatus(m);
-      }
-      setLiveStatuses(statuses);
+      setLiveStatuses(computeStatuses());
     };
     update();
     const interval = setInterval(update, 30000);

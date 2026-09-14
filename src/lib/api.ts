@@ -46,6 +46,8 @@ export async function getNoticiaBySlug(slug: string) {
 export async function getNoticiasByCategoria(categoriaNome: string) {
   const slugMap: Record<string, string> = {
     'brasileirao': 'Brasileirão',
+    'brasileirao-serie-b': 'Brasileirão Série B',
+    'serie-b': 'Brasileirão Série B',
     'libertadores': 'Libertadores',
     'selecao': 'Seleção',
     'mercado': 'Mercado',

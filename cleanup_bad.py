@@ -5,7 +5,8 @@ import re
 import unicodedata
 
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 headers_auth = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 
 def make_slug(title):

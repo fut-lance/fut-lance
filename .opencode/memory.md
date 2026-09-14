@@ -118,9 +118,9 @@
 - Se não tem certeza, diga "não sei" ou "vou verificar"
 
 ### PENDENTE (13/09/2026)
-- Colocar notícia do Palmeiras em destaque com conteúdo
-- Colocar imagem na notícia do Atletico-MG
-- Verificar SEO de tudo que foi feito hoje
+- ✅ Colocar notícia do Palmeiras em destaque com conteúdo - FEITO
+- ✅ Colocar imagem na notícia do Atletico-MG - FEITO
+- ✅ Verificar SEO de tudo que foi feito hoje - FEITO
 
 ### REGRA PRINCIPAL
 **É MELHOR DEMORAR UM POUCO MAIS PARA VERIFICAR E FAZER CERTO DO QUE EXECUTAR RAPIDAMENTE E FAZER ERRADO.**
@@ -147,7 +147,8 @@
 7. **CONFIRMAR:** Quando possível, confirmar informações em mais de uma fonte.
 8. **CANAIS DE TRANSMISSÃO:** SEMPRE pesquisar no Google quais canais irão transmitir cada jogo ANTES de cadastrar os canais em `matches.ts`. Buscar "onde assistir [time] x [time] [data]" ou "transmissão brasileirão rodada [X]". Não inventar canais — usar apenas os confirmados em fontes oficiais (ge.globo.com, CBF, portalmidiaesporte.com, etc.).
 9. **PÁGINA DE CADA JOGO:** Toda página de jogo (`/ao-vivo/[slug]`) DEVE ter: player de vídeo no topo, seletor de canais (se tiver mais de 1), placar visual com escudos, informações da partida, jogos relacionados. Isso é essencial para a experiência do usuário.
-10. **CRIAR JOGO = CRIAR PÁGINA + SEO:** Sempre que cadastrar um novo jogo em `matches.ts`, a página do jogo é criada automaticamente via `generateStaticParams()`. Porém, SEMPRE verificar se o SEO está correto: título, descrição, keywords, Open Graph, Twitter Card, JSON-LD SportsEvent, BreadcrumbList. Se faltar algo, ajustar antes de publicar.
+10. **DATA E HORA NAS PUBLICAÇÕES:** SEMPRE usar data E hora no formato ISO `2026-09-14T10:00:00.000Z` ao publicar notícias no Strapi. NUNCA usar apenas data (`2026-09-14`) — isso causa empate de ordenação e artigos ficam fora de ordem na home. Cada notícia DEVE ter hora única para garantir que as mais novas apareçam primeiro.
+11. **CRIAR JOGO = CRIAR PÁGINA + SEO:** Sempre que cadastrar um novo jogo em `matches.ts`, a página do jogo é criada automaticamente via `generateStaticParams()`. Porém, SEMPRE verificar se o SEO está correto: título, descrição, keywords, Open Graph, Twitter Card, JSON-LD SportsEvent, BreadcrumbList. Se faltar algo, ajustar antes de publicar.
 
 ## Informações Gerais
 - **Nome do site**: FUT LANCE
@@ -170,19 +171,19 @@
 
 ## Strapi Admin
 - Email: rafaelmelegari86@gmail.com
-- Senha: ***REMOVED***
-- Senha do toggle admin: ***REMOVED***
+- Senha: [REMOVIDO - usar variavel de ambiente]
+- Senha do toggle admin: [REMOVIDO - usar variavel de ambiente]
 
 ## Variáveis de Ambiente (Vercel - Secret, production)
 - NEXT_PUBLIC_STRAPI_URL = https://fut-lance-cms-v2.onrender.com
 - STRAPI_ADMIN_EMAIL
 - STRAPI_ADMIN_PASSWORD
-- IPTV_URL = http://blackbr.fun:80/get.php?username=***REMOVED***&password=***REMOVED***&type=m3u_plus&output=m3u8
+- IPTV_URL = http://blackbr.fun:80/get.php?username=[REMOVIDO]&password=[REMOVIDO]&type=m3u_plus&output=m3u8
 
 ## IPTV
-- **Servidor principal**: http://blackbr.fun:80/get.php?username=***REMOVED***&password=***REMOVED***&type=m3u_plus&output=m3u8
-- **Servidor antigo (pode estar fora)**: http://filtror7679.site:80/***/***/{id}.m3u8
-- **Stream URL**: http://blackbr.fun:80/***/***/{id}.m3u8
+- **Servidor principal**: http://blackbr.fun:80/get.php?username=[REMOVIDO]&password=[REMOVIDO]&type=m3u_plus&output=m3u8
+- **Servidor antigo (pode estar fora)**: http://filtror7679.site:80/[REMOVIDO]/[REMOVIDO]/{id}.m3u8
+- **Stream URL**: http://blackbr.fun:80/[REMOVIDO]/[REMOVIDO]/{id}.m3u8
 - **Canais Premiere disponíveis**:
   - Premiere Clubes: 424208 (FHD), 424209 (HD), 424210 (SD)
   - Premiere 2: 424212 (FHD), 424213 (HD), 424214 (SD)
@@ -339,7 +340,7 @@
     - Motivo: conteúdo desatualizado prejudica SEO, confiança do usuário e monetização
 
 ## API Token (Strapi Full Access)
-- **Token**: `***REMOVED***`
+- **Token**: `[REMOVIDO]`
 - **Permissões**: Full Access (leitura e escrita)
 - **Uso**: `Authorization: Bearer {token}` nos headers das requisições API
 

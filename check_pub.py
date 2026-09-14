@@ -1,7 +1,8 @@
 import requests
 import json
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 headers = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 
 # Check all news with pagination

@@ -1,6 +1,7 @@
 import requests
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 HDR = {"Authorization": f"Bearer {TOKEN}", "Accept-Charset": "utf-8"}
 
 r = requests.get("https://fut-lance-cms-v2.onrender.com/api/noticias?pagination[pageSize]=1", headers=HDR, timeout=60)

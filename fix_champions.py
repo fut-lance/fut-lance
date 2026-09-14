@@ -2,7 +2,8 @@ import requests
 import time
 
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 CATEGORIA_CHAMPIONS = "swyvj5yli1z4v5x51y0ijoj4"
 
 headers = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json", "Accept-Charset": "utf-8"}

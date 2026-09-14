@@ -1,46 +1,15 @@
-'use client';
+import { cookies } from 'next/headers';
+import LoginForm from './LoginForm';
+import { ADMIN_COOKIE, verifySessionToken } from '@/lib/admin-auth';
 
-import { useState } from 'react';
-
-const SENHA = '[REMOVED]';
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
 
 export default function AdminTransmissoesPage() {
-  const [autenticado, setAutenticado] = useState(false);
-  const [senhaInput, setSenhaInput] = useState('');
-  const [mensagem, setMensagem] = useState('');
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (senhaInput === SENHA) {
-      setAutenticado(true);
-    } else {
-      setMensagem('Senha incorreta!');
-    }
-  };
+  const store = cookies();
+  const autenticado = verifySessionToken(store.get(ADMIN_COOKIE)?.value);
 
   if (!autenticado) {
-    return (
-      <div className="min-h-screen bg-fut-darker flex items-center justify-center px-4">
-        <form onSubmit={handleLogin} className="bg-fut-dark p-8 rounded-xl w-full max-w-sm border border-gray-800">
-          <div className="text-center mb-6">
-            <span className="text-4xl block mb-3">🔐</span>
-            <h1 className="text-2xl font-bold text-white">Admin Transmissões</h1>
-          </div>
-          <input
-            type="password"
-            value={senhaInput}
-            onChange={e => setSenhaInput(e.target.value)}
-            placeholder="Digite a senha"
-            className="w-full px-4 py-3 rounded-lg bg-fut-darker text-white border border-gray-700 mb-4 focus:outline-none focus:border-fut-green"
-          />
-          {mensagem && <p className="text-red-400 text-sm mb-4">{mensagem}</p>}
-          <button type="submit" className="w-full bg-fut-accent text-white py-3 rounded-lg font-bold hover:bg-red-600 transition-colors">
-            Entrar
-          </button>
-        </form>
-      </div>
-    );
+    return <LoginForm />;
   }
 
   return (

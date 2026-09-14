@@ -1,7 +1,8 @@
 import requests
 import time
 
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 headers = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 
 # Get categories with documentId

@@ -3,7 +3,8 @@ import json
 import time
 
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
-TOKEN = "***REMOVED***"
+import os
+TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
 
 headers = {
     "Authorization": f"Bearer {TOKEN}",

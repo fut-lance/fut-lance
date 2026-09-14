@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isAllowedUpstream } from '@/lib/iptv';
 
 export const runtime = 'edge';
 
@@ -7,6 +8,10 @@ export async function GET(request: NextRequest) {
 
   if (!url) {
     return NextResponse.json({ error: 'Missing url parameter' }, { status: 400 });
+  }
+
+  if (!isAllowedUpstream(url)) {
+    return NextResponse.json({ error: 'Origem não permitida.' }, { status: 403 });
   }
 
   try {

@@ -94,7 +94,10 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
     setError(false);
     setPaused(true);
 
-    const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
+    // Referências opacas do stream interno já passam pelo servidor (sem credenciais no navegador)
+    const proxyUrl = url.startsWith('/api/stream')
+      ? url
+      : `/api/proxy?url=${encodeURIComponent(url)}`;
 
     if (url.includes('.m3u8') && Hls.isSupported()) {
       const hls = new Hls({

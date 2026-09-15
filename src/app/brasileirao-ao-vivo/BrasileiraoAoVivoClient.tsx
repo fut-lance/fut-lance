@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { matches } from '@/data/matches';
 import { getCampeonato } from '@/data/campeonatos';
+import { parseMatchDate } from '@/lib/match-time';
 
 const teamSlugMap: Record<string, string> = {
   'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras', 'Athletico-PR': 'atletico-pr',
@@ -55,9 +56,7 @@ export default function BrasileiraoAoVivoClient() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {brasileiraoMatches.map((match, i) => {
-            const [d, m, y] = match.data.split('/').map(Number);
-            const [h, min] = match.horario.split(':').map(Number);
-            const matchStart = new Date(y, m - 1, d, h, min);
+            const matchStart = parseMatchDate(match.data, match.horario);
             const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
             const isLive = now >= matchStart && now <= matchEnd;
             const isFinished = now > matchEnd;

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { matches, type Match } from '@/data/matches';
 import { notFound } from 'next/navigation';
 import MatchPlayer from './MatchPlayer';
+import { parseMatchDate } from '@/lib/match-time';
 
 export async function generateStaticParams() {
   return matches.map((match) => ({
@@ -46,9 +47,7 @@ export async function generateMetadata({
 
 function getMatchStatus(match: { data: string; horario: string }): string {
   const now = new Date();
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchStart = parseMatchDate(match.data, match.horario);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
 
   if (now < matchStart) return 'Em breve';
@@ -58,9 +57,7 @@ function getMatchStatus(match: { data: string; horario: string }): string {
 
 function getEventStatus(match: { data: string; horario: string }): string {
   const now = new Date();
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchStart = parseMatchDate(match.data, match.horario);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
 
   if (now < matchStart) return 'https://schema.org/EventScheduled';
@@ -76,9 +73,7 @@ export default function JogoPage({
   const match = matches.find((m) => m.slug === params.id);
   if (!match) notFound();
 
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const startDate = new Date(y, m - 1, d, h, min);
+  const startDate = parseMatchDate(match.data, match.horario);
   const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
   const status = getMatchStatus(match);
 

@@ -4,12 +4,11 @@ import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import PlayerStream from '@/components/PlayerStream';
 import { matches as initialMatches, type Match, type MatchChannel } from '@/data/matches';
+import { parseMatchDate } from '@/lib/match-time';
 
 function getMatchStatus(match: Match): 'em-breve' | 'ao-vivo' | 'encerrado' | 'expirado' {
   const now = new Date();
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchStart = parseMatchDate(match.data, match.horario);
   const playerStart = new Date(matchStart.getTime() - 10 * 60 * 1000);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
   const removeAfter = new Date(matchEnd.getTime() + 20 * 60 * 1000);

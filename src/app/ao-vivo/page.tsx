@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import AoVivoClient from './AoVivoClient';
 import { matches } from '@/data/matches';
+import { parseMatchDate } from '@/lib/match-time';
 
 export const metadata: Metadata = {
   title: 'Futebol Ao Vivo Hoje — Jogos de Futebol ao Vivo | Fut-Lance',
@@ -27,9 +28,7 @@ export const metadata: Metadata = {
 
 function getEventStatus(match: { data: string; horario: string }): string {
   const now = new Date();
-  const [d, m, y] = match.data.split('/').map(Number);
-  const [h, min] = match.horario.split(':').map(Number);
-  const matchStart = new Date(y, m - 1, d, h, min);
+  const matchStart = parseMatchDate(match.data, match.horario);
   const matchEnd = new Date(matchStart.getTime() + 2 * 60 * 60 * 1000);
 
   if (now < matchStart) return 'https://schema.org/EventScheduled';

@@ -161,7 +161,7 @@ export const campeonatos: Record<string, Campeonato> = {
     periodo: 'Abril - Novembro 2026',
     times: 20,
     formato: 'Pontos corridos (todos contra todos, ida e volta)',
-    fase: '27ª Rodada',
+    fase: '28ª Rodada',
     logo: '🥈',
     descricao: 'O Campeonato Brasileiro de Futebol Série B é a segunda divisão do futebol brasileiro. Disputado desde 1971, é uma das ligas mais importantes da América do Sul. Em 2026, a competição conta com 20 clubes e segue o formato de pontos corridos, com 38 rodadas. Os dois primeiros colocados são promovidos diretamente à Série A, enquanto os times entre 3º e 6º disputam playoffs de acesso.',
     proximosJogos: [

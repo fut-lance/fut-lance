@@ -5,7 +5,7 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-
 async function fetchRecentNoticias() {
   try {
     const res = await fetch(
-      `${STRAPI_URL}/api/noticias?fields=slug,titulo,data_publicacao,updatedAt&sort=data_publicacao:desc&pagination[pageSize]=48`,
+      `${STRAPI_URL}/api/noticias?fields=slug,titulo,data_publicacao,updatedAt&sort[0]=data_publicacao:desc&sort[1]=id:desc&pagination[pageSize]=48`,
       { next: { revalidate: 3600 } }
     );
     const data = await res.json();

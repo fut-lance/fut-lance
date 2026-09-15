@@ -31,7 +31,7 @@ async function fetchAPI(endpoint: string, options: FetchOptions = {}) {
 
 export async function getNoticias(page = 1, pageSize = 10) {
   const data = await fetchAPI(
-    `/noticias?pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort=data_publicacao:desc&populate=*`
+    `/noticias?pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort[0]=data_publicacao:desc&sort[1]=id:desc&populate=*`
   );
   return data;
 }
@@ -65,7 +65,7 @@ export async function getNoticiasByCategoria(categoriaNome: string) {
   const nomeReal = slugMap[categoriaNome] || categoriaNome.charAt(0).toUpperCase() + categoriaNome.slice(1);
 
   const data = await fetchAPI(
-    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(nomeReal)}&sort=data_publicacao:desc&populate=*`
+    `/noticias?filters[categoria][nome][$eq]=${encodeURIComponent(nomeReal)}&sort[0]=data_publicacao:desc&sort[1]=id:desc&populate=*`
   );
   return data;
 }

@@ -26,6 +26,7 @@ yarn-error.log*
 .env*.local
 
 # credentials - never commit secrets
+canais-iptv.json
 *.key
 secrets.txt
 credentials*.json

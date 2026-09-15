@@ -99,7 +99,10 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
       ? url
       : `/api/proxy?url=${encodeURIComponent(url)}`;
 
-    if (url.includes('.m3u8') && Hls.isSupported()) {
+    // Referências opacas /api/stream sempre entregam HLS (manifesto validado no servidor)
+    const isHls = url.includes('.m3u8') || url.startsWith('/api/stream');
+
+    if (isHls && Hls.isSupported()) {
       const hls = new Hls({
         enableWorker: false,
         lowLatencyMode: true,
@@ -128,7 +131,7 @@ export default function PlayerStream({ url, titulo }: PlayerStreamProps) {
 
       hls.loadSource(proxyUrl);
       hls.attachMedia(video);
-    } else if (url.includes('.m3u8') && video.canPlayType('application/vnd.apple.mpegurl')) {
+    } else if (isHls && video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = proxyUrl;
       video.onerror = () => setError(true);
     } else {

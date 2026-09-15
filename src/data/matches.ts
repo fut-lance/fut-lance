@@ -280,7 +280,7 @@ export const matches: Match[] = [
     data: '16/09/2026',
     horario: '19:00',
     timeMandante: 'LDU',
-    logoTimeMandante: 'https://commons.wikimedia.org/wiki/Special:FilePath/LDU%20Quito%20logo.svg?width=500',
+    logoTimeMandante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Liga%20Deportiva%20Universitaria%20(Ecuador)%20logo%20(5%20stars).png?width=500',
     timeVisitante: 'Palmeiras',
     logoTimeVisitante: 'https://logodetimes.com/times/palmeiras/logo-palmeiras-2048.png',
     status: 'em-breve',

@@ -86,22 +86,12 @@ export default function Footer() {
                   Notícias
                 </Link>
               </li>
-              <li>
-                <Link href="/onde-assistir" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Onde Assistir
-                </Link>
-              </li>
-              <li>
-                <Link href="/ligas" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Ligas Internacionais
-                </Link>
-              </li>
-              <li>
-                <Link href="/jogadores" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
-                  Jogadores
-                </Link>
-              </li>
-              <li>
+                <li>
+                  <Link href="/ligas" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
+                    Ligas Internacionais
+                  </Link>
+                </li>
+                <li>
                 <Link href="/sobre" className="text-gray-400 hover:text-fut-green text-sm transition-colors">
                   Sobre
                 </Link>

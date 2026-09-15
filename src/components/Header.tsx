@@ -13,8 +13,6 @@ const navLinks = [
   { href: '/campeonatos/libertadores', label: 'Libertadores' },
   { href: '/campeonatos/champions-league', label: 'Champions' },
   { href: '/ligas', label: 'Ligas' },
-  { href: '/jogadores', label: 'Jogadores' },
-  { href: '/onde-assistir', label: 'Onde Assistir' },
   { href: '/sobre', label: 'Sobre' },
 ];
 

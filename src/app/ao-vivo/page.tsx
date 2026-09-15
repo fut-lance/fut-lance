@@ -121,10 +121,10 @@ export default function AoVivoPage() {
             <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Champions League</h2>
             <p className="text-gray-500 text-sm mt-1">Notícias e jogos da Liga dos Campeões</p>
           </Link>
-          <Link href="/onde-assistir" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
-            <span className="text-2xl block mb-2">📺</span>
-            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Onde Assistir</h2>
-            <p className="text-gray-500 text-sm mt-1">Guia de canais e streaming</p>
+          <Link href="/brasileirao-ao-vivo" className="bg-fut-darker rounded-xl p-5 border border-gray-800 hover:border-fut-green/50 transition-all group">
+            <span className="text-2xl block mb-2">🏆</span>
+            <h2 className="text-white font-bold group-hover:text-fut-green transition-colors">Brasileirão Ao Vivo</h2>
+            <p className="text-gray-500 text-sm mt-1">Jogos, horários e classificação</p>
           </Link>
         </section>
 

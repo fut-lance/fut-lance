@@ -163,7 +163,7 @@ export default function LigaPage({ params }: { params: { slug: string } }) {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-fut-dark rounded-lg p-4 border border-gray-700">
-            <h3 className="text-fut-green font-bold mb-2">ESPN / Star+</h3>
+            <h3 className="text-fut-green font-bold mb-2">ESPN / Disney+</h3>
             <p className="text-gray-400 text-sm">Transmissão de jogos selecionados da Premier League e La Liga.</p>
           </div>
           <div className="bg-fut-dark rounded-lg p-4 border border-gray-700">
@@ -190,12 +190,7 @@ export default function LigaPage({ params }: { params: { slug: string } }) {
         >
           📰 Notícias
         </Link>
-        <Link
-          href="/onde-assistir"
-          className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-6 py-3 rounded-xl font-bold transition-colors"
-        >
-          📺 Onde Assistir
-        </Link>
+
       </div>
     </div>
   );

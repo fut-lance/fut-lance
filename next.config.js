@@ -13,6 +13,13 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  async redirects() {
+    return [
+      { source: '/jogadores', destination: '/noticias', permanent: true },
+      { source: '/jogadores/:path*', destination: '/noticias', permanent: true },
+      { source: '/onde-assistir', destination: '/ao-vivo', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

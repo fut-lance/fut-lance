@@ -104,15 +104,15 @@ export default function LigasPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-fut-dark rounded-lg p-4 border border-gray-700">
             <h3 className="text-fut-green font-bold mb-2">Premier League</h3>
-            <p className="text-gray-400 text-sm">ESPN / Star+ / CazéTV (jogos selecionados)</p>
+            <p className="text-gray-400 text-sm">ESPN / Disney+ / CazéTV (jogos selecionados)</p>
           </div>
           <div className="bg-fut-dark rounded-lg p-4 border border-gray-700">
             <h3 className="text-fut-green font-bold mb-2">La Liga</h3>
-            <p className="text-gray-400 text-sm">ESPN / Star+</p>
+            <p className="text-gray-400 text-sm">ESPN / Disney+</p>
           </div>
           <div className="bg-fut-dark rounded-lg p-4 border border-gray-700">
             <h3 className="text-fut-green font-bold mb-2">Bundesliga</h3>
-            <p className="text-gray-400 text-sm">ESPN / Star+</p>
+            <p className="text-gray-400 text-sm">ESPN / Disney+</p>
           </div>
         </div>
       </div>

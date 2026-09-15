@@ -20,7 +20,14 @@ export default function BrasileiraoAoVivoClient() {
     return () => clearInterval(interval);
   }, []);
 
-  const brasileiraoMatches = matches.filter(m => m.competicao.toLowerCase().includes('brasileir'));
+  // Remove jogos encerrados há mais de 20 minutos (mesma regra do /ao-vivo)
+  const brasileiraoMatches = matches.filter(m => {
+    if (!m.competicao.toLowerCase().includes('brasileir')) return false;
+    const [d, mi, y] = m.data.split('/').map(Number);
+    const [h, min] = m.horario.split(':').map(Number);
+    const removeAfter = new Date(y, mi - 1, d, h, min).getTime() + (2 * 60 + 20) * 60 * 1000;
+    return now.getTime() <= removeAfter;
+  });
   const brasileirao = getCampeonato('brasileirao');
   const ranking = brasileirao?.classificacao || [];
 

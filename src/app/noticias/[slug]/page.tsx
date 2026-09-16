@@ -1,4 +1,5 @@
 import Comentarios from '@/components/Comentarios';
+import ShareButtons from '@/components/ShareButtons';
 import { getNoticiaBySlug, getRelatedNoticias } from '@/lib/api';
 import Link from 'next/link';
 import { Metadata } from 'next';
@@ -199,10 +200,13 @@ export default async function NoticiaPage({
 
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">{noticia.titulo}</h1>
 
-      <div className="flex items-center gap-4 text-gray-400 text-sm mb-6">
-        {noticia.autor && <span>Por <strong className="text-gray-300">{noticia.autor}</strong></span>}
-        {noticia.autor && <span className="text-gray-600">•</span>}
-        <time dateTime={noticia.data_publicacao}>{formatData(noticia.data_publicacao)}</time>
+      <div className="flex flex-wrap items-center justify-between gap-4 text-gray-400 text-sm mb-6">
+        <div className="flex items-center gap-4">
+          {noticia.autor && <span>Por <strong className="text-gray-300">{noticia.autor}</strong></span>}
+          {noticia.autor && <span className="text-gray-600">•</span>}
+          <time dateTime={noticia.data_publicacao}>{formatData(noticia.data_publicacao)}</time>
+        </div>
+        <ShareButtons titulo={noticia.titulo} slug={params.slug} />
       </div>
 
       <div className="relative h-64 md:h-96 rounded-lg overflow-hidden mb-8">

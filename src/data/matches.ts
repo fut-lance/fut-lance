@@ -41,7 +41,7 @@ export const matches: Match[] = [
     timeMandante: 'Coritiba',
     logoTimeMandante: 'https://logodetimes.com/times/coritiba/logo-coritiba-2048.png',
     timeVisitante: 'Athletico-PR',
-    logoTimeVisitante: 'https://www.ogol.com.br/team/athletico-pr/logo.png',
+    logoTimeVisitante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Athletico_Paranaense_(Logo_2019).svg?width=500',
     status: 'em-breve',
     canais: [
       { nome: 'SporTV FHD', url: `/api/stream?ch=423791` },
@@ -216,9 +216,9 @@ export const matches: Match[] = [
     data: '13/09/2026',
     horario: '16:00',
     timeMandante: 'Atlético-GO',
-    logoTimeMandante: 'https://media.api-sports.io/football/teams/1190.png',
+    logoTimeMandante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Atl%C3%A9tico_Clube_Goianiense_logo.svg?width=500',
     timeVisitante: 'Criciúma',
-    logoTimeVisitante: 'https://media.api-sports.io/football/teams/1194.png',
+    logoTimeVisitante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Crici%C3%BAma_EC_2025_crest.svg?width=500',
     status: 'em-breve',
     canais: [
       { nome: 'Premiere 2 HD', url: `/api/stream?ch=424213` },
@@ -234,7 +234,7 @@ export const matches: Match[] = [
     timeMandante: 'Juventude',
     logoTimeMandante: 'https://logodetimes.com/times/juventude/logo-juventude-2048.png',
     timeVisitante: 'Athletic-MG',
-    logoTimeVisitante: 'https://media.api-sports.io/football/teams/1191.png',
+    logoTimeVisitante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Athletic_Club_(Minas_Gerais).svg?width=500',
     status: 'em-breve',
     canais: [
       { nome: 'Premiere 3 HD', url: `/api/stream?ch=424217` },
@@ -264,7 +264,7 @@ export const matches: Match[] = [
     data: '13/09/2026',
     horario: '18:30',
     timeMandante: 'Novorizontino',
-    logoTimeMandante: 'https://media.api-sports.io/football/teams/18127.png',
+    logoTimeMandante: 'https://upload.wikimedia.org/wikipedia/pt/9/9e/Gr%C3%AAmio_Esportivo_Novorizontino_logo.png',
     timeVisitante: 'Cuiabá',
     logoTimeVisitante: 'https://logodetimes.com/times/cuiaba/logo-cuiaba-2048.png',
     status: 'em-breve',

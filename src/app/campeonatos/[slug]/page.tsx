@@ -65,13 +65,12 @@ export default async function CampeonatoPage({ params }: PageProps) {
   } catch {}
 
   const teamSlugMap: Record<string, string> = {
-    'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras', 'Athletico-PR': 'atletico-pr',
-    'Fluminense': 'fluminense', 'Bahia': 'bahia', 'Cruzeiro': 'cruzeiro',
-    'Coritiba': 'coritiba', 'Atlético-MG': 'atletico-mg', 'RB Bragantino': 'bragantino',
-    'São Paulo': 'sao-paulo', 'Santos': 'santos', 'Vasco': 'vasco',
-    'Botafogo': 'botafogo', 'Corinthians': 'corinthians', 'Grêmio': 'gremio',
-    'Internacional': 'internacional', 'Mirassol': 'mirassol', 'Vitória': 'vitoria',
-    'Remo': 'remo', 'Chapecoense': 'chapecoense',
+    'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras',
+    'Fluminense': 'fluminense', 'Cruzeiro': 'cruzeiro',
+    'Atlético-MG': 'atletico-mg', 'São Paulo': 'sao-paulo',
+    'Santos': 'santos', 'Vasco': 'vasco',
+    'Botafogo': 'botafogo', 'Corinthians': 'corinthians',
+    'Grêmio': 'gremio', 'Internacional': 'internacional',
   };
 
   if (!campeonato) {

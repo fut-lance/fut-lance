@@ -65,6 +65,17 @@ function getEventStatus(match: { data: string; horario: string }): string {
   return 'https://schema.org/EventCompleted';
 }
 
+// Somente competições com categoria existente no Strapi geram link.
+// Evita links para páginas de categoria vazias/inexistentes.
+function getCategoriaSlug(competicao: string): string | null {
+  const map: Record<string, string> = {
+    'Brasileirão': 'brasileirao',
+    'Brasileirão Série B': 'brasileirao-serie-b',
+    'Libertadores': 'libertadores',
+  };
+  return map[competicao] || null;
+}
+
 export default function JogoPage({
   params,
 }: {
@@ -218,7 +229,10 @@ export default function JogoPage({
                   {status === 'Encerrado' && `A partida ${match.timeMandante} x ${match.timeVisitante} já foi encerrada. Confira o resultado e as informações abaixo.`}
                 </p>
                 <p>
-                  Para assistir {match.timeMandante} x {match.timeVisitante} ao vivo, confira os canais de transmissão disponíveis na seção acima. Acesse também as <Link href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`} className="text-fut-green hover:underline">notícias do {match.competicao}</Link> para ficar por dentro de tudo o que acontece no campeonato.
+                  Para assistir {match.timeMandante} x {match.timeVisitante} ao vivo, confira os canais de transmissão disponíveis na seção acima.
+                  {getCategoriaSlug(match.competicao) && (
+                    <> Acesse também as <Link href={`/categoria/${getCategoriaSlug(match.competicao)}`} className="text-fut-green hover:underline">notícias do {match.competicao}</Link> para ficar por dentro de tudo o que acontece no campeonato.</>
+                  )}
                 </p>
               </div>
             </div>
@@ -300,12 +314,14 @@ export default function JogoPage({
             <div className="bg-fut-darker rounded-xl p-5 border border-gray-800">
               <h2 className="text-white font-bold mb-3">Notícias Relacionadas</h2>
               <div className="space-y-2">
-                <Link
-                  href={`/categoria/${match.competicao.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"
-                >
-                  <p className="text-fut-green text-sm font-bold">Ver notícias de {match.competicao}</p>
-                </Link>
+                {getCategoriaSlug(match.competicao) && (
+                  <Link
+                    href={`/categoria/${getCategoriaSlug(match.competicao)}`}
+                    className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"
+                  >
+                    <p className="text-fut-green text-sm font-bold">Ver notícias de {match.competicao}</p>
+                  </Link>
+                )}
                 <Link
                   href="/ao-vivo"
                   className="block p-3 bg-fut-dark rounded-lg hover:bg-fut-dark/80 border border-gray-800 hover:border-fut-green/30 transition-all text-center"

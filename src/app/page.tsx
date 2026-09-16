@@ -111,7 +111,7 @@ export default async function Home() {
                   {principalNoticia.autor && <span>Por <strong className="text-white">{principalNoticia.autor}</strong></span>}
                   {principalNoticia.data_publicacao && (
                     <time dateTime={principalNoticia.data_publicacao}>
-                      {new Date(principalNoticia.data_publicacao).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      {new Date(principalNoticia.data_publicacao).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                     </time>
                   )}
                 </div>

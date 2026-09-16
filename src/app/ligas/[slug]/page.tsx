@@ -99,7 +99,7 @@ export default function LigaPage({ params }: { params: { slug: string } }) {
         <p className="text-gray-300 max-w-3xl">{liga.descricao}</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div className="bg-fut-darker rounded-xl p-6 border border-gray-800">
           <h2 className="text-xl font-bold text-white mb-4">📊 Estatísticas da Temporada</h2>
           <div className="space-y-3">
@@ -136,20 +136,6 @@ export default function LigaPage({ params }: { params: { slug: string } }) {
             {liga.times.map((time) => (
               <div key={time} className="bg-fut-dark rounded-lg p-2 text-center border border-gray-700">
                 <span className="text-white text-sm font-medium">{time}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-fut-darker rounded-xl p-6 border border-gray-800">
-          <h2 className="text-xl font-bold text-white mb-4">📅 Próximos Jogos</h2>
-          <div className="space-y-3">
-            {liga.proximosJogos.map((jogo, i) => (
-              <div key={i} className="bg-fut-dark rounded-lg p-3 border border-gray-700">
-                <div className="text-fut-green text-xs font-bold">{jogo.data} • {jogo.horario}</div>
-                <div className="text-white text-sm font-medium mt-1">
-                  {jogo.mandante} x {jogo.visitante}
-                </div>
               </div>
             ))}
           </div>

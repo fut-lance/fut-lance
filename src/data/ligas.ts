@@ -32,7 +32,7 @@ export const ligas: Liga[] = [
     pais: 'Inglaterra',
     logo: 'https://crests.football-data.org/PL.png',
     descricao: 'A Premier League é a primeira divisão do futebol inglês e uma das ligas mais disputadas do mundo. Com 20 times, a competição oferece jogos de alta qualidade e grandes estrelas do futebol mundial.',
-    times: ['Manchester City', 'Arsenal', 'Hull City', 'Chelsea', 'Liverpool', 'Manchester United', 'Tottenham', 'Newcastle', 'Aston Villa', 'Brighton', 'West Ham', 'Brentford', 'Crystal Palace', 'Wolves', 'Fulham', 'Bournemouth', 'Everton', 'Nottingham Forest', 'Burnley', 'Luton Town'],
+    times: ['Manchester City', 'Arsenal', 'Hull City', 'Chelsea', 'Liverpool', 'Manchester United', 'Tottenham', 'Newcastle', 'Aston Villa', 'Brighton', 'Leeds United', 'Sunderland', 'Ipswich Town', 'Brentford', 'Crystal Palace', 'Coventry City', 'Fulham', 'Bournemouth', 'Everton', 'Nottingham Forest'],
     estatisticas: {
       temporada: '2026/27',
       totalJogos: 3,
@@ -56,7 +56,7 @@ export const ligas: Liga[] = [
     pais: 'Espanha',
     logo: 'https://crests.football-data.org/laliga.png',
     descricao: 'A La Liga é a primeira divisão do futebol espanhol, conhecida por sua qualidade técnica e rivalidades históricas. Real Madrid e Barcelona dominam a competição há décadas.',
-    times: ['Barcelona', 'Real Madrid', 'Bétis', 'Deportivo de A Coruña', 'Alaves', 'Osasuna', 'Real Sociedad', 'Atlético Madrid', 'Sevilla', 'Valencia', 'Villarreal', 'Athletic Bilbao', 'Celta Vigo', 'Mallorca', 'Las Palmas', 'Getafe', 'Rayo Vallecano', 'Espanyol', 'Leganes', 'Valladolid'],
+    times: ['Barcelona', 'Real Madrid', 'Betis', 'Deportivo de A Coruña', 'Alavés', 'Osasuna', 'Real Sociedad', 'Atlético Madrid', 'Sevilla', 'Valencia', 'Villarreal', 'Athletic Bilbao', 'Celta Vigo', 'Racing Santander', 'Levante', 'Getafe', 'Rayo Vallecano', 'Espanyol', 'Málaga', 'Elche'],
     estatisticas: {
       temporada: '2026/27',
       totalJogos: 4,
@@ -65,7 +65,7 @@ export const ligas: Liga[] = [
       artilheiro: 'Robert Lewandowski',
       artilheiroGols: 3,
       lider: 'Barcelona',
-      liderPontos: 9,
+      liderPontos: 15,
     },
     proximosJogos: [
       { data: '13/09/2026', horario: '14:00', mandante: 'Real Madrid', visitante: 'Rayo Vallecano' },

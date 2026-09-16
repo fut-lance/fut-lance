@@ -90,12 +90,12 @@ export default async function NoticiaPage({
   const formatData = (data: string) => {
     if (!data) return '';
     try {
+      // Somente a data: o Strapi armazena date-only (meia-noite UTC),
+      // então exibir hora geraria "00:00" indevido.
       return new Date(data).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
       });
     } catch {
       return data;

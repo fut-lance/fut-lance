@@ -75,7 +75,7 @@ export const times: Record<string, Time> = {
     mascote: 'Porco',
     presidente: 'Leila Pereira',
     tecnico: 'Abel Ferreira',
-    descricao: 'Sociedade Esportiva Palmeiras é um dos maiores clubes do Brasil. Fundado em 1914, é o maior campeão brasileiro com 12 títulos. Em 2026, o Palmeiras lidera o Brasileirão e争na Libertadores.',
+    descricao: 'Sociedade Esportiva Palmeiras é um dos maiores clubes do Brasil. Fundado em 1914, é o maior campeão brasileiro com 12 títulos. Em 2026, o Palmeiras lidera o Brasileirão e disputa a Libertadores.',
     titulos: {
       brasileirao: 12,
       copaDoBrasil: 4,
@@ -107,7 +107,7 @@ export const times: Record<string, Time> = {
     mascote: 'Fiel',
     presidente: 'Duílio Monteiro Alves',
     tecnico: 'Fernando Diniz',
-    descricao: 'Sport Club Corinthians Paulista é um dos clubes mais populares do Brasil. Fundado em 1910, possui uma torcida apaixonada e fiel. Em 2026, o Corinthians争na o Brasileirão com elenco renovado.',
+    descricao: 'Sport Club Corinthians Paulista é um dos clubes mais populares do Brasil. Fundado em 1910, possui uma torcida apaixonada e fiel. Em 2026, o Corinthiansdisputa o Brasileirão com elenco renovado.',
     titulos: {
       brasileirao: 7,
       copaDoBrasil: 3,
@@ -138,7 +138,7 @@ export const times: Record<string, Time> = {
     mascote: 'Tricolor',
     presidente: 'Júlio Casares',
     tecnico: 'Dorival Júnior',
-    descricao: 'São Paulo Futebol Clube é um dos clubes mais vitoriosos do Brasil. Fundado em 1930, possui 3 mundiais, 6 brasileiros e 1 copa do brasil. Em 2026, o São Paulo争na o Brasileirão e a Sul-Americana.',
+    descricao: 'São Paulo Futebol Clube é um dos clubes mais vitoriosos do Brasil. Fundado em 1930, possui 3 mundiais, 6 brasileiros e 1 copa do brasil. Em 2026, o São Paulodisputa o Brasileirão e a Sul-Americana.',
     titulos: {
       brasileirao: 6,
       copaDoBrasil: 1,
@@ -169,7 +169,7 @@ export const times: Record<string, Time> = {
     mascote: 'Peixe',
     presidente: 'Marcelo Teixeira',
     tecnico: 'Cuca',
-    descricao: 'Santos Futebol Clube é um dos clubes mais tradicionais do Brasil. Fundado em 1912, é o maior campeão paulista e possui 3 libertadores. Em 2026, o Santos争na o Brasileirão e a Copa do Brasil.',
+    descricao: 'Santos Futebol Clube é um dos clubes mais tradicionais do Brasil. Fundado em 1912, é o maior campeão paulista e possui 3 libertadores. Em 2026, o Santosdisputa o Brasileirão e a Copa do Brasil.',
     titulos: {
       brasileirao: 8,
       copaDoBrasil: 1,
@@ -200,7 +200,7 @@ export const times: Record<string, Time> = {
     mascote: 'Gigante da Colina',
     presidente: 'Pedrinho',
     tecnico: 'Pedro Emanuel',
-    descricao: 'Club de Regatas Vasco da Gama é um dos clubes mais tradicionais do Brasil. Fundado em 1898, possui uma torcida fiel e histórica. Em 2026, o Vasco争na o Brasileirão e busca melhores posições.',
+    descricao: 'Club de Regatas Vasco da Gama é um dos clubes mais tradicionais do Brasil. Fundado em 1898, possui uma torcida fiel e histórica. Em 2026, o Vascodisputa o Brasileirão e busca melhores posições.',
     titulos: {
       brasileirao: 4,
       copaDoBrasil: 1,
@@ -230,8 +230,8 @@ export const times: Record<string, Time> = {
     cores: 'Preto e Branco',
     mascote: 'Glorioso',
     presidente: 'John Textor',
-    tecnico: 'Bruno Lage',
-    descricao: 'Botafogo de Futebol e Regatas é um dos clubes mais tradicionais do Brasil. Fundado em 1904, possui uma torcida apaixonada. Em 2026, o Botafogo争na o Brasileirão e é destaque na Libertadores.',
+    tecnico: 'Rodrigo Bellão (interino)',
+    descricao: 'Botafogo de Futebol e Regatas é um dos clubes mais tradicionais do Brasil. Fundado em 1904, possui uma torcida apaixonada. Em 2026, o Botafogodisputa o Brasileirão e é destaque na Libertadores.',
     titulos: {
       brasileirao: 2,
       copaDoBrasil: 0,
@@ -261,8 +261,8 @@ export const times: Record<string, Time> = {
     cores: 'Grená, Verde e Branco',
     mascote: 'Flu',
     presidente: 'Mario Bittencourt',
-    tecnico: 'Renato Gaúcho',
-    descricao: 'Fluminense Football Club é um dos clubes mais elegantes do Brasil. Fundado em 1902, possui uma torcida tradicional. Em 2026, o Fluminense争na o Brasileirão com um elenco renovado.',
+    tecnico: 'Marcão',
+    descricao: 'Fluminense Football Club é um dos clubes mais elegantes do Brasil. Fundado em 1902, possui uma torcida tradicional. Em 2026, o Fluminensedisputa o Brasileirão com um elenco renovado.',
     titulos: {
       brasileirao: 4,
       copaDoBrasil: 1,
@@ -293,7 +293,7 @@ export const times: Record<string, Time> = {
     mascote: 'Guriazão',
     presidente: 'Alexandre Barcellos',
     tecnico: 'Roger Machado',
-    descricao: 'Sport Club Internacional é um dos clubes mais vitoriosos do Sul do Brasil. Fundado em 1909, possui 3 títulos da Libertadores. Em 2026, o Inter争na o Brasileirão e a Copa do Brasil.',
+    descricao: 'Sport Club Internacional é um dos clubes mais vitoriosos do Sul do Brasil. Fundado em 1909, possui 3 títulos da Libertadores. Em 2026, o Interdisputa o Brasileirão e a Copa do Brasil.',
     titulos: {
       brasileirao: 3,
       copaDoBrasil: 1,
@@ -323,8 +323,8 @@ export const times: Record<string, Time> = {
     cores: 'Azul, Preto e Branco',
     mascote: 'Imortal',
     presidente: 'Alberto Guerra',
-    tecnico: 'Mano Menezes',
-    descricao: 'Grêmio Foot-Ball Porto Alegrense é um dos clubes mais tradicionais do Brasil. Fundado em 1903, possui 3 títulos da Libertadores. Em 2026, o Grêmio争na o Brasileirão com um elenco competitivo.',
+    tecnico: 'Felipão (interino)',
+    descricao: 'Grêmio Foot-Ball Porto Alegrense é um dos clubes mais tradicionais do Brasil. Fundado em 1903, possui 3 títulos da Libertadores. Em 2026, o Grêmiodisputa o Brasileirão com um elenco competitivo.',
     titulos: {
       brasileirao: 3,
       copaDoBrasil: 5,
@@ -354,8 +354,8 @@ export const times: Record<string, Time> = {
     cores: 'Azul e Branco',
     mascote: 'Raposa',
     presidente: 'Sérgio Santos Rodrigues',
-    tecnico: 'Fernando Diniz',
-    descricao: 'Cruzeiro Esporte Clube é um dos clubes mais vitoriosos de Minas Gerais. Fundado em 1921, possui 4 títulos brasileiros. Em 2026, o Cruzeiro争na o Brasileirão com um elenco renovado.',
+    tecnico: 'Artur Jorge',
+    descricao: 'Cruzeiro Esporte Clube é um dos clubes mais vitoriosos de Minas Gerais. Fundado em 1921, possui 4 títulos brasileiros. Em 2026, o Cruzeirodisputa o Brasileirão com um elenco renovado.',
     titulos: {
       brasileirao: 4,
       copaDoBrasil: 6,
@@ -386,7 +386,7 @@ export const times: Record<string, Time> = {
     mascote: 'Galo',
     presidente: 'Sérgio Coelho',
     tecnico: 'Eduardo Coudet',
-    descricao: 'Clube Atlético Mineiro é um dos clubes mais tradicionais de Minas Gerais. Fundado em 1908, possui 2 títulos brasileiros. Em 2026, o Atlético-MG争na o Brasileirão e a Copa do Brasil.',
+    descricao: 'Clube Atlético Mineiro é um dos clubes mais tradicionais de Minas Gerais. Fundado em 1908, possui 2 títulos brasileiros. Em 2026, o Atlético-MGdisputa o Brasileirão e a Copa do Brasil.',
     titulos: {
       brasileirao: 2,
       copaDoBrasil: 2,

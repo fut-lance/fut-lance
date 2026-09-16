@@ -7,10 +7,12 @@ import { getCampeonato } from '@/data/campeonatos';
 import { parseMatchDate } from '@/lib/match-time';
 
 const teamSlugMap: Record<string, string> = {
-  'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras', 'Athletico-PR': 'atletico-pr',
-  'Fluminense': 'fluminense', 'Bahia': 'bahia', 'Cruzeiro': 'cruzeiro',
-  'Coritiba': 'coritiba', 'Atlético-MG': 'atletico-mg', 'Bragantino': 'bragantino',
-  'São Paulo': 'sao-paulo',
+  'Flamengo': 'flamengo', 'Palmeiras': 'palmeiras',
+  'Fluminense': 'fluminense', 'Cruzeiro': 'cruzeiro',
+  'Atlético-MG': 'atletico-mg', 'São Paulo': 'sao-paulo',
+  'Santos': 'santos', 'Corinthians': 'corinthians',
+  'Botafogo': 'botafogo', 'Grêmio': 'gremio',
+  'Vasco': 'vasco', 'Internacional': 'internacional',
 };
 
 export default function BrasileiraoAoVivoClient() {
@@ -21,13 +23,13 @@ export default function BrasileiraoAoVivoClient() {
     return () => clearInterval(interval);
   }, []);
 
-  // Remove jogos encerrados há mais de 20 minutos (mesma regra do /ao-vivo)
+  // Remove jogos encerrados há mais de 20 minutos (mesma regra do /ao-vivo).
+  // Usa parseMatchDate (fuso BRT) para SSR e cliente concordarem.
   const brasileiraoMatches = matches.filter(m => {
     if (!m.competicao.toLowerCase().includes('brasileir')) return false;
-    const [d, mi, y] = m.data.split('/').map(Number);
-    const [h, min] = m.horario.split(':').map(Number);
-    const removeAfter = new Date(y, mi - 1, d, h, min).getTime() + (2 * 60 + 20) * 60 * 1000;
-    return now.getTime() <= removeAfter;
+    const matchStart = parseMatchDate(m.data, m.horario);
+    const removeAfter = new Date(matchStart.getTime() + (2 * 60 + 20) * 60 * 1000);
+    return now.getTime() <= removeAfter.getTime();
   });
   const brasileirao = getCampeonato('brasileirao');
   const ranking = brasileirao?.classificacao || [];

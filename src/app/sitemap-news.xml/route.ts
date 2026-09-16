@@ -17,11 +17,20 @@ async function fetchRecentNoticias() {
 
 export async function GET(): Promise<Response> {
   const noticias = await fetchRecentNoticias();
+  const now = Date.now();
+  const FORTY_EIGHT_HOURS_MS = 48 * 60 * 60 * 1000;
 
   const urls = noticias
-    .filter((n: { slug?: string }) => n.slug)
-    .map((n: { slug: string; data_publicacao?: string; updatedAt?: string }) => {
-      const lastmod = n.updatedAt || n.data_publicacao || new Date().toISOString();
+    .filter((n: { slug?: string; data_publicacao?: string }) => {
+      if (!n.slug || !n.data_publicacao) return false;
+      // Somente notícias publicadas nas últimas 48h (data real do Strapi)
+      const publishedAt = new Date(n.data_publicacao).getTime();
+      if (Number.isNaN(publishedAt)) return false;
+      return publishedAt <= now && now - publishedAt <= FORTY_EIGHT_HOURS_MS;
+    })
+    .map((n: { slug: string; data_publicacao?: string }) => {
+      // lastmod = data de publicação (referência temporal real)
+      const lastmod = n.data_publicacao || new Date().toISOString();
       return (
         `  <url>\n` +
         `    <loc>https://fut-lance.vercel.app/noticias/${n.slug}</loc>\n` +

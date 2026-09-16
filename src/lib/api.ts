@@ -54,6 +54,7 @@ export async function getNoticiasByCategoria(categoriaNome: string) {
     'feminino': 'Feminino',
     'champions-league': 'Champions League',
     'transferencias': 'Transferências',
+    'sul-americana': 'Sul-Americana',
     'copa-do-brasil': 'Copa do Brasil',
     'premier-league': 'Premier League',
     'flamengo': 'Flamengo',

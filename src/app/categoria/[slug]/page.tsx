@@ -138,6 +138,18 @@ export default async function CategoriaPage({
 
   const icon = categoriaIcons[slugNormalizado] || '📰';
 
+  // Link "Classificação e Detalhes" só existe se houver página de campeonato.
+  // Evita links quebrados como /campeonatos/selecao ou /campeonatos/feminino.
+  const campeonatoSlugMap: Record<string, string> = {
+    'brasileirao': 'brasileirao',
+    'brasileirao-serie-b': 'serie-b',
+    'serie-b': 'serie-b',
+    'libertadores': 'libertadores',
+    'champions-league': 'champions-league',
+    'copa-do-brasil': 'copa-do-brasil',
+  };
+  const campeonatoLink = campeonatoSlugMap[slugNormalizado] || null;
+
   const categorySchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -234,9 +246,11 @@ export default async function CategoriaPage({
           <Link href="/ao-vivo" className="bg-fut-accent hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
             ⚽ Futebol Ao Vivo
           </Link>
-          <Link href={`/campeonatos/${params.slug}`} className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
-            📊 Classificação e Detalhes
-          </Link>
+          {campeonatoLink && (
+            <Link href={`/campeonatos/${campeonatoLink}`} className="bg-fut-dark hover:bg-fut-darker border border-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm">
+              📊 Classificação e Detalhes
+            </Link>
+          )}
 
         </div>
       </div>

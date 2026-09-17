@@ -1440,3 +1440,113 @@ A regra principal é:
 PRECISÃO + ATUALIDADE + CONFIABILIDADE + SEO + QUALIDADE + PRESERVAÇÃO DAS FUNCIONALIDADES.
 
 Se houver dúvida entre fazer rapidamente ou fazer corretamente, fazer corretamente.
+
+---
+
+# 61. REGRA PERMANENTE — PLAYER / TRANSMISSÃO DOS JOGOS
+
+## PRINCÍPIO
+
+Cadastrar uma partida e cadastrar uma transmissão são coisas diferentes.
+
+Ao criar ou atualizar qualquer jogo, é OBRIGATÓRIO verificar se existe player/fonte de transmissão associado à partida.
+
+### SE JÁ EXISTIR PLAYER/FONTE
+
+É OBRIGATÓRIO:
+
+- preservar o player;
+- preservar a fonte;
+- preservar os canais existentes;
+- preservar a URL existente;
+- manter a associação correta entre o player e a partida;
+- verificar se o player continua funcionando;
+- verificar se a alteração não removeu o player.
+
+NUNCA cadastrar uma nova partida copiando somente equipes, data, horário e competição e esquecer os campos de transmissão quando eles forem necessários ao modelo existente.
+
+### SE NÃO EXISTIR PLAYER/FONTE CONFIRMADO
+
+Não inventar. Não criar player falso, URL falsa, canal falso, link de streaming não verificado ou fonte inexistente.
+
+Nesse caso, o jogo pode ser cadastrado normalmente com `status = em-breve` e canais/fontes vazios, conforme o comportamento já existente do sistema. Quando uma transmissão legítima for posteriormente confirmada, ela poderá ser associada ao jogo em uma operação específica.
+
+## 61.1 — CHECKLIST OBRIGATÓRIO PARA CADA JOGO
+
+Antes de considerar qualquer operação de jogos concluída, verificar individualmente: partida, data, horário, competição, equipes, logos, status corretos; player/fonte/canais/URLs existentes preservados; página individual funcionando; player funcionando quando houver transmissão cadastrada.
+
+## 61.2 — PROIBIDO SOBRESCREVER PLAYER
+
+Ao atualizar uma partida existente, NÃO substituir o objeto completo por um novo objeto simplificado se isso puder apagar player, canais, fontes, URLs ou configurações de transmissão. Comparar os campos atuais com os novos dados antes de alterar. Se a operação não envolver transmissão, preservar integralmente os dados de transmissão.
+
+## 61.3 — NOVOS JOGOS
+
+Identificar como o projeto associa players/canais às partidas, utilizar exatamente o padrão existente, verificar se existe transmissão previamente disponível no sistema (se existir, associá-la corretamente; se não, manter `em-breve` sem inventar transmissão).
+
+---
+
+# 62. REGRA PERMANENTE — LINKS DE CAMPEONATOS
+
+## PRINCÍPIO
+
+Uma categoria NÃO deve gerar automaticamente `/campeonatos/{slug}` apenas porque possui um slug. O link "Classificação e Detalhes" só pode aparecer quando o campeonato correspondente realmente existir e estiver suportado pelo sistema.
+
+## 62.1 — VALIDAR CONTRA `campeonatos.ts`
+
+Antes de gerar um link de campeonato: verificar se o slug existe em `campeonatos.ts`, se está disponível e se a rota funciona; somente então renderizar o link. Exemplo: `brasileirao` existe → pode exibir; `selecao` não existe → NÃO exibir `/campeonatos/selecao`.
+
+## 62.2 — NÃO CRIAR CAMPEONATOS FICTÍCIOS
+
+Nunca criar automaticamente entradas em `campeonatos.ts` somente para fazer um link funcionar (Seleção, Transferências, Mercado, Feminino, Sul-Americana ou qualquer outra categoria sem campeonato configurado). A existência de uma categoria NÃO significa que existe um campeonato correspondente.
+
+## 62.3 — CATEGORIA ≠ CAMPEONATO
+
+Categoria (Brasileirão, Seleção, Transferências, Mercado, Feminino, Sul-Americana) é diferente de Campeonato (entidade configurada em `campeonatos.ts`). Não assumir que todo slug de categoria possui página de campeonato.
+
+## 62.4 — CHECKLIST DOS LINKS
+
+Sempre que alterar páginas de categorias: verificar todos os links "Classificação e Detalhes", comparar slugs com `campeonatos.ts`, testar uma categoria com e uma sem campeonato, confirmar que nenhuma URL `/campeonatos/{slug}` inexistente é gerada.
+
+---
+
+# 63. REGRA PERMANENTE — TESTE E RELATÓRIO DE JOGOS/CATEGORIAS
+
+Nenhuma operação envolvendo jogos ou categorias pode ser declarada concluída sem testar: `/ao-vivo`, páginas individuais, status, player/canais/logos/data-hora quando existentes; categoria com e sem campeonato, links gerados, ausência de links quebrados; `npx tsc --noEmit` e o build do projeto.
+
+Ao terminar, informar explicitamente TRANSMISSÕES (com player antes/depois, adicionados, alterados, preservados — ou declarar que nada mudou) e CAMPEONATOS (categorias verificadas, com/sem campeonato, confirmação de zero links quebrados).
+
+Um jogo só está corretamente cadastrado após verificar dados + logos + status + transmissão/player quando existente + página pública + SEO + funcionamento. Uma categoria só está correta após verificar categoria + slug + existência real do campeonato + link válido.
+
+---
+
+# 64. REGRA PERMANENTE — TRANSMISSÃO/PLAYER OBRIGATÓRIO NA CRIAÇÃO DE JOGOS
+
+## OBJETIVO
+
+Nunca cadastrar um novo jogo e esquecer de verificar sua transmissão. Sempre que um novo jogo for criado para `/ao-vivo`, a transmissão deve ser pesquisada no momento do cadastro.
+
+## FLUXO OBRIGATÓRIO PARA TODO NOVO JOGO
+
+Antes de considerar um jogo pronto:
+
+1. Confirmar equipes, data, horário em BRT, competição e rodada (quando aplicável).
+2. Pesquisar em fontes confiáveis e atuais onde o jogo será transmitido (canal de TV, streaming, plataforma oficial ou serviço oficialmente anunciado).
+3. REGRA DEFINITIVA: se a transmissão do jogo estiver confirmada e o canal existir na lista IPTV oficial do projeto, associar a referência correspondente no `canais[]` (helper `montarCanais`). Teste momentâneo de disponibilidade NÃO é requisito: streams podem cair e voltar; indisponibilidade no minuto do teste deve ser registrada como auxiliar, sem excluir o canal nem substituir por outro.
+4. Se houver mais de uma opção legítima, cadastrar todas as verificadas sem substituir uma válida por outra sem motivo.
+5. Se o canal confirmado não existir na lista IPTV, não inventar referência: cadastrar com `status: "em-breve"` e `canais[]` vazio, registrando no relatório.
+
+## PROIBIÇÕES
+
+Nunca inventar canal, URL, player ou fonte; nunca usar transmissão de outro jogo; nunca copiar `canais[]` de outro confronto; nunca usar referência IPTV genérica sem confirmar que corresponde ao jogo; nunca usar fonte duvidosa só para preencher o player.
+
+## REGRA DE REVISÃO
+
+Jogos em `em-breve` sem canais devem ser listados no relatório para revisão posterior. Quando uma transmissão for anunciada antes do jogo, atualizar o `canais[]` e testar o player.
+
+## DEFINIÇÃO DE JOGO COMPLETO
+
+Dados + data/hora + competição + logos + status + transmissão + `canais[]` + `MatchPlayer` + página individual + SEO básico. A ausência de transmissão não é erro quando ela realmente não existe; o erro é deixar de pesquisar antes de concluir.
+
+## RELATÓRIO OBRIGATÓRIO
+
+Para cada jogo informar: data/hora, transmissão encontrada, canal, `canais[]` cadastrado, player testado e status. Preservar a estrutura atual (`/ao-vivo`, `MatchPlayer`, `matches.ts`) sem alterações desnecessárias.

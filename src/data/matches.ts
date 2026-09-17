@@ -406,6 +406,9 @@ export const matches: Match[] = [
     canais: [
       { nome: 'Globo', url: '' },
       { nome: 'GE TV', url: '' },
+      { nome: 'Paramount+ 02', url: `/api/stream?ch=430487` },
+      { nome: 'GE TV FHD', url: `/api/stream?ch=424960` },
+      { nome: 'GE TV HD', url: `/api/stream?ch=424961` },
     ],
   },
 ];

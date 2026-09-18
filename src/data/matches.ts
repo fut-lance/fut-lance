@@ -423,6 +423,9 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Escudo_oficial_do_Am%C3%A9rica_Futebol_Clube.svg/langpt-330px-Escudo_oficial_do_Am%C3%A9rica_Futebol_Clube.svg.png',
     status: 'em-breve',
     canais: [
+      { nome: 'ESPN 4 FHD', url: `/api/stream?ch=424154` },
+      { nome: 'ESPN 4 HD', url: `/api/stream?ch=424155` },
+      { nome: 'Disney+', url: '' },
     ],
   },
   {
@@ -437,6 +440,7 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://upload.wikimedia.org/wikipedia/pt/9/9e/Gr%C3%AAmio_Esportivo_Novorizontino_logo.png',
     status: 'em-breve',
     canais: [
+      { nome: 'Disney+', url: '' },
     ],
   },
   {
@@ -451,6 +455,11 @@ export const matches: Match[] = [
     logoTimeVisitante: 'https://commons.wikimedia.org/wiki/Special:FilePath/Atl%C3%A9tico_Clube_Goianiense_logo.svg?width=500',
     status: 'em-breve',
     canais: [
+      { nome: 'SporTV FHD', url: `/api/stream?ch=423791` },
+      { nome: 'SporTV HD', url: `/api/stream?ch=423792` },
+      { nome: 'Premiere Clubes FHD', url: `/api/stream?ch=424208` },
+      { nome: 'Premiere Clubes HD', url: `/api/stream?ch=424209` },
+      { nome: 'GE TV', url: '' },
     ],
   },
   {

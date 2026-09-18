@@ -230,7 +230,7 @@ export const times: Record<string, Time> = {
     cores: 'Preto e Branco',
     mascote: 'Glorioso',
     presidente: 'John Textor',
-    tecnico: 'Rodrigo Bellão (interino)',
+    tecnico: 'Tite',
     descricao: 'Botafogo de Futebol e Regatas é um dos clubes mais tradicionais do Brasil. Fundado em 1904, possui uma torcida apaixonada. Em 2026, o Botafogodisputa o Brasileirão e é destaque na Libertadores.',
     titulos: {
       brasileirao: 2,
@@ -323,7 +323,7 @@ export const times: Record<string, Time> = {
     cores: 'Azul, Preto e Branco',
     mascote: 'Imortal',
     presidente: 'Alberto Guerra',
-    tecnico: 'Felipão (interino)',
+    tecnico: 'Renato Gaúcho',
     descricao: 'Grêmio Foot-Ball Porto Alegrense é um dos clubes mais tradicionais do Brasil. Fundado em 1903, possui 3 títulos da Libertadores. Em 2026, o Grêmiodisputa o Brasileirão com um elenco competitivo.',
     titulos: {
       brasileirao: 3,

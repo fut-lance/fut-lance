@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next';
 
+// Cache longo: evita regenerar (e acordar o Strapi) a cada visita do Google.
+export const revalidate = 21600;
+
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
 
 async function fetchRecentNoticias() {
@@ -8,17 +11,23 @@ async function fetchRecentNoticias() {
     let page = 1;
     // Percorre páginas para não perder notícias recentes (teto de 100 por página).
     for (;;) {
-      const res = await fetch(
-        `${STRAPI_URL}/api/noticias?fields=slug,titulo,data_publicacao,updatedAt&sort[0]=data_publicacao:desc&sort[1]=id:desc&pagination[page]=${page}&pagination[pageSize]=100`,
-        { next: { revalidate: 3600 } }
-      );
-      const data = await res.json();
-      const items = data.data || [];
-      all.push(...items);
-      const pagination = data.meta?.pagination;
-      if (!pagination || page >= (pagination.pageCount || 1) || items.length === 0) break;
-      page += 1;
-      if (page > 5) break;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 20000);
+      try {
+        const res = await fetch(
+          `${STRAPI_URL}/api/noticias?fields=slug,titulo,data_publicacao,updatedAt&sort[0]=data_publicacao:desc&sort[1]=id:desc&pagination[page]=${page}&pagination[pageSize]=100`,
+          { next: { revalidate: 21600 }, signal: ctrl.signal }
+        );
+        const data = await res.json();
+        const items = data.data || [];
+        all.push(...items);
+        const pagination = data.meta?.pagination;
+        if (!pagination || page >= (pagination.pageCount || 1) || items.length === 0) break;
+        page += 1;
+        if (page > 5) break;
+      } finally {
+        clearTimeout(timer);
+      }
     }
     return all;
   } catch {

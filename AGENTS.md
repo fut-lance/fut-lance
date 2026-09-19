@@ -1550,3 +1550,26 @@ Dados + data/hora + competição + logos + status + transmissão + `canais[]` + 
 ## RELATÓRIO OBRIGATÓRIO
 
 Para cada jogo informar: data/hora, transmissão encontrada, canal, `canais[]` cadastrado, player testado e status. Preservar a estrutura atual (`/ao-vivo`, `MatchPlayer`, `matches.ts`) sem alterações desnecessárias.
+
+---
+
+# 65. REGRA PERMANENTE — REMOVER PARTIDA ENCERRADA APÓS 10 MINUTOS
+
+## PRINCÍPIO
+
+Partida encerrada não permanece no `/ao-vivo`. Toda partida deve ser removida **10 minutos após o encerramento**, sem exceção.
+
+## DEFINIÇÃO DE ENCERRAMENTO
+
+Segue a convenção já existente no projeto: a partida termina **2h após o `horario`** de início (ver `getMatchStatus`). O prazo de 10 minutos conta a partir daí — ou seja, remover até **2h10 após o início**.
+
+## APLICAÇÃO
+
+- Remover a entrada correspondente em `matches.ts` (não apenas ocultar).
+- Não remover antes do prazo: placar/resultado e "Encerrado" devem ficar visíveis até completar os 10 minutos.
+- Não manter partidas encerradas "para histórico" no `/ao-vivo`; histórico pertence às notícias/categorias, nunca à grade ao vivo.
+- Ao remover, verificar se nenhum outro código/lista referencia o `id`/`slug` removido.
+
+## RELATÓRIO OBRIGATÓRIO
+
+Toda operação de limpeza deve informar: partidas removidas (id/slug/data/hora), horário do encerramento calculado, confirmação de que `/ao-vivo` e páginas individuais não quebraram, `npx tsc --noEmit` e build.

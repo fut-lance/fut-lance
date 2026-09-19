@@ -6,6 +6,11 @@ import unicodedata
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
 import os
 TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
+try:
+    from scripts.indexnow_notify import notificar
+except Exception:
+    def notificar(url, timeout=30):
+        return {'ok': False, 'skipped': True, 'reason': 'helper-indisponivel'}
 HDR = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 
 IMG = "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop"
@@ -29,6 +34,12 @@ def pub(titulo, resumo, conteudo, cat_id, data):
     r = requests.post(f"{STRAPI_URL}/api/noticias", headers=HDR, json=payload, timeout=60)
     if r.status_code == 201:
         print(f"  OK [{slug}]")
+        try:
+            _d = (r.json().get('data') or {})
+            if _d.get('id') and _d.get('slug'):
+                notificar(f"https://fut-lance.vercel.app/noticias/{_d['slug']}")
+        except Exception:
+            pass
         return True
     print(f"  ERRO {r.status_code}: {r.text[:150]}")
     return False

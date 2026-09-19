@@ -6,6 +6,11 @@ from datetime import datetime
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
 import os
 TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
+try:
+    from scripts.indexnow_notify import notificar
+except Exception:
+    def notificar(url, timeout=30):
+        return {'ok': False, 'skipped': True, 'reason': 'helper-indisponivel'}
 
 headers = {
     "Authorization": f"Bearer {TOKEN}",
@@ -94,6 +99,12 @@ for i, noticia in enumerate(noticias):
         )
         if resp.status_code in [200, 201]:
             print(f"  OK - Publicada com sucesso")
+            try:
+                _d = (resp.json().get('data') or {})
+                if _d.get('id') and _d.get('slug'):
+                    notificar(f"https://fut-lance.vercel.app/noticias/{_d['slug']}")
+            except Exception:
+                pass
         else:
             print(f"  ERRO - Status {resp.status_code}")
             print(f"  Resposta: {resp.text[:200]}")

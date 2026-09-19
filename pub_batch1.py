@@ -7,6 +7,11 @@ import sys
 STRAPI_URL = "https://fut-lance-cms-v2.onrender.com"
 import os
 TOKEN = os.environ.get("STRAPI_API_TOKEN", "")
+try:
+    from scripts.indexnow_notify import notificar
+except Exception:
+    def notificar(url, timeout=30):
+        return {'ok': False, 'skipped': True, 'reason': 'helper-indisponivel'}
 
 IMG = [
     ("https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop", "Estádio de futebol"),
@@ -34,6 +39,12 @@ def publish(titulo, resumo, conteudo, cat_id, img_idx, meta_title, meta_desc, da
     r = requests.post(f"{STRAPI_URL}/api/noticias", headers=headers, json=payload, timeout=60)
     if r.status_code == 201:
         print(f"  OK: {titulo[:60]}")
+        try:
+            _d = (r.json().get('data') or {})
+            if _d.get('id') and _d.get('slug'):
+                notificar(f"https://fut-lance.vercel.app/noticias/{_d['slug']}")
+        except Exception:
+            pass
         return True
     elif r.status_code == 429:
         print(f"  RATE LIMIT - aguardando 5s...")
@@ -41,6 +52,12 @@ def publish(titulo, resumo, conteudo, cat_id, img_idx, meta_title, meta_desc, da
         r = requests.post(f"{STRAPI_URL}/api/noticias", headers=headers, json=payload, timeout=60)
         if r.status_code == 201:
             print(f"  OK (retry): {titulo[:60]}")
+            try:
+                _d = (r.json().get('data') or {})
+                if _d.get('id') and _d.get('slug'):
+                    notificar(f"https://fut-lance.vercel.app/noticias/{_d['slug']}")
+            except Exception:
+                pass
             return True
     print(f"  ERRO {r.status_code}: {r.text[:200]}")
     return False

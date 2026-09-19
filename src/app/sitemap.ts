@@ -8,11 +8,22 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-
 
 async function fetchNoticias() {
   try {
-    const res = await fetch(`${STRAPI_URL}/api/noticias?fields=slug,updatedAt,data_publicacao&pagination[pageSize]=100`, {
-      next: { revalidate: 3600 },
-    });
-    const data = await res.json();
-    return data.data || [];
+    const all: any[] = [];
+    let page = 1;
+    // Percorre todas as páginas: sem isso o sitemap cortava em 100 URLs
+    // e as notícias mais novas ficavam invisíveis para o Google.
+    for (;;) {
+      const res = await fetch(`${STRAPI_URL}/api/noticias?fields=slug,updatedAt,data_publicacao&pagination[page]=${page}&pagination[pageSize]=100`, {
+        next: { revalidate: 3600 },
+      });
+      const data = await res.json();
+      const items = data.data || [];
+      all.push(...items);
+      const pagination = data.meta?.pagination;
+      if (!pagination || page >= (pagination.pageCount || 1) || items.length === 0) break;
+      page += 1;
+    }
+    return all;
   } catch {
     return [];
   }
@@ -52,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const noticiasPages = noticias.map((n: { slug: string; updatedAt?: string; data_publicacao?: string }) => ({
     url: `https://fut-lance.vercel.app/noticias/${n.slug}`,
     lastModified: n.updatedAt ? new Date(n.updatedAt) : new Date(),
-    changeFrequency: 'monthly' as const,
+    changeFrequency: 'daily' as const,
     priority: 0.7,
   }));
 

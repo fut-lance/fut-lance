@@ -165,6 +165,7 @@ export const matches: Match[] = [
     status: 'em-breve',
     canais: [
       { nome: 'Prime Video', url: '' },
+      { nome: 'PRIME VIDEO 07 FHD', url: `/api/stream?ch=424945` },
     ],
   },
   {

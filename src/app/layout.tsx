@@ -115,6 +115,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <meta charSet="utf-8" />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://upload.wikimedia.org" />
+        <link rel="preconnect" href="https://logodetimes.com" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-V6N0JVT695"

@@ -5,7 +5,7 @@ export const revalidate = 21600;
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://fut-lance-cms-v2.onrender.com';
 
-async function fetchRecentNoticias() {
+async function fetchRecentNoticias(): Promise<{ items: any[]; ok: boolean }> {
   try {
     const all: any[] = [];
     let page = 1;
@@ -18,6 +18,7 @@ async function fetchRecentNoticias() {
           `${STRAPI_URL}/api/noticias?fields=slug,titulo,data_publicacao,updatedAt&sort[0]=data_publicacao:desc&sort[1]=id:desc&pagination[page]=${page}&pagination[pageSize]=100`,
           { next: { revalidate: 21600 }, signal: ctrl.signal }
         );
+        if (!res.ok) throw new Error(`strapi-${res.status}`);
         const data = await res.json();
         const items = data.data || [];
         all.push(...items);
@@ -29,9 +30,9 @@ async function fetchRecentNoticias() {
         clearTimeout(timer);
       }
     }
-    return all;
+    return { items: all, ok: true };
   } catch {
-    return [];
+    return { items: [], ok: false };
   }
 }
 
@@ -45,7 +46,12 @@ function escapeXml(s: string): string {
 }
 
 export async function GET(): Promise<Response> {
-  const noticias = await fetchRecentNoticias();
+  const { items: noticias, ok } = await fetchRecentNoticias();
+  // Strapi fora do ar: 500 (Google tenta de novo e mantém os dados antigos)
+  // em vez de XML vazio com 200 (que o Google marca como erro).
+  if (!ok) {
+    return new Response('temporariamente indisponivel', { status: 500 });
+  }
   const now = Date.now();
   const FORTY_EIGHT_HOURS_MS = 48 * 60 * 60 * 1000;
 

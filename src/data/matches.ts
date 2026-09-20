@@ -321,4 +321,22 @@ export const matches: Match[] = [
     canais: [
     ],
   },
+  {
+    id: 'bras-19-005',
+    slug: generateSlug('São Paulo', 'Internacional'),
+    competicao: 'Brasileirão',
+    data: '19/09/2026',
+    horario: '21:00',
+    timeMandante: 'São Paulo',
+    logoTimeMandante: 'https://logodetimes.com/times/sao-paulo/logo-sao-paulo-2048.png',
+    timeVisitante: 'Internacional',
+    logoTimeVisitante: 'https://logodetimes.com/times/internacional/logo-internacional-2048.png',
+    status: 'em-breve',
+    canais: [
+      { nome: 'Premiere Clubes FHD', url: `/api/stream?ch=424208` },
+      { nome: 'Premiere Clubes HD', url: `/api/stream?ch=424209` },
+      { nome: 'SporTV FHD', url: `/api/stream?ch=423791` },
+      { nome: 'SporTV HD', url: `/api/stream?ch=423792` },
+    ],
+  },
 ];

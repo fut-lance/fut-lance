@@ -58,7 +58,7 @@ export const campeonatos: Record<string, Campeonato> = {
     ],
     classificacao: [
       { pos: 1, time: 'Flamengo', pts: 57, j: 27, v: 17, e: 6, d: 4, gp: 53, gc: 22, sg: 31 },
-      { pos: 2, time: 'Palmeiras', pts: 56, j: 27, v: 16, e: 8, d: 3, gp: 47, gc: 21, sg: 26 },
+      { pos: 2, time: 'Palmeiras', pts: 57, j: 28, v: 16, e: 9, d: 3, gp: 47, gc: 21, sg: 26 },
       { pos: 3, time: 'Athletico-PR', pts: 46, j: 27, v: 13, e: 7, d: 7, gp: 41, gc: 31, sg: 10 },
       { pos: 4, time: 'Bahia', pts: 46, j: 27, v: 12, e: 10, d: 5, gp: 42, gc: 33, sg: 9 },
       { pos: 5, time: 'Fluminense', pts: 45, j: 27, v: 12, e: 9, d: 6, gp: 41, gc: 35, sg: 6 },
@@ -73,7 +73,7 @@ export const campeonatos: Record<string, Campeonato> = {
       { pos: 14, time: 'Corinthians', pts: 32, j: 27, v: 8, e: 8, d: 11, gp: 28, gc: 29, sg: -1 },
       { pos: 15, time: 'Mirassol', pts: 32, j: 28, v: 8, e: 8, d: 12, gp: 33, gc: 42, sg: -9 },
       { pos: 16, time: 'Vasco', pts: 31, j: 27, v: 8, e: 7, d: 12, gp: 34, gc: 41, sg: -7 },
-      { pos: 17, time: 'Grêmio', pts: 28, j: 27, v: 7, e: 7, d: 13, gp: 30, gc: 38, sg: -8 },
+      { pos: 17, time: 'Grêmio', pts: 29, j: 28, v: 7, e: 8, d: 13, gp: 30, gc: 38, sg: -8 },
       { pos: 18, time: 'Internacional', pts: 28, j: 28, v: 6, e: 10, d: 12, gp: 30, gc: 36, sg: -6 },
       { pos: 19, time: 'Remo', pts: 23, j: 28, v: 5, e: 8, d: 15, gp: 32, gc: 47, sg: -15 },
       { pos: 20, time: 'Chapecoense', pts: 18, j: 27, v: 3, e: 9, d: 15, gp: 29, gc: 53, sg: -24 },

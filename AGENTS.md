@@ -1573,3 +1573,42 @@ Segue a convenção já existente no projeto: a partida termina **2h após o `ho
 ## RELATÓRIO OBRIGATÓRIO
 
 Toda operação de limpeza deve informar: partidas removidas (id/slug/data/hora), horário do encerramento calculado, confirmação de que `/ao-vivo` e páginas individuais não quebraram, `npx tsc --noEmit` e build.
+
+---
+
+# 66. REGRA PERMANENTE — CRÉDITO DE AUTOR E LICENÇA NAS IMAGENS
+
+## PRINCÍPIO
+
+Toda imagem que exigir atribuição por licença (ex.: CC BY, CC BY-SA em qualquer versão) deve exibir crédito visível com **autor e licença corretos**. Imagem sem crédito exigido é conteúdo irregular no ar.
+
+## APLICAÇÃO
+
+- Ao usar imagem do Wikimedia Commons (ou qualquer fonte com licença de atribuição), registrar no ato: autor, licença exata, URL da página do arquivo.
+- Incluir no final do conteúdo da matéria a linha de crédito com autor, origem e licença (ex.: "Foto: [autor] via Wikimedia Commons ([licença])").
+- Domínio público não exige, mas recomenda-se a indicação de origem.
+- Nunca trocar autor, licença ou origem; copiar exatamente os metadados da fonte.
+- Antes de publicar, verificar que a imagem carregou (HTTP 200) e que o crédito corresponde ao arquivo exibido.
+
+## RELATÓRIO OBRIGATÓRIO
+
+Toda operação com imagens deve informar: imagens utilizadas, origem, autor, licença de cada uma e confirmação de que os créditos estão visíveis nas páginas.
+
+---
+
+# 67. REGRA PERMANENTE — JOGOS CADASTRADOS EM ORDEM CRONOLÓGICA
+
+## PRINCÍPIO
+
+Todo jogo cadastrado deve ter **data e horário verificados** contra fonte confiável, e a grade do `/ao-vivo` deve exibir os jogos **na ordem em que começam** (primeiro a iniciar primeiro).
+
+## APLICAÇÃO
+
+- Ao cadastrar, confirmar `data` (DD/MM/AAAA) e `horario` (HH:MM, BRT) na fonte oficial da competição.
+- Ordem de exibição: partidas **ao vivo primeiro**, depois as futuras em **ordem cronológica crescente**; encerradas/expiradas não aparecem na grade.
+- Nunca depender da ordem de cadastro no arquivo: a ordenação é calculada em tempo real a partir de `data`/`horario`.
+- Ao alterar data/horário de um jogo, a posição dele na grade deve se ajustar sozinha.
+
+## RELATÓRIO OBRIGATÓRIO
+
+Toda operação de jogos deve informar: data/hora verificadas por jogo, ordem resultante na grade e confirmação visual de que o primeiro da lista é o jogo mais próximo/atual.

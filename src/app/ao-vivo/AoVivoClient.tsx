@@ -227,20 +227,28 @@ export default function AoVivoClient() {
   }, []);
 
   const visibleMatches = useMemo(() => {
-    return initialMatches.filter((m) => {
-      const status = liveStatuses[m.id];
-      if (status === 'encerrado' || status === 'expirado') return false;
-      if (selectedCompetition !== 'all' && m.competicao !== selectedCompetition) return false;
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        return (
-          m.timeMandante.toLowerCase().includes(query) ||
-          m.timeVisitante.toLowerCase().includes(query) ||
-          m.competicao.toLowerCase().includes(query)
-        );
-      }
-      return true;
-    });
+    const rank = (s: string) => (s === 'ao-vivo' ? 0 : 1);
+    return initialMatches
+      .filter((m) => {
+        const status = liveStatuses[m.id];
+        if (status === 'encerrado' || status === 'expirado') return false;
+        if (selectedCompetition !== 'all' && m.competicao !== selectedCompetition) return false;
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          return (
+            m.timeMandante.toLowerCase().includes(query) ||
+            m.timeVisitante.toLowerCase().includes(query) ||
+            m.competicao.toLowerCase().includes(query)
+          );
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        const ra = rank(liveStatuses[a.id] || '');
+        const rb = rank(liveStatuses[b.id] || '');
+        if (ra !== rb) return ra - rb;
+        return parseMatchDate(a.data, a.horario).getTime() - parseMatchDate(b.data, b.horario).getTime();
+      });
   }, [liveStatuses, searchQuery, selectedCompetition]);
 
   const handleWatch = (match: Match) => {

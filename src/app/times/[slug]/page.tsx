@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { getTime, getAllTimes } from '@/data/times';
 import Script from 'next/script';
 
@@ -49,14 +50,9 @@ export default async function TimePage({ params }: PageProps) {
   const { slug } = await params;
   const time = getTime(slug);
 
-  if (!time) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl font-bold text-white mb-4">Time não encontrado</h1>
-        <Link href="/" className="text-fut-green hover:underline">Voltar ao início</Link>
-      </div>
-    );
-  }
+  // Slug inexistente = 404 real (antes retornava 200 com página fina,
+  // o que o Google classifica como soft 404).
+  if (!time) notFound();
 
   const schema = {
     '@context': 'https://schema.org',

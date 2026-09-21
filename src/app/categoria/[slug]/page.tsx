@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic';
 
 const categorySeoData: Record<string, { title: string; description: string; keywords: string }> = {
   'brasileirao': {
-    title: 'Brasileirão Ao Vivo — Notícias, Jogos e Classificação | Fut-Lance',
-    description: 'Acompanhe o Brasileirão ao vivo: notícias, jogos do dia, classificação atualizada, resultados e tudo sobre o Campeonato Brasileiro Série A 2026.',
-    keywords: 'brasileirão ao vivo, brasileirão série a, campeonato brasileiro, futebol brasileiro, jogos brasileirão, classificação brasileirão, resultados brasileirão',
+    title: 'Notícias do Brasileirão — Série A 2026 | Fut-Lance',
+    description: 'Todas as notícias do Brasileirão Série A 2026: resultados, gols, classificação, mercado da bola e cobertura completa dos clubes.',
+    keywords: 'notícias brasileirão, brasileirão série a, campeonato brasileiro notícias, resultados brasileirão, gols brasileirão',
   },
   'libertadores': {
     title: 'Libertadores Ao Vivo — Notícias, Jogos e Confrontos | Fut-Lance',
@@ -60,6 +60,18 @@ export async function generateMetadata({
 
   const slugNormalizado = normalize(params.slug);
   const seoData = categorySeoData[slugNormalizado];
+
+  // Categoria vazia (comprovada com busca bem-sucedida) não deve ser
+  // indexada: páginas finas idênticas geram "cópia sem canônica"/soft 404.
+  // Em caso de falha na busca, mantém indexação (comportamento atual).
+  let paginaVazia = false;
+  try {
+    const items = await getNoticiasByCategoria(slugNormalizado);
+    if (Array.isArray(items?.data) && items.data.length === 0) paginaVazia = true;
+  } catch {
+    paginaVazia = false;
+  }
+  const robots = paginaVazia ? { index: false, follow: true } : { index: true, follow: true };
   const nomeFormatado = params.slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
@@ -68,6 +80,7 @@ export async function generateMetadata({
     title: seoData?.title || `${nomeFormatado} — Notícias de Futebol | Fut-Lance`,
     description: seoData?.description || `Todas as notícias de ${nomeFormatado}. Fique por dentro do que acontece no ${nomeFormatado}.`,
     keywords: seoData?.keywords || `${nomeFormatado.toLowerCase()}, futebol, notícias`,
+    robots,
     openGraph: {
       title: seoData?.title || `${nomeFormatado} — Notícias de Futebol | Fut-Lance`,
       description: seoData?.description || `Todas as notícias de ${nomeFormatado}.`,

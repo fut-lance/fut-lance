@@ -35,7 +35,24 @@ async function fetchCategorias() {
       next: { revalidate: 3600 },
     });
     const data = await res.json();
-    return data.data || [];
+    const todas = data.data || [];
+    // Só inclui categoria com pelo menos 1 notícia: categoria vazia gera
+    // página fina duplicada ("cópia sem canônica"/soft 404 no Search Console).
+    const comNoticias = await Promise.all(
+      todas.map(async (c: { slug: string }) => {
+        try {
+          const r = await fetch(
+            `${STRAPI_URL}/api/noticias?fields=id&filters[categoria][slug][$eq]=${c.slug}&pagination[pageSize]=1`,
+            { next: { revalidate: 3600 } }
+          );
+          const j = await r.json();
+          return (j.meta?.pagination?.total || 0) > 0 ? c : null;
+        } catch {
+          return c;
+        }
+      })
+    );
+    return comNoticias.filter(Boolean);
   } catch {
     return [];
   }
